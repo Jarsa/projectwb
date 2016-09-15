@@ -6,6 +6,7 @@
     'name': 'Project Image',
     'summary': 'Adds a default image to the project Kanban view',
     'version': '9.0.1.0.0',
+    'description': 'This module is to put images into a projects',
     'category': 'Generic Modules',
     'author': 'Eficent Business and IT Consulting Services S.L., '
               'Odoo Community Association (OCA)',

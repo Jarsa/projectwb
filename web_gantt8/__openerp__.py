@@ -13,7 +13,6 @@
     "currency": "EUR",
 
     "depends": [
-        "web",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -31,4 +30,3 @@
     "auto_install": False,
     "application": False,
 }
-
