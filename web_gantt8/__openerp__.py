@@ -17,6 +17,7 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         'views/web_gantt.xml',
+        'static/src/xml/css.xml',
     ],
     "qweb": [
         'static/src/xml/*.xml',
