@@ -11,8 +11,8 @@ class AnalyticPlanVersion(models.Model):
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Analytic Planning Version'
 
-    name = fields.Char('Planning Version Name', required=True)
-    code = fields.Char('Planning Version Code')
+    name = fields.Char(string='Planning Version Name', required=True)
+    code = fields.Char(string='Planning Version Code')
     active = fields.Boolean(
         help='If the active field is set to False, '
              'it will allow you to hide the analytic planning version '

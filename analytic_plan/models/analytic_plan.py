@@ -27,6 +27,7 @@ class AnalyticPlan(models.Model):
         help="The amount expressed in an optional other currency.")
     currency_id = fields.Many2one('res.currency', string='Currency')
     account_id = fields.Many2one(
+        'account.analytic.account',
         string='Analytic Account', required=True)
     user_id = fields.Many2one('res.users', 'User')
     company_id = fields.Many2one(
@@ -37,10 +38,11 @@ class AnalyticPlan(models.Model):
     general_account_id = fields.Many2one(
         'account.account', string='General Account',
         required=True)
-    journal_id = fields.Many2one(
+    journal_id = fields.Char(
         string='Planning Analytic Journal', required=True)
     code = fields.Char()
     ref = fields.Char()
     notes = fields.Text()
     version_id = fields.Many2one(
+        'analytic.plan.version',
         string='Planning Version', required=True)
