@@ -8,6 +8,7 @@ from openerp import fields, models
 
 class AnalyticPlan(models.Model):
     _name = 'analytic.plan'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Analytic Plan'
 
     name = fields.Char(string='Activity description', required=True)

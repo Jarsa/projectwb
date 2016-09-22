@@ -15,6 +15,7 @@
     ],
     'data': [
         'views/analytic_plan_view.xml',
+        'views/analytic_plan_version_view.xml',
     ],
     'installable': True,
     'active': False,
