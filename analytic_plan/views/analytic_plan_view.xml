@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-         <record id="view_analytic_plan_form" model="ir.ui.view">
+        <record id="view_analytic_plan_tree" model="ir.ui.view">
+            <field name="name">analytic.plan.tree</field>
+            <field name="model">analytic.plan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Analytic Entries" editable="top">
+                    <field name="account_id"/>
+                    <field name="date"/>                    
+                    <field name="name"/>
+                    <field name="journal_id" invisible="False"/>   
+                    <field name="version_id"/>               
+                    <field name="product_id" />
+                    <field name="unit_amount"  sum="Total Quantity"/>
+                    <field name="product_uom_id"  />
+                    <field name="amount_currency" />
+                    <field name="currency_id" />
+                    <field name="amount" sum="Total"/>
+                    <field name="company_id" invisible="True"/>
+                    <field name="general_account_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_analytic_plan_form" model="ir.ui.view">
             <field name="name">analytic.plan.form</field>
             <field name="model">analytic.plan</field>
             <field name="type">form</field>
@@ -51,28 +73,6 @@
                 </form>
             </field>
         </record>
-        <record id="view_analytic_plan_tree" model="ir.ui.view">
-            <field name="name">analytic.plan.tree</field>
-            <field name="model">analytic.plan</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Analytic Entries" editable="top">
-                    <field name="account_id"/>
-                    <field name="date"/>                    
-                    <field name="name"/>
-                    <field name="journal_id" invisible="False"/>   
-                    <field name="version_id"/>               
-                    <field name="product_id" />
-                    <field name="unit_amount"  sum="Total Quantity"/>
-                    <field name="product_uom_id"  />
-                    <field name="amount_currency" />
-                    <field name="currency_id" />
-                    <field name="amount" sum="Total"/>
-                    <field name="company_id" invisible="True"/>
-                    <field name="general_account_id"/>
-                </tree>
-            </field>
-        </record>
         <record id="view_analytic_plan_filter" model="ir.ui.view">
             <field name="name">analytic.plan.select</field>
             <field name="model">analytic.plan</field>
@@ -116,19 +116,19 @@
         </record>
 
         <record id="action_analytic_plan_journal_open_form" model="ir.actions.act_window">
-            <field name="name">Analytic Plan</field>
+            <field name="name">Analytic Journal Plan Items</field>
             <field name="res_model">analytic.plan</field>
             <field name="view_type">form</field>
-            <field name="view_mode">form,tree,graph</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref="view_analytic_plan_form" />
         </record>
         
-        <menuitem icon="fa-truck" id="menu_analytic" name="Analytic Plan" sequence="10"/>
+        <menuitem icon="fa-truck" id="menu_analytic" name="Analytic Plan" sequence="10" parent="base.menu_main_pm"/>
         <menuitem
             action="action_analytic_plan_journal_open_form"
             id="analytic_plan_journal_entries"
             parent="menu_analytic" 
-            sequence="7"/>
+            sequence="6"/>
 
     </data>
 </odoo>

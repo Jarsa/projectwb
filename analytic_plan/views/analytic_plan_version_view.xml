@@ -70,6 +70,6 @@
             action="action_analytic_plan_version_form" 
             id="analytic_plan_version" 
             parent="menu_analytic"
-            sequence="8"/>                              
+            sequence="7"/>                              
     </data>
 </odoo>

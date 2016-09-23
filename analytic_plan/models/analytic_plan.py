@@ -38,7 +38,8 @@ class AnalyticPlan(models.Model):
     general_account_id = fields.Many2one(
         'account.account', string='General Account',
         required=True)
-    journal_id = fields.Char(
+    journal_id = fields.Many2one(
+        'analytic.plan.journal',
         string='Planning Analytic Journal', required=True)
     code = fields.Char()
     ref = fields.Char()

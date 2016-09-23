@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_analytic_plan,access_analytic_plan,model_analytic_plan,,1,1,1,1
 access_analytic_plan_version,access_analytic_plan_version,model_analytic_plan_version,,1,1,1,1
+access_analytic_plan_journal,access_analytic_plan_journal,model_analytic_plan_journal,,1,1,1,1
