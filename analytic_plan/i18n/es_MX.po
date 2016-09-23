@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-23 22:55+0000\n"
-"PO-Revision-Date: 2016-09-23 18:25-0600\n"
+"POT-Creation-Date: 2016-09-23 23:35+0000\n"
+"PO-Revision-Date: 2016-09-23 18:37-0600\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"Language: es_MX\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.6.10\n"
+"Language: es_MX\n"
 
 #. module: analytic_plan
 #: model:ir.model.fields,field_description:analytic_plan.field_analytic_plan_message_needaction
@@ -154,6 +154,11 @@ msgstr "Código"
 #: model:ir.model.fields,field_description:analytic_plan.field_analytic_plan_version_company_id
 msgid "Company"
 msgstr "Compañía"
+
+#. module: analytic_plan
+#: model:ir.ui.menu,name:analytic_plan.menu_analytic_settings
+msgid "Configuration"
+msgstr "Configuración"
 
 #. module: analytic_plan
 #: model:ir.model.fields,field_description:analytic_plan.field_analytic_plan_create_uid
@@ -521,7 +526,7 @@ msgstr "Contador de mensajes sin leer"
 #. module: analytic_plan
 #: model:ir.model.fields,field_description:analytic_plan.field_analytic_plan_product_uom_id
 msgid "UoM"
-msgstr "UoM"
+msgstr "Unidad de Medida"
 
 #. module: analytic_plan
 #: model:ir.model.fields,field_description:analytic_plan.field_analytic_plan_user_id
@@ -538,8 +543,8 @@ msgstr "Versión"
 #: code:addons/analytic_plan/models/analytic_plan.py:93
 #, python-format
 msgid ""
-"You must have assigned the expense / incomeaccounts for the product. Please "
+"You must have assigned the expense / income accounts for the product. Please "
 "check it."
 msgstr ""
-"Debe tener asignadas las cuentas de gastos / ingresos para el producto. Por "
-"favor comprueba."
+"Debe asignar las cuentas de gastos / ingresos para el producto. Por favor "
+"compruebe."

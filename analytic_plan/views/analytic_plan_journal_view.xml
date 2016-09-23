@@ -64,7 +64,7 @@
         <menuitem
         	action="action_analytic_plan_journal_form"
         	id="analytic_plan_journal"
-        	parent="menu_analytic"
+        	parent="menu_analytic_settings"
             sequence="8"/>         	                    
     </data>
 </odoo>
