@@ -5,7 +5,6 @@
 from openerp import fields, models
 
 
-
 class AnalyticPlanVersion(models.Model):
     _name = 'analytic.plan.version'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
@@ -19,6 +18,7 @@ class AnalyticPlanVersion(models.Model):
              'without removing it.')
     notes = fields.Text()
     company_id = fields.Many2one(
-        'res.company', string='Company', required=True)
-    default_committed = fields.Boolean()
-    default_plan = fields.Boolean(string='Default planning version')
+        'res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.user.company_id)
