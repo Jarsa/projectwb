@@ -9,5 +9,5 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     xpense_analytic_plan_journal_id = fields.Many2one(
-        'account.analytic.plan.journal',
+        'analytic.plan.journal',
         string='Cost Planning Analytic Journal')

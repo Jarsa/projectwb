@@ -14,6 +14,7 @@
         'account',
     ],
     'data': [
+        'security/ir.model.access.csv',
     ],
     'installable': True,
     'active': False,
