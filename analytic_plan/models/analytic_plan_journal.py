@@ -5,7 +5,6 @@
 from openerp import fields, models
 
 
-
 class AnalyticPlanJournal(models.Model):
 
     _name = 'analytic.plan.journal'
@@ -32,7 +31,9 @@ class AnalyticPlanJournal(models.Model):
     line_ids = fields.One2many(
         'analytic.plan', 'journal_id', string='Lines')
     company_id = fields.Many2one(
-        'res.company', string='Company', required=True)
+        'res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.user.company_id)
     analytic_journal = fields.Many2one(
-        'account.journal', string='Actual Analytic journal',
-        required=False)
+        'account.journal', string='Actual Analytic journal')

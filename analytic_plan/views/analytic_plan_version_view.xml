@@ -41,9 +41,7 @@
                         <group>
                             <field name="name"/>
                             <field name="code"/>                    
-                            <field name="active"/>  
-                            <field name="default_committed"/>
-                            <field name="default_plan"/>                                 
+                            <field name="active"/>                          
                             <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                         </group>
                         <notebook>
@@ -66,10 +64,11 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_analytic_plan_version_form"/>            
         </record>
+        <menuitem id="menu_analytic_settings" name="Configuration" parent="menu_analytic" sequence="99"/>  
         <menuitem 
             action="action_analytic_plan_version_form" 
             id="analytic_plan_version" 
-            parent="menu_analytic"
-            sequence="7"/>                              
+            parent="menu_analytic_settings"
+            sequence="7"/>                           
     </data>
 </odoo>

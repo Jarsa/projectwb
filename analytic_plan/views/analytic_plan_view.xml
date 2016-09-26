@@ -74,7 +74,7 @@
             </field>
         </record>
         <record id="view_analytic_plan_filter" model="ir.ui.view">
-            <field name="name">analytic.plan.select</field>
+            <field name="name">analytic.plan.search</field>
             <field name="model">analytic.plan</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
@@ -120,7 +120,7 @@
             <field name="res_model">analytic.plan</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,graph</field>
-            <field name="search_view_id" ref="view_analytic_plan_form" />
+            <field name="search_view_id" ref="view_analytic_plan_filter" />
         </record>
         
         <menuitem icon="fa-truck" id="menu_analytic" name="Analytic Plan" sequence="10" parent="base.menu_main_pm"/>
