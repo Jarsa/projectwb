@@ -14,7 +14,10 @@
         'account',
     ],
     'data': [
-        'security/ir.model.access.csv',
+        'analytic_resource_plan_view.xml',
+        'product_view.xml',
+        'project_view.xml',
+        'security/ir.model.access.csv'
     ],
     'installable': True,
     'active': False,
