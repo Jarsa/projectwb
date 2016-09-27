@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_analytic_plan_form" model="ir.ui.view">
+      <field name="name">analytic.plan.form</field>
+      <field name="model">analytic.plan</field>
+      <field name="inherit_id" ref="analytic_plan.view_analytic_plan_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="ref" position="after">
+          <field name="resource_plan_id"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>
