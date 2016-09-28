@@ -2,7 +2,7 @@
 # © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import fields, models
+from openerp import api, fields, models
 
 
 class AnalyticResourcePlanLine(models.Model):
@@ -12,13 +12,11 @@ class AnalyticResourcePlanLine(models.Model):
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account', required=True,
-        domain=[('type', '<>', 'view')],
-        readonly=True, states={
-            'draft': [('readonly', False)]})
+        )
     name = fields.Char(
         string='Activity description', required=True,
         readonly=True, states={'draft': [('readonly', False)]})
-    date = fields.Date(
+    date = fields.Datetime(
         required=True, readonly=True,
         states={'draft': [('readonly', False)]},
         default=fields.Datetime.now())
@@ -55,3 +53,8 @@ class AnalyticResourcePlanLine(models.Model):
     analytic_line_plan_ids = fields.One2many(
         'analytic.plan', 'resource_plan_id',
         string='Planned costs', readonly=True)
+
+    @api.onchange('account_id')
+    def _onchange_account_id(self):
+         if self.account_id:
+            self.date = self.account_id.create_date
