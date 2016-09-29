@@ -12,7 +12,8 @@ class AnalyticResourcePlanLine(models.Model):
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account', required=True,
-        )
+        readonly=True, states={
+            'draft': [('readonly', False)]})
     name = fields.Char(
         string='Activity description', required=True,
         readonly=True, states={'draft': [('readonly', False)]})
@@ -58,3 +59,9 @@ class AnalyticResourcePlanLine(models.Model):
     def _onchange_account_id(self):
          if self.account_id:
             self.date = self.account_id.create_date
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id:
+           self.name = self.product_id.name
+           self.product_uom_id = self.product_id.uom_id
