@@ -17,7 +17,7 @@ class AnalyticResourcePlanLine(models.Model):
     name = fields.Char(
         string='Activity description', required=True,
         readonly=True, states={'draft': [('readonly', False)]})
-    date = fields.Date(
+    date = fields.Datetime(
         required=True, readonly=True,
         states={'draft': [('readonly', False)]},
         default=fields.Datetime.now())
@@ -54,6 +54,11 @@ class AnalyticResourcePlanLine(models.Model):
     analytic_line_plan_ids = fields.One2many(
         'analytic.plan', 'resource_plan_id',
         string='Planned costs', readonly=True)
+
+    @api.onchange('account_id')
+    def _onchange_account_id(self):
+         if self.account_id:
+            self.date = self.account_id.create_date
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
