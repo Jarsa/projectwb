@@ -15,7 +15,8 @@ class AnalyticPlanVersion(models.Model):
     active = fields.Boolean(
         help='If the active field is set to False, '
              'it will allow you to hide the analytic planning version '
-             'without removing it.')
+             'without removing it.',
+             default=True)
     notes = fields.Text()
     company_id = fields.Many2one(
         'res.company',
