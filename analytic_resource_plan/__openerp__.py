@@ -12,6 +12,7 @@
     'depends': [
         'analytic_plan',
         'account',
+        'account_accountant',
     ],
     'data': [
         'views/analytic_resource_plan_view.xml',

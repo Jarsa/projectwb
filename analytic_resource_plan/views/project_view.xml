@@ -2,15 +2,26 @@
 <odoo>
     <data>
         <record id="edit_project" model="ir.ui.view">
-            <field name="name">project.project.form</field>
-            <field name="model">project.project</field>
-            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="name">project.wbs_element.form</field>
+            <field name="model">project.wbs_element</field>
+            <field name="inherit_id" ref="project_wbs_element.project_wbs_element_form_view"/>
             <field name="arch" type="xml">
                 <div name="button_box" position="inside">
-                    <button context="{'default_account_id': analytic_account_id,'search_default_account_id': [analytic_account_id]}" name="%(action_analytic_resource_plan_line_open_form)d" string="Resource plan lines" type="action"/>
+                    <field name='button_resource' invisible='True'/>
+                    <button 
+                        context="{'default_account_id': 'analytic_account_id'}"
+                        name="%(analytic_resource_plan.action_analytic_resource_plan_line_open_form)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-archive"
+                        attrs="{'invisible':[('button_resource', '=', False)]}">
+                        <field 
+                            name="nbr_resource"
+                            widget="statinfo"
+                            />
+                    </button>
                 </div>
             </field>
         </record>
-        <act_window context="{'default_account_id': analytic_account_id,'search_default_account_id': [analytic_account_id]}" id="resource_plan_line_action_project" name="Resource plan lines" res_model="analytic.resource.plan.line" src_model="project.project"/>
     </data>
 </odoo>

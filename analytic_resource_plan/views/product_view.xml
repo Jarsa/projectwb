@@ -8,9 +8,9 @@
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page string="Other">
+                    <page string="WBS Journal">
                         <group>
-                            <field name="expense_analytic_plan_journal_id"/>
+                            <field name="expense_analytic_plan_journal_id" />
                         </group>
                     </page>
                 </notebook>
