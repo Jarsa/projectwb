@@ -152,9 +152,11 @@ class AnalyticResourcePlanLine(models.Model):
     @api.multi
     def action_button_confirm(self):
         for line in self:
+            if not line.product_id.expense_analytic_plan_journal_id:
+                raise exceptions.ValidationError(
+                    _('The product should have a journal account.'))
             if line.unit_amount == 0:
                 raise exceptions.ValidationError(
-                    _('Error'),
                     _('Quantity should be greater than 0.'))
             if not line.child_ids:
                 line.create_analytic_lines()
@@ -168,13 +170,11 @@ class AnalyticResourcePlanLine(models.Model):
                 ('state', '=', 'confirm')])
             if child_ids:
                 raise exceptions.ValidationError(
-                    _('Error!'),
                     _('You cannot delete a resource plan line that is '
                       'parent to other resource plan lines that have been '
                       'confirmed!'))
             if line.analytic_line_plan_ids:
                 raise exceptions.ValidationError(
-                    _('Error!'),
                     _('You cannot delete a record that refers to analytic '
                       'plan lines!'))
         return super(AnalyticResourcePlanLine, self).unlink()
