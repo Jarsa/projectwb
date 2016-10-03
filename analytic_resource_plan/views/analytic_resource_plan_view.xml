@@ -91,23 +91,11 @@
             </field>
         </record>
         <record id="action_analytic_resource_plan_line_open_form" model="ir.actions.act_window">
-            <field name="name">Plan resources</field>
+            <field name="name">Plan Resources</field>
             <field name="res_model">analytic.resource.plan.line</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">form,tree</field>
             <field name="search_view_id" ref="view_analytic_resource_plan_line_filter"/>
-        </record>
-        <record id="action_analytic_resource_plan_line_tree" model="ir.actions.act_window.view">
-            <field eval="1" name="sequence"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_analytic_resource_plan_line_tree"/>
-            <field name="act_window_id" ref="action_analytic_resource_plan_line_open_form"/>
-        </record>
-        <record id="action_analytic_resource_plan_line_form2" model="ir.actions.act_window.view">
-            <field eval="2" name="sequence"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_analytic_resource_plan_line_form"/>
-            <field name="act_window_id" ref="action_analytic_resource_plan_line_open_form"/>
         </record>
         <menuitem id="analytic_resource_plan_menu" name="Resource Plan" parent="base.menu_main_pm"/>
         <menuitem action="action_analytic_resource_plan_line_open_form" id="analytic_resource_plan_line_entries" parent="analytic_resource_plan_menu" sequence="1"/>
