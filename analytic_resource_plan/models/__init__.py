@@ -6,3 +6,4 @@ from . import product
 from . import account_analytic_plan_version
 from . import analytic_resource_plan
 from . import analytic_plan
+from . import wbs_element

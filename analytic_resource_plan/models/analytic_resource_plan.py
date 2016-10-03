@@ -121,7 +121,8 @@ class AnalyticResourcePlanLine(models.Model):
                 'notes': line.notes,
                 'version_id': default_plan_ids[0].id,
                 'currency_id': line.account_id.company_id.currency_id.id,
-                'amount_currency': line.product_id.standard_price,
+                'amount_currency': (-1 * line.product_id.standard_price *
+                    line.unit_amount),
             }]
 
     @api.multi
@@ -137,9 +138,9 @@ class AnalyticResourcePlanLine(models.Model):
     @api.multi
     def delete_analytic_lines(self):
         for line in self:
-            import ipdb; ipdb.set_trace()
             line_plan_obj = self.env['analytic.plan']
-            ana_line_ids = line_plan_obj.search([('resource_plan_id', '=', line.id)])
+            ana_line_ids = line_plan_obj.search(
+                [('resource_plan_id', '=', line.id)])
             ana_line_ids.unlink()
 
     @api.multi
