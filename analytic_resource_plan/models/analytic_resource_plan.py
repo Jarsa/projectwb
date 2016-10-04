@@ -92,7 +92,6 @@ class AnalyticResourcePlanLine(models.Model):
 
             if not general_account_id:
                 raise exceptions.ValidationError(
-                    _('Error !'),
                     _('There is no expense account defined '
                       'for this product: "%s" (id:%d)')
                     % (line.product_id.name,
@@ -103,7 +102,6 @@ class AnalyticResourcePlanLine(models.Model):
 
             if not default_plan_ids:
                 raise exceptions.ValidationError(
-                    _('Error !'),
                     _('No active planning version for resource plan exists.'))
 
             return [{
@@ -158,8 +156,7 @@ class AnalyticResourcePlanLine(models.Model):
             if line.unit_amount == 0:
                 raise exceptions.ValidationError(
                     _('Quantity should be greater than 0.'))
-            if not line.child_ids:
-                line.create_analytic_lines()
+            line.create_analytic_lines()
         return line.write({'state': 'confirm'})
 
     @api.multi
