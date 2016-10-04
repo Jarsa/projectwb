@@ -5,3 +5,4 @@
 from . import analytic_plan
 from . import analytic_plan_version
 from . import analytic_plan_journal
+from . import project_wbs_element

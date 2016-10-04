@@ -104,7 +104,6 @@ class AnalyticResourcePlanLine(models.Model):
             if not default_plan_ids:
                 raise exceptions.ValidationError(
                     _('No active planning version for resource plan exists.'))
-
             return [{
                 'resource_plan_id': line.id,
                 'account_id': line.account_id.id,
@@ -150,6 +149,7 @@ class AnalyticResourcePlanLine(models.Model):
 
     @api.multi
     def action_button_confirm(self):
+        count = 0
         for line in self:
             if not line.product_id.expense_analytic_plan_journal_id:
                 raise exceptions.ValidationError(
@@ -157,7 +157,14 @@ class AnalyticResourcePlanLine(models.Model):
             if line.unit_amount == 0:
                 raise exceptions.ValidationError(
                     _('Quantity should be greater than 0.'))
-            line.create_analytic_lines()
+            for Child in line.child_ids:
+                if not Child.state == "confirm":
+                    raise exceptions.ValidationError(
+                        _('Status should be confirm.'))
+                else:
+                    count += 1
+            if count == len(line.child_ids):
+                line.create_analytic_lines()
         return line.write({'state': 'confirm'})
 
     @api.multi
@@ -180,7 +187,7 @@ class AnalyticResourcePlanLine(models.Model):
     @api.model
     def default_get(self, field):
         if 'active_id' in self.env.context:
-            record_id = self.env.context['active_id']
+            record_id = self.env.context['active_ids'][0]
             plan = self.env['project.wbs_element'].search(
                 [('id', '=', record_id)])
             res = super(AnalyticResourcePlanLine, self).default_get(field)
@@ -190,4 +197,4 @@ class AnalyticResourcePlanLine(models.Model):
             })
             return res
         else:
-            return False
+            return super(AnalyticResourcePlanLine, self).default_get(field)
