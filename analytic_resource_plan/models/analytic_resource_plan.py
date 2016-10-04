@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import _, api, exceptions, fields, models
+from lxml import etree
 
 
 class AnalyticResourcePlanLine(models.Model):
@@ -148,7 +149,11 @@ class AnalyticResourcePlanLine(models.Model):
 
     @api.multi
     def action_button_confirm(self):
+        count = 0
         for line in self:
+            if not line.product_id.expense_analytic_plan_journal_id:
+                raise exceptions.ValidationError(
+                    _('The product should have a journal account.'))
             if line.unit_amount == 0:
                 raise exceptions.ValidationError(
                     _('Quantity should be greater than 0.'))
@@ -156,7 +161,9 @@ class AnalyticResourcePlanLine(models.Model):
                 if not Child.state == "confirm":
                     raise exceptions.ValidationError(
                         _('Status should be confirm.'))
-            if not line.child_ids:
+                else:
+                    count += 1
+            if count == len(line.child_ids):
                 line.create_analytic_lines()
         return line.write({'state': 'confirm'})
 
@@ -176,3 +183,18 @@ class AnalyticResourcePlanLine(models.Model):
                     _('You cannot delete a record that refers to analytic '
                       'plan lines!'))
         return super(AnalyticResourcePlanLine, self).unlink()
+
+    @api.model
+    def default_get(self, field):
+        if 'active_id' in self.env.context:
+            record_id = self.env.context['active_ids'][0]
+            plan = self.env['project.wbs_element'].search(
+                [('id', '=', record_id)])
+            res = super(AnalyticResourcePlanLine, self).default_get(field)
+            res.update({'account_id': plan.analytic_account_id.id})
+            res.update(domain={
+                'account_id': plan.analytic_account_id.id
+            })
+            return res
+        else:
+            return super(AnalyticResourcePlanLine, self).default_get(field)
