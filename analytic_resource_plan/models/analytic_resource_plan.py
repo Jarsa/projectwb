@@ -92,7 +92,6 @@ class AnalyticResourcePlanLine(models.Model):
 
             if not general_account_id:
                 raise exceptions.ValidationError(
-                    _('Error !'),
                     _('There is no expense account defined '
                       'for this product: "%s" (id:%d)')
                     % (line.product_id.name,
@@ -103,9 +102,7 @@ class AnalyticResourcePlanLine(models.Model):
 
             if not default_plan_ids:
                 raise exceptions.ValidationError(
-                    _('Error !'),
                     _('No active planning version for resource plan exists.'))
-
             return [{
                 'resource_plan_id': line.id,
                 'account_id': line.account_id.id,
@@ -154,8 +151,11 @@ class AnalyticResourcePlanLine(models.Model):
         for line in self:
             if line.unit_amount == 0:
                 raise exceptions.ValidationError(
-                    _('Error'),
                     _('Quantity should be greater than 0.'))
+            for Child in line.child_ids:
+                if not Child.state == "confirm":
+                    raise exceptions.ValidationError(
+                        _('Status should be confirm.'))
             if not line.child_ids:
                 line.create_analytic_lines()
         return line.write({'state': 'confirm'})
@@ -168,13 +168,11 @@ class AnalyticResourcePlanLine(models.Model):
                 ('state', '=', 'confirm')])
             if child_ids:
                 raise exceptions.ValidationError(
-                    _('Error!'),
                     _('You cannot delete a resource plan line that is '
                       'parent to other resource plan lines that have been '
                       'confirmed!'))
             if line.analytic_line_plan_ids:
                 raise exceptions.ValidationError(
-                    _('Error!'),
                     _('You cannot delete a record that refers to analytic '
                       'plan lines!'))
         return super(AnalyticResourcePlanLine, self).unlink()
