@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import _, api, exceptions, fields, models
+from lxml import etree
 
 
 class AnalyticResourcePlanLine(models.Model):
@@ -175,3 +176,18 @@ class AnalyticResourcePlanLine(models.Model):
                     _('You cannot delete a record that refers to analytic '
                       'plan lines!'))
         return super(AnalyticResourcePlanLine, self).unlink()
+
+    @api.model
+    def default_get(self, field):
+        if 'active_id' in self.env.context:
+            record_id = self.env.context['active_id']
+            plan = self.env['project.wbs_element'].search(
+                [('id', '=', record_id)])
+            res = super(AnalyticResourcePlanLine, self).default_get(field)
+            res.update({'account_id': plan.analytic_account_id.id})
+            res.update(domain={
+                'account_id': plan.analytic_account_id.id
+            })
+            return res
+        else:
+            return False

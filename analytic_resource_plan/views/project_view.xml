@@ -8,8 +8,8 @@
             <field name="arch" type="xml">
                 <div name="button_box" position="inside">
                     <field name='button_resource' invisible='True'/>
-                    <button 
-                        context="{'default_account_id': 'analytic_account_id'}"
+                    <button
+                        context="{'default_active_id':'active_id'}" 
                         name="%(analytic_resource_plan.action_analytic_resource_plan_line_open_form)d"
                         type="action"
                         class="oe_stat_button"
