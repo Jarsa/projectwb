@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_analytic_billing_plan_line_form" model="ir.ui.view">
+            <field name="name">analytic.billing.plan.form</field>
+            <field name="model">analytic.billing.plan</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Analytic billing plan" version="9.0">
+                    <group>
+                        <group col="4" colspan="3">
+                            <field name="account_id"/>
+                            <field name="name"/>
+                            <field name="date"/>
+                        </group>
+                        <group col="4" colspan="2" string="Customer Information">
+                            <field name="customer_id"/>
+                        </group>
+                        <group col="4" colspan="2" string="Product Information">
+                            <field name="product_id" required="1"/>
+                            <field name="unit_amount" required="1"/>
+                            <field name="product_uom_id" required="1"/>
+                            <field name="price_unit" required="1"/> 
+                            <field name="amount_currency" required="1"/>
+                            <field name="currency_id" required="1"/>
+                        </group>
+                        <group col="4" colspan="2" groups="analytic.group_analytic_accounting" string="Analytic Information">
+                            <field name="version_id"/>
+                            <field name="journal_id"/>
+                            <field name="ref"/>
+                            <field groups="base.group_multi_company" name="company_id"/>
+                            <field colspan="4" name="amount"/>
+                            <field name="general_account_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="notes" string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Billing requests">
+                           
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="view_analytic_billing_plan_line_tree" model="ir.ui.view">
+            <field name="name">analytic.billing.plan.line.tree</field>
+            <field name="model">analytic.billing.plan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="top" string="Analytic billing plan line">
+                    <field name="account_id"/>
+                    <field name="customer_id"/>
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field colspan="4" name="product_id" required="1"/>
+                    <field colspan="2" name="unit_amount" required="1"/>
+                    <field name="product_uom_id" required="1"/>
+                    <field name="version_id"/>
+                    <field name="price_unit" required="1"/>
+                    <field name="amount_currency" required="1"/>
+                    <field name="currency_id" required="1"/>
+                    <field invisible="True" name="amount"/>
+                    <field invisible="True" name="company_id"/>
+                    <field invisible="True" name="journal_id"/>
+                    <field invisible="True" name="ref"/>
+                    <field invisible="True" name="general_account_id"/>
+                    <field name="has_active_order"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_analytic_billing_plan_line_filter" model="ir.ui.view">
+            <field name="name">analytic.billing.plan.line.select</field>
+            <field name="model">analytic.billing.plan</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search billing plan lines">
+                    <group col="6" colspan="5">
+                        <field name="account_id"/>
+                        <field name="product_id"/>
+                        <field name="customer_id"/>
+                        <field name="name"/>
+                        <field name="version_id"/>
+                        <field name="journal_id"/>
+                        <field name="general_account_id"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_analytic_billing_plan_line_open_form" model="ir.actions.act_window">
+            <field name="name">Billing plan</field>
+            <field name="res_model">analytic.billing.plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_analytic_billing_plan_line_filter"/>
+        </record>
+        <record id="action_analytic_billing_plan_line_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_analytic_billing_plan_line_tree"/>
+            <field name="act_window_id" ref="action_analytic_billing_plan_line_open_form"/>
+        </record>
+        <record id="action_analytic_billing_plan_line_form2" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_analytic_billing_plan_line_form"/>
+            <field name="act_window_id" ref="action_analytic_billing_plan_line_open_form"/>
+        </record>
+        <menuitem id="analytic_billing_plan_menu" name="Billing Plan" parent="project.menu_project_management"/>
+        <menuitem action="action_analytic_billing_plan_line_open_form" id="analytic_billing_plan_line_entries" parent="analytic_billing_plan.analytic_billing_plan_menu" sequence="1"/>
+    </data>
+</odoo>
