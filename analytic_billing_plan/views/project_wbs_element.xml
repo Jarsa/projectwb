@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="project_wbs_element_form_view2" model="ir.ui.view">
+			<field name="name">project.wbs.element.form</field>
+			<field name="model">project.wbs_element</field>
+			<field name="inherit_id" ref="project_wbs_element.project_wbs_element_form_view"/>
+			<field name="arch" type="xml">
+				<sheet position='before'>
+					<header>
+                        <button 
+                        	class="oe_highlight" 
+                        	name="%(wizard_billing_plan)d"  
+                        	string="Create Billing Request" 
+                        	type="action"
+                        	attrs="{'invisible': [('parent_id', '!=', False)]}"/>
+                    </header>
+				</sheet>
+			</field>
+		</record>
+	</data>
+</odoo>

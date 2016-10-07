@@ -5,7 +5,6 @@ from openerp import api, fields, models
 
 
 class AnalyticBillingPlan(models.Model):
-
     _name = 'analytic.billing.plan'
     _description = "Analytic Billing Plan"
     _inherit = 'analytic.plan'
@@ -21,9 +20,14 @@ class AnalyticBillingPlan(models.Model):
         string='Billing request',
         help="Indicates that this billing plan line "
         "contains at least one non-cancelled billing request.")
+    state = fields.Selection(
+        [('draft', 'Draft'),
+         ('confirm', 'Confirmed')], string='Status',
+        required=True, readonly=True,
+        default='draft')
 
     @api.onchange('account_id')
-    def onchange_account(self):
+    def _onchange_account(self):
         if self.account_id:
             self.customer_id = self.account_id.partner_id
 

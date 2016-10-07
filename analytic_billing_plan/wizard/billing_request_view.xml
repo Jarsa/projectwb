@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="view_billing_plan_tree" model="ir.ui.view">
+			<field name="name">wizard.billing.plan.tree</field>
+			<field name="model">wizard.billing.plan</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Analytic Billing">
+					<group string="Billings">
+						<field name="child_ids" nolabel="1">
+							<tree editable="top" create="false" delete="false">
+								<field name="project_id" readonly="1"/>
+								<field name="code" readonly="1"/>
+								<field name="name" readonly="1"/>
+								<field name="selec"/>
+							</tree>
+						</field>
+					</group>
+					<footer>
+						<button class="oe_highlight" name="create_billing" string="Create Billing Plan" type="object"/> or
+                        
+						<button class="oe_link" special="cancel" string="Cancel"/></footer>
+				</form>
+			</field>
+		</record>
+		<record id="wizard_billing_plan" model="ir.actions.act_window">
+			<field name="name">Billing Request</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">wizard.billing.plan</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+	</data>
+</odoo>
