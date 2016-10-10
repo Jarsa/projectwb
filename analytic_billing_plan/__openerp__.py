@@ -21,6 +21,8 @@
         'views/analytic_billing_view.xml',
         'wizard/billing_request_view.xml',
         'views/project_wbs_element.xml',
+
+
     ],
     'installable': True,
     'active': True,

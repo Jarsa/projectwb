@@ -7,20 +7,19 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Analytic Billing">
-					<group string="Billings">
-						<field name="child_ids" nolabel="1">
-							<tree editable="top" create="false" delete="false">
-								<field name="project_id" readonly="1"/>
-								<field name="code" readonly="1"/>
-								<field name="name" readonly="1"/>
-								<field name="selec"/>
-							</tree>
-						</field>
+					<group>
+						<field name="product_id"/>
+						<field name="project_id" readonly="1"/>
+						<field name="analytic_account_id" readonly="1"/>
+						<field name="quantity" readonly="1"/>
+						<field name="quantity_invoice"/>
+						<field name="remaining_quantity" readonly="1"/>
 					</group>
 					<footer>
 						<button class="oe_highlight" name="create_billing" string="Create Billing Plan" type="object"/> or
-                        
-						<button class="oe_link" special="cancel" string="Cancel"/></footer>
+						
+						<button class="oe_link" special="cancel" string="Cancel"/>
+					</footer>
 				</form>
 			</field>
 		</record>

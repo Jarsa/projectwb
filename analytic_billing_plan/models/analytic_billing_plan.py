@@ -9,13 +9,8 @@ class AnalyticBillingPlan(models.Model):
     _description = "Analytic Billing Plan"
     _inherit = 'analytic.plan'
 
-    price_unit = fields.Float(string='Unit Price')
     customer_id = fields.Many2one(
         'res.partner', string="Customer", readonly=True)
-    analytic_line_plan_id = fields.Many2one(
-        'analytic.plan',
-        string='Planning analytic lines',
-        required=True)
     has_active_order = fields.Boolean(
         string='Billing request',
         help="Indicates that this billing plan line "
@@ -25,6 +20,9 @@ class AnalyticBillingPlan(models.Model):
          ('confirm', 'Confirmed')], string='Status',
         required=True, readonly=True,
         default='draft')
+    quantity = fields.Float()
+    concept = fields.Many2one('product.product')
+    price_unit = fields.Float("Price Unit")
 
     @api.onchange('account_id')
     def _onchange_account(self):
