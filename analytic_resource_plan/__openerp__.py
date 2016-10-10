@@ -13,6 +13,7 @@
         'analytic_plan',
         'account',
         'account_accountant',
+        'sale',
     ],
     'data': [
         'views/analytic_resource_plan_view.xml',
