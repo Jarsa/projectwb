@@ -14,6 +14,8 @@
         'account',
         'account_accountant',
         'sale',
+        'purchase',
+        'stock'
     ],
     'data': [
         'views/analytic_resource_plan_view.xml',

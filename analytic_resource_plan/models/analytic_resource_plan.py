@@ -28,14 +28,17 @@ class AnalyticResourcePlanLine(models.Model):
     human_resources_ids = fields.Many2many(
         'human.resources',
         string='Human Resources')
-    material_resources_ids = fields.Many2many(
+    material_resources_ids = fields.One2many(
         'material.resources',
+        'analytic_resource_plan_line_id',
         string='Material Resources')
-    others_ids = fields.Many2many(
+    others_ids = fields.One2many(
         'others.resources',
+        'analytic_resource_plan_line_id',
         string='Others')
-    tools_ids = fields.Many2many(
+    tools_ids = fields.One2many(
         'tools.resources',
+        'analytic_resource_plan_line_id',
         string='Tools')
     equipment_ids = fields.Many2many(
         'equipment.resources',

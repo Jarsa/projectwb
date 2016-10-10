@@ -8,4 +8,3 @@ from openerp import models
 class IndirectsResources(models.Model):
     _name = 'indirects.resources'
     _description = 'Indirects Resources Model'
-    _inherit = 'product.product'
