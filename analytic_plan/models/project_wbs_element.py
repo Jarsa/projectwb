@@ -13,7 +13,7 @@ class ProjectWbsElement(models.Model):
     analytic_plan_version_id = fields.Many2one(
         'analytic.plan.version',
         string='Current Plan Version',
-        readonly=True, compute='_compute_version')
+        compute='_compute_version')
 
     @api.depends('project_id')
     def _compute_version(self):

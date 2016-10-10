@@ -18,6 +18,7 @@
                                 <field name="account_id"/>
                                 <field name="name"/>
                                 <field name="date"/>
+                                <field name="invoice_id"/>
                             </group>
                             <group col="4" colspan="2" string="Customer Information">
                                 <field name="customer_id"/>

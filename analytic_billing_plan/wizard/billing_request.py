@@ -30,13 +30,15 @@ class WizardBillingPlan(models.TransientModel):
             if rec.quantity == rec.quantity_invoice:
                 ref = _(
                     "Total Billing of: %s %s" % (
-                        rec.quantity_invoice, rec.product_id.uom_id.name))
+                        rec.quantity_invoice,
+                        rec.product_id.product_uom_id.name))
                 active_order = False
                 rec.wbs_element.write({'quantity': 0.0})
             if rec.quantity_invoice < rec.quantity:
                 ref = _(
                     "Partial Billing of: %s %s" % (
-                        rec.quantity_invoice, rec.product_id.uom_id.name))
+                        rec.quantity_invoice,
+                        rec.product_id.product_uom_id.name))
                 active_order = True
                 rec.wbs_element.write({'quantity': rec.remaining_quantity})
             general_account = self.env['account.analytic.account'].search(
@@ -48,20 +50,17 @@ class WizardBillingPlan(models.TransientModel):
                 "name": rec.name,
                 "product_id": rec.product_id.id,
                 "unit_amount": rec.remaining_quantity,
-                "price_unit": rec.product_id.lst_price,
+                "price_unit": rec.product_id.unit_price,
                 "amount_currency": -(
-                    rec.product_id.lst_price * rec.quantity_invoice),
-                "product_uom_id": rec.product_id.uom_id.id,
+                    rec.product_id.unit_price * rec.quantity_invoice),
+                "product_uom_id": rec.product_id.product_uom_id.id,
                 "version_id": rec.project_id.version_id.id,
                 "currency_id": self.env.user.company_id.currency_id.id,
                 "quantity": rec.remaining_quantity,
                 "concept": rec.id,
                 "amount": (
-                    rec.product_id.lst_price * rec.quantity_invoice),
+                    rec.product_id.unit_price * rec.quantity_invoice),
                 "company_id": self.env.user.company_id.id,
-                "journal_id": (
-                    rec.product_id.
-                    expense_analytic_plan_journal_id.id),
                 "ref": ref,
                 "general_account_id": general_account.id,
                 "has_active_order": active_order,

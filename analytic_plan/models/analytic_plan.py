@@ -36,13 +36,13 @@ class AnalyticPlan(models.Model):
         'res.company', string='Company',
         readonly=True)
     product_uom_id = fields.Many2one('product.uom', string='UoM')
-    product_id = fields.Many2one('product.product', string='Product')
+    product_id = fields.Many2one('project.wbs.concept', string='Product')
     general_account_id = fields.Many2one(
         'account.account', string='General Account',
         required=True)
     journal_id = fields.Many2one(
         'analytic.plan.journal',
-        string='Planning Analytic Journal', required=True)
+        string='Planning Analytic Journal')
     code = fields.Char()
     ref = fields.Char()
     notes = fields.Text()

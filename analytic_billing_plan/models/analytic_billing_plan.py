@@ -23,6 +23,7 @@ class AnalyticBillingPlan(models.Model):
     quantity = fields.Float()
     concept = fields.Many2one('product.product')
     price_unit = fields.Float("Price Unit")
+    invoice_id = fields.Many2one('account.invoice')
 
     @api.onchange('account_id')
     def _onchange_account(self):
@@ -32,10 +33,34 @@ class AnalyticBillingPlan(models.Model):
     @api.onchange('product_id')
     def _onchange_product_id(self):
         if self.product_id:
-            self.product_uom_id = self.product_id.uom_id
-            self.price_unit = self.product_id.lst_price
+            self.product_uom_id = self.product_id.product_uom_id
+            self.price_unit = self.product_id.unit_price
 
     @api.onchange('unit_amount', 'price_unit')
     def _compute_amount(self):
         for rec in self:
             rec.amount_currency = rec.price_unit * rec.unit_amount
+
+    @api.multi
+    def action_button_confirm(self):
+        for rec in self:
+            invoice_id = self.env['account.invoice'].create({
+                'partner_id': rec.customer_id.id,
+                'fiscal_position_id': (
+                    rec.customer_id.property_account_position_id.id),
+                'reference': rec.account_id.name,
+                'currency_id': rec.currency_id.id,
+                'account_id': (
+                    rec.customer_id.property_account_receivable_id.id),
+                'type': 'out_invoice',
+                'invoice_line_ids': (0, 0, {
+                    'product_id': rec.product_id.id,
+                    'quantity': rec.unit_amount,
+                    'price_unit': rec.price_unit,
+                    'invoice_line_tax_ids': [
+                        (6, 0, [x.id for x in rec.product_id.tax_ids])],
+                    'name': rec.product_id.name,
+                    'account_id': rec.product_id.account_id.id
+                }),
+            })
+            rec.write({'invoice_id': invoice_id.id})

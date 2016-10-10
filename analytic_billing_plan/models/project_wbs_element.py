@@ -12,7 +12,7 @@ class ProjectWbsElement(models.Model):
     analytic_billing_id = fields.Many2one('analytic.billing.plan')
     button_billing = fields.Boolean(compute="_compute_button_billing")
     product_uom_id = fields.Many2one('product.uom', string='UoM')
-    product_id = fields.Many2one('product.product', string='Product')
+    product_id = fields.Many2one('project.wbs.concept', string='Product')
     unit_price = fields.Float(
         string="Unit Price",
         readonly=True,
@@ -31,8 +31,8 @@ class ProjectWbsElement(models.Model):
     def _compute_unit_price(self):
         for rec in self:
             if rec.product_id:
-                rec.product_uom_id = rec.product_id.uom_id
-                rec.unit_price = rec.product_id.lst_price
+                rec.product_uom_id = rec.product_id.product_uom_id
+                rec.unit_price = rec.product_id.unit_price
 
     @api.depends('parent_id')
     def _compute_button_billing(self):
