@@ -44,23 +44,24 @@ class AnalyticBillingPlan(models.Model):
     @api.multi
     def action_button_confirm(self):
         for rec in self:
-            invoice_id = self.env['account.invoice'].create({
+            invoice = {
                 'partner_id': rec.customer_id.id,
+                'reference': rec.ref,
                 'fiscal_position_id': (
                     rec.customer_id.property_account_position_id.id),
-                'reference': rec.account_id.name,
                 'currency_id': rec.currency_id.id,
                 'account_id': (
                     rec.customer_id.property_account_receivable_id.id),
                 'type': 'out_invoice',
-                'invoice_line_ids': (0, 0, {
+                'invoice_line_ids': [(0, False, {
                     'product_id': rec.product_id.id,
                     'quantity': rec.unit_amount,
                     'price_unit': rec.price_unit,
                     'invoice_line_tax_ids': [
                         (6, 0, [x.id for x in rec.product_id.tax_ids])],
                     'name': rec.product_id.name,
-                    'account_id': rec.product_id.account_id.id
-                }),
-            })
+                    'account_id': rec.product_id.account_id.id})]
+            }
+
+            invoice_id = self.env['account.invoice'].create(invoice)
             rec.write({'invoice_id': invoice_id.id})

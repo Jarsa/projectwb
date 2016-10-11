@@ -23,6 +23,7 @@
 								attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}"/>
 							<field name="quantity" 
 								attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}"/> 
+							<field name="remaining_quantity" attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}"/> 
 						</group>
 					</group>
 					<group colspan="4" class="oe_subtotal_footer oe_right" style="margin-right: 10%;">

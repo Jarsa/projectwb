@@ -33,14 +33,14 @@ class WizardBillingPlan(models.TransientModel):
                         rec.quantity_invoice,
                         rec.product_id.product_uom_id.name))
                 active_order = False
-                rec.wbs_element.write({'quantity': 0.0})
             if rec.quantity_invoice < rec.quantity:
                 ref = _(
                     "Partial Billing of: %s %s" % (
                         rec.quantity_invoice,
                         rec.product_id.product_uom_id.name))
                 active_order = True
-                rec.wbs_element.write({'quantity': rec.remaining_quantity})
+            rec.wbs_element.write(
+                {'remaining_quantity': rec.remaining_quantity})
             general_account = self.env['account.analytic.account'].search(
                 [('name', '=', rec.project_id.name)])
             analytic_billing = billing.create({
@@ -73,12 +73,16 @@ class WizardBillingPlan(models.TransientModel):
         plan = self.env['project.wbs_element'].search(
             [('id', '=', record_id)])
         res = super(WizardBillingPlan, self).default_get(field)
+        if plan.remaining_quantity > 0:
+            quantity = plan.remaining_quantity
+        else:
+            quantity = plan.quantity
         res.update(
             {
                 'product_id': plan.product_id.id,
                 'project_id': plan.project_id.id,
                 'analytic_account_id': plan.analytic_account_id.id,
-                'quantity': plan.quantity,
+                'quantity': quantity,
                 'remaining_quantity': plan.remaining_quantity,
                 'name': plan.name,
                 'wbs_element': plan.id
