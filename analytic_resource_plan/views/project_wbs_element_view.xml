@@ -13,7 +13,7 @@
                         name="%(analytic_resource_plan.action_analytic_resource_plan_line_open_form)d"
                         type="action"
                         class="oe_stat_button"
-                        icon="fa-archive"
+                        icon="fa-line-chart"
                         attrs="{'invisible':[('button_resource', '=', False)]}">
                         <field 
                             name="nbr_resource"
@@ -21,6 +21,11 @@
                             />
                     </button>
                 </div>
+                <notebook>
+                    <page name="resources" string="Planed Resources">
+                        <field name="resource_ids" readonly='1'/>
+                    </page>
+                </notebook>
             </field>
         </record>
     </data>

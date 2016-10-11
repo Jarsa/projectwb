@@ -39,5 +39,3 @@ class ProjectWbsElement(models.Model):
         for wbs_element in self:
             if (wbs_element.parent_id and not wbs_element.parent_id.parent_id):
                 wbs_element.button_billing = True
-            else:
-                wbs_element.button_billing = False

@@ -7,9 +7,4 @@ from . import account_analytic_plan_version
 from . import analytic_resource_plan
 from . import analytic_plan
 from . import wbs_element
-from . import human_resources
-from . import material_resources
-from . import tools_resources
-from . import others_resources
-from . import equipment_resources
-from . import indirects_resources
+from . import resources
