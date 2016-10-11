@@ -25,8 +25,9 @@ class AnalyticResourcePlanLine(models.Model):
              '\n* The \'Confirmed\' status is used for to confirm the '
              'execution of the resource plan lines.',
         default='draft')
-    human_resources_ids = fields.Many2many(
+    human_resources_ids = fields.One2many(
         'human.resources',
+        'analytic_resource_plan_line_id',
         string='Human Resources')
     material_resources_ids = fields.One2many(
         'material.resources',
@@ -40,9 +41,11 @@ class AnalyticResourcePlanLine(models.Model):
         'tools.resources',
         'analytic_resource_plan_line_id',
         string='Tools')
-    equipment_ids = fields.Many2many(
+    equipment_ids = fields.One2many(
         'equipment.resources',
+        'analytic_resource_plan_line_id',
         string='Equipment')
-    indirects_ids = fields.Many2many(
+    indirects_ids = fields.One2many(
         'indirects.resources',
+        'analytic_resource_plan_line_id',
         string='Indirect')

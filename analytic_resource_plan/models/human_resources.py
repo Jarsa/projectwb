@@ -9,8 +9,23 @@ class HumanResources(models.Model):
     _name = 'human.resources'
     _description = 'Human Resources Model'
 
-    product_qty = fields.Float(string="Product Quantity", required=True)
-    name = fields.Char(required=True)
-    std_price = fields.Float(required=True)
-    product_uom_id = fields.Many2one('product.uom', string="Unit Of Measure")
+    product_id = fields.Many2one(
+        'product.product',
+        domain=[('categ_id', '=', 'RH')],
+        required=True,
+        string='Resource')
+    product_qty = fields.Float(
+        required=True,
+        default=1.0,
+        string='Quantity',
+        )
+    product_uom_id = fields.Many2one(
+        'product.uom',
+        string='Unit of Measure',
+        required=True,
+        )
+    analytic_resource_plan_line_id = fields.Many2one(
+        'analytic.resource.plan.line',
+        string='Resource plan id')
     unit_price = fields.Float(required=True)
+    subtotal = fields.Float(required=True)

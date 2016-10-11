@@ -8,3 +8,24 @@ from openerp import fields, models
 class EquipmentResources(models.Model):
     _name = 'equipment.resources'
     _description = 'Equipment Resources Model'
+
+    product_id = fields.Many2one(
+        'product.product',
+        domain=[('categ_id', '=', 'Equipo')],
+        required=True,
+        string='Resource')
+    product_qty = fields.Float(
+        required=True,
+        default=1.0,
+        string='Quantity',
+        )
+    product_uom_id = fields.Many2one(
+        'product.uom',
+        string='Unit of Measure',
+        required=True,
+        )
+    analytic_resource_plan_line_id = fields.Many2one(
+        'analytic.resource.plan.line',
+        string='Resource plan id')
+    unit_price = fields.Float(required=True)
+    subtotal = fields.Float(required=True)
