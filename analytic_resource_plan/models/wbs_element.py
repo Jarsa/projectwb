@@ -17,7 +17,9 @@ class ProductWbsElement(models.Model):
     @api.depends('child_ids')
     def _compute_button_resource(self):
         for record in self:
-            if len(record.child_ids) == 0:
+            if (not record.parent_id.parent_id
+                    and record.parent_id
+                    and record.child_ids):
                 record.button_resource = True
 
     @api.depends('button_resource')
