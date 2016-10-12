@@ -10,6 +10,6 @@ class Project(models.Model):
 
     version_id = fields.Many2one(
         'analytic.plan.version',
-        string='Planning Version', required=True)
+        string='Planning Version')
     expenses = fields.Float(default=50)
     utility = fields.Float(default=20)

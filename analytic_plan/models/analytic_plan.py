@@ -48,7 +48,7 @@ class AnalyticPlan(models.Model):
     notes = fields.Text()
     version_id = fields.Many2one(
         'analytic.plan.version',
-        string='Planning Version', required=True)
+        string='Planning Version')
 
     @api.multi
     @api.constrains('amount_currency', 'amount')
