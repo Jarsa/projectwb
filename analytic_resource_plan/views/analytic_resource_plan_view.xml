@@ -113,7 +113,7 @@
             <field name="model">analytic.resource.plan.line</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
-                <search string="Search resource plan lines">
+                <search string="Search Resource Plan Lines">
                     <group col="6" colspan="5">
                         <field name="account_id"/>
                         <field name="name"/>

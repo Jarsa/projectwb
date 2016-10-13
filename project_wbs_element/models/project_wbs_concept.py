@@ -17,6 +17,10 @@ class ProjectWbsConcept(models.Model):
     unit_price = fields.Float(required=True)
     standard_price = fields.Float(required=True)
     active = fields.Boolean(default=True)
+    tax_ids = fields.Many2many(
+        'account.tax', string='Taxes')
+    account_id = fields.Many2one(
+        'account.account', string='Account', required=True)
 
     _sql_constraints = [
         ('name_unique',

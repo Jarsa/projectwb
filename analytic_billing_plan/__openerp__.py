@@ -14,11 +14,15 @@
         'project_wbs_element',
         'account',
         'analytic_plan',
-        'analytic_resource_plan',  
+        'analytic_resource_plan',
     ],
     'data': [
         'security/ir.model.access.csv',
         'views/analytic_billing_view.xml',
+        'wizard/billing_request_view.xml',
+        'views/project_wbs_element.xml',
+
+
     ],
     'installable': True,
     'active': True,

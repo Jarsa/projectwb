@@ -7,40 +7,46 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Analytic billing plan" version="9.0">
-                    <group>
-                        <group col="4" colspan="3">
-                            <field name="account_id"/>
-                            <field name="name"/>
-                            <field name="date"/>
+                    <header>
+                        <button class="oe_highlight" name="action_button_draft" states="confirm" string="Draft" type="object"/>
+                        <button class="oe_highlight" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet string="Resource Plan Lines">
+                        <group>
+                            <group col="4" colspan="3">
+                                <field name="account_id"/>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="invoice_id"/>
+                            </group>
+                            <group col="4" colspan="2" string="Customer Information">
+                                <field name="customer_id"/>
+                            </group>
+                            <group col="4" colspan="2" string="Product Information">
+                                <field name="product_id" required="1"/>
+                                <field name="unit_amount" required="1"/>
+                                <field name="product_uom_id" required="1"/>
+                                <field name="amount_currency" required="1"/>
+                                <field name="currency_id" required="1"/>
+                                <field name="price_unit" required="1"/>
+                            </group>
+                            <group col="4" colspan="2" groups="analytic.group_analytic_accounting" string="Analytic     Information">
+                                <field name="version_id"/>
+                                <field name="journal_id"/>
+                                <field name="ref"/>
+                                <field groups="base.group_multi_company" name="company_id"/>
+                                <field colspan="4" name="amount"/>
+                                <field name="general_account_id"/>
+                            </group>
                         </group>
-                        <group col="4" colspan="2" string="Customer Information">
-                            <field name="customer_id"/>
-                        </group>
-                        <group col="4" colspan="2" string="Product Information">
-                            <field name="product_id" required="1"/>
-                            <field name="unit_amount" required="1"/>
-                            <field name="product_uom_id" required="1"/>
-                            <field name="price_unit" required="1"/> 
-                            <field name="amount_currency" required="1"/>
-                            <field name="currency_id" required="1"/>
-                        </group>
-                        <group col="4" colspan="2" groups="analytic.group_analytic_accounting" string="Analytic Information">
-                            <field name="version_id"/>
-                            <field name="journal_id"/>
-                            <field name="ref"/>
-                            <field groups="base.group_multi_company" name="company_id"/>
-                            <field colspan="4" name="amount"/>
-                            <field name="general_account_id"/>
-                        </group>
-                    </group>
-                    <notebook>
-                        <page name="notes" string="Notes">
-                            <field name="notes"/>
-                        </page>
-                        <page string="Billing requests">
-                           
-                        </page>
-                    </notebook>
+                        <notebook>
+                            <page name="notes" string="Notes">
+                                <field name="notes"/>
+                            </page>
+                            <page string="Billing requests"/>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
         </record>
@@ -49,7 +55,7 @@
             <field name="model">analytic.billing.plan</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree editable="top" string="Analytic billing plan line">
+                <tree string="Analytic billing plan line">
                     <field name="account_id"/>
                     <field name="customer_id"/>
                     <field name="date"/>
@@ -58,14 +64,14 @@
                     <field colspan="2" name="unit_amount" required="1"/>
                     <field name="product_uom_id" required="1"/>
                     <field name="version_id"/>
-                    <field name="price_unit" required="1"/>
-                    <field name="amount_currency" required="1"/>
                     <field name="currency_id" required="1"/>
-                    <field invisible="True" name="amount"/>
-                    <field invisible="True" name="company_id"/>
-                    <field invisible="True" name="journal_id"/>
-                    <field invisible="True" name="ref"/>
-                    <field invisible="True" name="general_account_id"/>
+                    <field name="quantity"/>
+                    <field name="concept"/>
+                    <field name="amount"/>
+                    <field name="company_id"/>
+                    <field name="journal_id"/>
+                    <field name="ref"/>
+                    <field name="general_account_id"/>
                     <field name="has_active_order"/>
                 </tree>
             </field>
@@ -92,7 +98,7 @@
             <field name="name">Billing plan</field>
             <field name="res_model">analytic.billing.plan</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">form,tree</field>
             <field name="search_view_id" ref="view_analytic_billing_plan_line_filter"/>
         </record>
         <record id="action_analytic_billing_plan_line_tree" model="ir.actions.act_window.view">

@@ -18,12 +18,14 @@
 							<field name="unit_price" widget="monetary"/>
 							<field name="standard_price" widget="monetary"/>
 							<field name="active"/>
+							<field name="account_id"/>
+							<field name="tax_ids" widget="many2many_tags"/>
 						</group>
 					</sheet>
-					 <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="message_ids" placeholder="Share a message..." widget="mail_thread"/>
-                    </div>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="message_ids" placeholder="Share a message..." widget="mail_thread"/>
+					</div>
 				</form>
 			</field>
 		</record>
@@ -37,15 +39,16 @@
 					<field name="unit_price" widget="monetary"/>
 					<field name="standard_price" widget="monetary"/>
 					<field name="active"/>
+					<field name="tax_ids"/>
 				</tree>
 			</field>
 		</record>
-		<record id='action_project_wbs_concept_form' model='ir.actions.act_window'>
-			<field name='name'> WBS Concepts</field>
-			<field name='res_model'>project.wbs.concept</field>
-			<field name='view_type'>form</field>
-			<field name='view_mode'>tree,form</field>
+		<record id="action_project_wbs_concept_form" model="ir.actions.act_window">
+			<field name="name">WBS Concepts</field>
+			<field name="res_model">project.wbs.concept</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
 		</record>
-		<menuitem id="action_project_wbs_concept_form_menu" name="WBS Concepts" parent="project.menu_project_config" action="action_project_wbs_concept_form" sequence="2"/>
+		<menuitem action="action_project_wbs_concept_form" id="action_project_wbs_concept_form_menu" name="WBS Concepts" parent="project.menu_project_config" sequence="2"/>
 	</data>
 </odoo>
