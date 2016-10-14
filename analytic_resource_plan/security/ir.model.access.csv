@@ -1,8 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_analytic_resource_plan_line,access_analytic_resource_plan_line,model_analytic_resource_plan_line,,1,1,1,1
-access_human_resources,access_human_resources,model_human_resources,,1,1,1,1
-access_material_resources,access_material_resources,model_material_resources,,1,1,1,1
-access_tools_resources,access_tools_resources,model_tools_resources,,1,1,1,1
-access_others_resources,access_others_resources,model_others_resources,,1,1,1,1
-access_equipment_resources,access_equipment_resources,model_equipment_resources,,1,1,1,1
-access_indirects_resources,access_indirects_resources,model_indirects_resources,,1,1,1,1
+access_resources,access_resources,model_resources,,1,1,1,1

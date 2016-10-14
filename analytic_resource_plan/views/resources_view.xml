@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="resources_form" model="ir.ui.view">
+			<field name="name">resources.form</field>
+			<field name="model">resources</field>
+			<field name="arch" type="xml">
+				<form string="description">
+					<header/>
+					<sheet>
+						<h1>
+							<separator string="Resources"/>
+							<field name="name"/>
+						</h1>
+						<separator string="Basic Information"/>
+						<group>
+							<field name="product_qty" />
+							<field name="product_uom_id" />
+							<field name="unit_price" widget="monetary"/>
+							<field name="subtotal" widget="monetary"/>
+							<field name="resource_type" />
+							<field name="location"/>
+							<field name="resource_id" invisible="1"/>
+
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="resources_tree" model="ir.ui.view">
+			<field name="name">resources.tree</field>
+			<field name="model">resources</field>
+			<field name="arch" type="xml">
+				<tree string="description">
+					<field name="name"/>
+					<field name="product_qty" />
+					<field name="product_uom_id" />
+					<field name="unit_price" widget="monetary"/>
+					<field name="subtotal" widget="monetary"/>
+					<field name="resource_type" />
+					<field name="resource_id" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+		<record id="action_resources_form" model="ir.actions.act_window">
+			<field name="name">Resources</field>
+			<field name="res_model">resources</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="action_resources_form" id="action_resruces_form_menu" name="Resources" parent="project.menu_project_config" sequence="2"/>
+	</data>
+</odoo>

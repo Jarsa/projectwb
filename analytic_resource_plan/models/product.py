@@ -11,3 +11,4 @@ class ProductTemplate(models.Model):
     expense_analytic_plan_journal_id = fields.Many2one(
         'analytic.plan.journal',
         string='Cost Planning Analytic Journal')
+
