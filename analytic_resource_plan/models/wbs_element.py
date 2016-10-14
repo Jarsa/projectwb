@@ -14,13 +14,11 @@ class ProductWbsElement(models.Model):
         string="Resource Plan",
         compute='_count_resource')
 
-    @api.depends('child_ids')
+    @api.depends('parent_id')
     def _compute_button_resource(self):
-        for record in self:
-            if (not record.parent_id.parent_id
-                    and record.parent_id
-                    and record.child_ids):
-                record.button_resource = True
+        for wbs_element in self:
+            if (wbs_element.parent_id and not wbs_element.parent_id.parent_id):
+                wbs_element.button_resource = True
 
     @api.depends('button_resource')
     def _count_resource(self):

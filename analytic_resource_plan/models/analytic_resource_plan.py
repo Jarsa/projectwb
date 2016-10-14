@@ -2,7 +2,7 @@
 # © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import fields, models
+from openerp import api, fields, models
 
 
 class AnalyticResourcePlanLine(models.Model):
@@ -26,26 +26,47 @@ class AnalyticResourcePlanLine(models.Model):
              'execution of the resource plan lines.',
         default='draft')
     human_resources_ids = fields.One2many(
-        'human.resources',
-        'analytic_resource_plan_line_id',
-        string='Human Resources')
+        'resources',
+        'resource_id',
+        string='Human Resources',
+        domain=[('resource_type', '=', 'human_resources')])
     material_resources_ids = fields.One2many(
-        'material.resources',
-        'analytic_resource_plan_line_id',
-        string='Material Resources')
+        'resources',
+        'resource_id',
+        string='Material Resources',
+        domain=[('resource_type', '=', 'materials')])
     others_ids = fields.One2many(
-        'others.resources',
-        'analytic_resource_plan_line_id',
-        string='Others')
+        'resources',
+        'resource_id',
+        string='Others',
+        domain=[('resource_type', '=', 'others')])
     tools_ids = fields.One2many(
-        'tools.resources',
-        'analytic_resource_plan_line_id',
-        string='Tools')
+        'resources',
+        'resource_id',
+        string='Tools',
+        domain=[('resource_type', '=', 'tools')])
     equipment_ids = fields.One2many(
-        'equipment.resources',
-        'analytic_resource_plan_line_id',
-        string='Equipment')
+        'resources',
+        'resource_id',
+        string='Equipment',
+        domain=[('resource_type', '=', 'equipment')])
     indirects_ids = fields.One2many(
-        'indirects.resources',
-        'analytic_resource_plan_line_id',
-        string='Indirect')
+        'resources',
+        'resource_id',
+        string='Indirect',
+        domain=[('resource_type', '=', 'indirect')])
+
+    @api.model
+    def default_get(self, field):
+        if 'active_id' in self.env.context:
+            record_id = self.env.context['active_id']
+            plan = self.env['project.wbs_element'].search(
+                [('id', '=', record_id)])
+            res = super(AnalyticResourcePlanLine, self).default_get(field)
+            res.update({'account_id': plan.analytic_account_id.id})
+            res.update(domain={
+                'account_id': plan.analytic_account_id.id
+            })
+            return res
+        else:
+            return False

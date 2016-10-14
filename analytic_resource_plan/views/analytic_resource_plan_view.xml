@@ -20,68 +20,80 @@
                         </group>
                         <notebook>
                             <page name="human_resources" string="Human Resources">
-                                <field name="human_resources_ids">
-                                    <tree editable="top">
-                                        <field name="product_id"/>
-                                        <field name="product_uom_id"/>
+                                <field  name="human_resources_ids">
+                                    <tree>
+                                        <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="unit_price"/>
-                                        <field name="subtotal"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="unit_price" widget="monetary"/>
+                                        <field name="subtotal" widget="monetary"/>
+                                        <field name="resource_type"/>
+                                        <field invisible="1" name="resource_id"/>
                                     </tree>
-                                </field>    
+                                </field>
                             </page>
                             <page name="material_resources" string="Material Resources">
                                 <field name="material_resources_ids">
-                                    <tree editable="top">
-                                        <field name="product_id"/>
-                                        <field name="product_uom_id"/>
+                                    <tree>
+                                        <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="unit_price"/>
-                                        <field name="subtotal"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="unit_price" widget="monetary"/>
+                                        <field name="subtotal" widget="monetary"/>
+                                        <field name="resource_type"/>
+                                        <field invisible="1" name="resource_id"/>
                                     </tree>
                                 </field>
                             </page>
                             <page name="other" string="Others">
                                 <field name="others_ids">
-                                    <tree editable="top">
-                                        <field name="product_id"/>
-                                        <field name="product_uom_id"/>
+                                    <tree>
+                                        <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="unit_price"/>
-                                        <field name="subtotal"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="unit_price" widget="monetary"/>
+                                        <field name="subtotal" widget="monetary"/>
+                                        <field name="resource_type"/>
+                                        <field invisible="1" name="resource_id"/>
                                     </tree>
                                 </field>
                             </page>
                             <page name="tools" string="Tools">
                                 <field name="tools_ids">
-                                    <tree editable="top">
-                                        <field name="product_id"/>
-                                        <field name="product_uom_id"/>
+                                    <tree>
+                                        <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="unit_price"/>
-                                        <field name="subtotal"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="unit_price" widget="monetary"/>
+                                        <field name="subtotal" widget="monetary"/>
+                                        <field name="resource_type"/>
+                                        <field invisible="1" name="resource_id"/>
                                     </tree>
                                 </field>
                             </page>
                             <page name="equipment" string="Equipment">
                                 <field name="equipment_ids">
-                                    <tree editable="top">
-                                        <field name="product_id"/>
-                                        <field name="product_uom_id"/>
+                                    <tree>
+                                        <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="unit_price"/>
-                                        <field name="subtotal"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="unit_price" widget="monetary"/>
+                                        <field name="subtotal" widget="monetary"/>
+                                        <field name="resource_type"/>
+                                        <field invisible="1" name="resource_id"/>
                                     </tree>
                                 </field>
                             </page>
                             <page name="indirects" string="Indirects">
                                 <field name="indirects_ids">
-                                    <tree editable="top">
-                                        <field name="product_id"/>
-                                        <field name="product_uom_id"/>
+                                    <tree>
+                                        <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="unit_price"/>
-                                        <field name="subtotal"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="unit_price" widget="monetary"/>
+                                        <field name="subtotal" widget="monetary"/>
+                                        <field name="resource_type"/>
+                                        <field invisible="1" name="resource_id"/>
                                     </tree>
                                 </field>
                             </page>
@@ -135,8 +147,14 @@
             <field name="name">Plan Resources</field>
             <field name="res_model">analytic.resource.plan.line</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">form, tree</field>
             <field name="search_view_id" ref="view_analytic_resource_plan_line_filter"/>
+        </record>
+        <record id="action_resources_plan_line_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_analytic_resource_plan_line_form"/>
+            <field name="act_window_id" ref="action_analytic_resource_plan_line_open_form"/>
         </record>
         <menuitem id="analytic_resource_plan_menu" name="Resource Plan" parent="base.menu_main_pm"/>
         <menuitem action="action_analytic_resource_plan_line_open_form" id="analytic_resource_plan_line_entries" parent="analytic_resource_plan_menu" sequence="1"/>
