@@ -8,97 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Analytic resource plan line" version="9.0">
                     <header>
-                        <button class="oe_highlight" name="action_button_draft" states="confirm" string="Draft" type="object"/>
-                        <button class="oe_highlight" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
-                        <field name="state" widget="statusbar"/>
-                    </header>
-                    <sheet string="Resource Plan Lines">
-                        <group col="4" colspan="4">
-                            <field name="account_id"/>
-                            <field name="name"/>
-                            <field name="date"/>
-                        </group>
-                        <notebook>
-                            <page name="human_resources" string="Human Resources">
-                                <field  name="human_resources_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="product_qty"/>
-                                        <field name="product_uom_id"/>
-                                        <field name="unit_price" widget="monetary"/>
-                                        <field name="subtotal" widget="monetary"/>
-                                        <field name="resource_type"/>
-                                        <field invisible="1" name="resource_id"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="material_resources" string="Material Resources">
-                                <field name="material_resources_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="product_qty"/>
-                                        <field name="product_uom_id"/>
-                                        <field name="unit_price" widget="monetary"/>
-                                        <field name="subtotal" widget="monetary"/>
-                                        <field name="resource_type"/>
-                                        <field invisible="1" name="resource_id"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="other" string="Others">
-                                <field name="others_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="product_qty"/>
-                                        <field name="product_uom_id"/>
-                                        <field name="unit_price" widget="monetary"/>
-                                        <field name="subtotal" widget="monetary"/>
-                                        <field name="resource_type"/>
-                                        <field invisible="1" name="resource_id"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="tools" string="Tools">
-                                <field name="tools_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="product_qty"/>
-                                        <field name="product_uom_id"/>
-                                        <field name="unit_price" widget="monetary"/>
-                                        <field name="subtotal" widget="monetary"/>
-                                        <field name="resource_type"/>
-                                        <field invisible="1" name="resource_id"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="equipment" string="Equipment">
-                                <field name="equipment_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="product_qty"/>
-                                        <field name="product_uom_id"/>
-                                        <field name="unit_price" widget="monetary"/>
-                                        <field name="subtotal" widget="monetary"/>
-                                        <field name="resource_type"/>
-                                        <field invisible="1" name="resource_id"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="indirects" string="Indirects">
-                                <field name="indirects_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="product_qty"/>
-                                        <field name="product_uom_id"/>
-                                        <field name="unit_price" widget="monetary"/>
-                                        <field name="subtotal" widget="monetary"/>
-                                        <field name="resource_type"/>
-                                        <field invisible="1" name="resource_id"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
-                    </sheet>
+                     </header>
                     <div class="oe_chatter">
                         <field help="Prueba de Ayuda" name="message_follower_ids" widget="mail_followers"/>
                         <field name="message_ids" widget="mail_thread"/>
@@ -112,35 +22,8 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Analytic Resource Plan">
-                    <field name="account_id"/>
-                    <field name="human_resources_ids"/>
-                    <field name="material_resources_ids"/>
-                    <field name="others_ids"/>
-                    <field name="tools_ids"/>
+                    <field name="name"/>
                 </tree>
-            </field>
-        </record>
-        <record id="view_analytic_resource_plan_line_filter" model="ir.ui.view">
-            <field name="name">analytic.resource.plan.line.select</field>
-            <field name="model">analytic.resource.plan.line</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="Search Resource Plan Lines">
-                    <group col="6" colspan="5">
-                        <field name="account_id"/>
-                        <field name="name"/>
-                        <field name="state"/>
-                        <field name="material_resources_ids"/>
-                        <field name="human_resources_ids"/>
-                        <field name="others_ids"/>
-                        <field name="tools_ids"/>
-                    </group>
-                    <group expand="0" name="filters" string="Filters"/>
-                    <group expand="0" name="group_by" string="Group By...">
-                        <filter context="{'group_by':'account_id'}" domain="[]" string="Analytic Account"/>
-                        <filter context="{'group_by':'state'}" domain="[]" string="Status"/>
-                    </group>
-                </search>
             </field>
         </record>
         <record id="action_analytic_resource_plan_line_open_form" model="ir.actions.act_window">
@@ -148,7 +31,6 @@
             <field name="res_model">analytic.resource.plan.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">form, tree</field>
-            <field name="search_view_id" ref="view_analytic_resource_plan_line_filter"/>
         </record>
         <record id="action_resources_plan_line_tree" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>

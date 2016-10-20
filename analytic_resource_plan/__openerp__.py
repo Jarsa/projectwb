@@ -18,15 +18,10 @@
         'stock'
     ],
     'data': [
-        'views/analytic_resource_plan_view.xml',
-        'views/analytic_plan_version_view.xml',
-        'views/analytic_plan_view.xml',
-        'views/product_view.xml',
-        'views/resources_view.xml',
-        'views/project_wbs_element_view.xml',
+        'views/analytic_resource_plan_view.xml'
 
         'security/ir.model.access.csv',
     ],
     'installable': True,
-    'active': False,
+    'active': True,
 }
