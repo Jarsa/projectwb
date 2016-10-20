@@ -20,9 +20,6 @@ class ProjectTask(models.Model):
         inverse_name='task_resource_id',
         compute='compute_resource_concepts',
         )
-    concept_line_ids = fields.One2many(
-        comodel_name='concepts',
-        inverse_name='concept_resource_id',)
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
