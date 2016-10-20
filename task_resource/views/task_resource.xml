@@ -13,7 +13,6 @@
                 </tree>
             </field>
         </record>
-        <!-- Task -->
         <record id="view_task_resource_tree2" model="ir.ui.view">
             <field name="name">task.resource.tree2</field>
             <field name="model">analytic.resource.plan.line</field>
@@ -28,9 +27,6 @@
                 </tree>
             </field>
         </record>
-        <!-- Task Resource Lines-->S
-        
-        <!-- Task Concepts Lines-->
         <record id="view_task_form2" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
@@ -38,7 +34,8 @@
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page name="resources" string="Resources">
-                        <field context="{'tree_view_ref':'view_task_resource_tree'}" name="resource_ids" nolabel="1"/></page>
+                        <field context="{'tree_view_ref':'view_task_resource_tree'}" name="resource_ids" nolabel="1"/>
+                    </page>
                 </notebook>
                 <notebook position="inside">
                     <page name="concepts" string="Concepts">

@@ -1,10 +1,7 @@
-
 # -*- coding: utf-8 -*-
 # © 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from openerp import api, fields, models
-from openerp.exceptions import ValidationError, Warning
-from openerp.tools.translate import _
 
 
 class TotalTaskResource(models.Model):
@@ -22,12 +19,12 @@ class TotalTaskResource(models.Model):
         string='Quantity',
         default=1,
     )
-    subtotal = fields.Float(compute='compute_value_subtotal')
+    subtotal = fields.Float(compute='_compute_value_subtotal')
     unit_price = fields.Float(required=True)
     qty_total = fields.Float(required=True)
 
     @api.multi
     @api.depends('qty', 'unit_price')
-    def compute_value_subtotal(self):
+    def _compute_value_subtotal(self):
         for rec in self:
             rec.subtotal = rec.qty * rec.unit_price

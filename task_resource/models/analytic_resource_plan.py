@@ -20,7 +20,7 @@ class AnalyticResourcePlanLine(models.Model):
         string='Analytic Account')
     date = fields.Date(required=True, default=fields.Date.today)
     qty = fields.Float(required=True, string="Quantity")
-    subtotal = fields.Float(required=True, compute='compute_value_subtotal')
+    subtotal = fields.Float(required=True, compute='_compute_value_subtotal')
     unit_price = fields.Float(required=True)
 
     @api.model
@@ -40,6 +40,6 @@ class AnalyticResourcePlanLine(models.Model):
 
     @api.multi
     @api.depends('qty', 'unit_price')
-    def compute_value_subtotal(self):
+    def _compute_value_subtotal(self):
         for rec in self:
             rec.subtotal = rec.qty * rec.unit_price

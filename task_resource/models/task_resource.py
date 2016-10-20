@@ -2,8 +2,6 @@
 # © 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from openerp import api, fields, models
-from openerp.exceptions import ValidationError, Warning
-from openerp.tools.translate import _
 
 
 class TaskResource(models.Model):
@@ -18,7 +16,7 @@ class TaskResource(models.Model):
     description = fields.Char('Description', required=True)
     product_id = fields.Many2one(
         comodel_name='product.product',
-        string='Product',
+        string='product',
     )
     uom_id = fields.Many2one(
         comodel_name='product.uom',
