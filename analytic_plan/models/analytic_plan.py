@@ -18,9 +18,6 @@ class AnalyticPlan(models.Model):
               'and the price given in the Product\'s '
               'cost price. Always expressed in the '
               'company main currency.'))
-    unit_amount = fields.Float(
-        string='Quantity',
-        help='Specifies the amount of quantity to count.')
     amount_currency = fields.Float(
         string='Amount Currency',
         help="The amount expressed in an optional other currency.")
@@ -30,16 +27,12 @@ class AnalyticPlan(models.Model):
         default=lambda self: self.env.user.company_id.currency_id)
     account_id = fields.Many2one(
         'account.analytic.account',
-        string='Analytic Account', required=True)
-    user_id = fields.Many2one('res.users', 'User')
+        string='Analytic Account', 
+        required=True,
+        related='project_id.analytic_account_id')
     company_id = fields.Many2one(
         'res.company', string='Company',
         readonly=True)
-    product_uom_id = fields.Many2one('product.uom', string='UoM')
-    product_id = fields.Many2one('project.wbs.concept', string='Product')
-    general_account_id = fields.Many2one(
-        'account.account', string='General Account',
-        required=True)
     journal_id = fields.Many2one(
         'analytic.plan.journal',
         string='Planning Analytic Journal')
@@ -49,6 +42,9 @@ class AnalyticPlan(models.Model):
     version_id = fields.Many2one(
         'analytic.plan.version',
         string='Planning Version')
+    project_id = fields.Many2one(
+        'project.project',
+        string='Project')
 
     @api.multi
     @api.constrains('amount_currency', 'amount')
@@ -64,54 +60,6 @@ class AnalyticPlan(models.Model):
                 raise exceptions.ValidationError(
                     _('The amount must be positive because the type'
                         ' of journal represents an income.'))
-
-    @api.onchange('unit_amount', 'product_id', 'journal_id')
-    def _onchange_journal_id(self):
-        for rec in self:
-            if rec.journal_id.id and rec.product_id.id:
-                expense = (rec.journal_id.type in ['purchase', 'general'])
-                expense_account = (
-                    rec.product_id.property_account_expense_id.id
-                    if rec.product_id.property_account_expense_id.id
-                    else
-                    (rec.product_id.categ_id.
-                        property_account_expense_categ_id.id)
-                    if
-                    (rec.product_id.categ_id.
-                        property_account_expense_categ_id.id)
-                    else False)
-                income_account = (
-                    rec.product_id.property_account_income_id.id
-                    if rec.product_id.property_account_income_id.id
-                    else
-                    rec.product_id.categ_id.property_account_income_categ_id.id
-                    if
-                    rec.product_id.categ_id.property_account_income_categ_id.id
-                    else False)
-                if not expense_account or not income_account:
-                    raise exceptions.ValidationError(
-                        _('You must have assigned the expense / income'
-                            ' accounts for the product. Please check it.'))
-                    rec.general_account_id = False
-                if expense:
-                    rec.general_account_id = expense_account
-                    rec.amount_currency = (
-                        (rec.product_id.list_price * rec.unit_amount) * -1)
-                    rec.amount = (
-                        rec.amount_currency if
-                        rec.currency_id.id ==
-                        self.env.user.company_id.currency_id.id
-                        else rec._onchange_currency_id())
-                else:
-                    rec.general_account_id = income_account
-                    rec.amount_currency = (
-                        rec.product_id.list_price * rec.unit_amount)
-                    rec.amount = (
-                        rec.amount_currency if
-                        rec.currency_id.id ==
-                        self.env.user.company_id.currency_id.id
-                        else rec._onchange_currency_id())
-                rec.product_uom_id = rec.product_id.uom_id.id
 
     @api.onchange('currency_id', 'amount_currency')
     def _onchange_currency_id(self):
