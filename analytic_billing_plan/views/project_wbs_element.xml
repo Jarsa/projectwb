@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-	<data>
-		<record id="project_wbs_element_form_view" model="ir.ui.view">
-			<field name="name">project.wbs.element.form</field>
-			<field name="model">project.wbs_element</field>
-			<field name="inherit_id" ref="project_wbs_element.project_wbs_element_form_view"/>
-			<field name="arch" type="xml">
-				<sheet position="before">
-					<header>
-						<field invisible="1" name="button_billing"/>
-						<button attrs="{'invisible': [('button_billing', '=', False)]}" class="oe_highlight" name="%(wizard_billing_plan)d" string="Create Billing Request" type="action"/>
-					</header>
-				</sheet>
-				<field name="parent_id" position="after">
-					<group colspan="4">
-						<group>
-							<field name="product_id"  attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" />
-							<field name="product_uom_id" attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" />
-						</group>
-						<group>
-							<field name="unit_price" 
-								attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}"/>
-							<field name="quantity" 
-								attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}"/> 
-							<field name="remaining_quantity" attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}"/> 
-						</group>
-					</group>
-					<group colspan="4" class="oe_subtotal_footer oe_right" style="margin-right: 10%;">
-						<field name="total" widget="monetary" attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}"/>
-					</group>
-				</field>
-			</field>
-		</record>
-	</data>
+    <data>
+        <record id="project_wbs_element_form_view" model="ir.ui.view">
+            <field name="name">project.wbs.element.form</field>
+            <field name="model">project.wbs_element</field>
+            <field name="inherit_id" ref="project_wbs_element.project_wbs_element_form_view"/>
+            <field name="arch" type="xml">
+                <sheet position="before">
+                    <header>
+                        <field invisible="1" name="button_billing"/>
+                        <button attrs="{'invisible': [('button_billing', '=', False)]}" class="oe_highlight" name="%(wizard_billing_plan)d" string="Create Billing Request" type="action"/>
+                    </header>
+                </sheet>
+                <field name="parent_id" position="after">
+                    <group colspan="4">
+                        <group>
+                            <field attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" name="product_id"/>
+                            <field attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" name="product_uom_id"/>
+                        </group>
+                        <group>
+                            <field attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" name="unit_price"/>
+                            <field attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" name="quantity"/>
+                            <field attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" name="remaining_quantity"/>
+                        </group>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right" colspan="4" style="margin-right: 10%;">
+                        <field attrs="{'invisible': [('button_billing', '=', False)], 'required': [('button_billing', '=', True)]}" name="total" widget="monetary"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+    </data>
 </odoo>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © <2016> <Jarsa Sistemas, S.A. de C.V.>
+# <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import api, fields, models
@@ -18,10 +18,10 @@ class AnalyticResourcePlanLine(models.Model):
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account')
-    date = fields.Date(required=True, default=fields.Date.today)
-    qty = fields.Float(required=True, string="Quantity")
-    subtotal = fields.Float(required=True, compute='_compute_value_subtotal')
-    unit_price = fields.Float(required=True)
+    date = fields.Date(default=fields.Date.today)
+    qty = fields.Float(string="Quantity")
+    subtotal = fields.Float(compute='_compute_value_subtotal')
+    unit_price = fields.Float()
 
     @api.model
     def default_get(self, field):

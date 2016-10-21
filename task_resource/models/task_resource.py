@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 Eficent Business and IT Consulting Services S.L.
+# 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from openerp import api, fields, models
 
@@ -11,7 +11,6 @@ class TaskResource(models.Model):
     task_id = fields.Many2one(
         comodel_name='project.task',
         string='Task',
-        required=True
     )
     description = fields.Char('Description', required=True)
     product_id = fields.Many2one(
@@ -21,7 +20,6 @@ class TaskResource(models.Model):
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
-        required=True
     )
     qty = fields.Float(
         string='Quantity',

@@ -9,7 +9,7 @@
                     <field name="product_id"/>
                     <field name="description"/>
                     <field name="qty" sum="Total qty"/>
-                    <field name="uom_id"/>
+                    <field name="uom_id" required="1"/>
                 </tree>
             </field>
         </record>
@@ -20,10 +20,10 @@
                 <tree default_order="sequence" editable="bottom" string="Task Resource">
                     <field name="product_id"/>
                     <field name="account_id"/>
-                    <field name="date"/>
-                    <field name="qty" sum="Total qty"/>
-                    <field name="unit_price"/>
-                    <field name="subtotal" sum="Total subtotal"/>
+                    <field name="date" required="1"/>
+                    <field name="qty" required="1" sum="Total qty"/>
+                    <field name="unit_price" required="1"/>
+                    <field name="subtotal" sum="Total subtotal" required="1"/>
                 </tree>
             </field>
         </record>
@@ -40,9 +40,9 @@
                 <notebook position="inside">
                     <page name="concepts" string="Concepts">
                         <group>
-                            <field name="uom_id"/>
+                            <field name="uom_id" required="1"/>
                             <field name="qty" sum="Total qty"/>
-                            <field name="unit_price"/>
+                            <field name="unit_price" required="1"/>
                             <field name="subtotal"/>
                         </group>
                     </page>

@@ -1,6 +1,5 @@
-
 # -*- coding: utf-8 -*-
-# © 2015 Eficent Business and IT Consulting Services S.L.
+# 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from openerp import api, fields, models
 
@@ -23,14 +22,13 @@ class ProjectTask(models.Model):
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
-        required=True
     )
     qty = fields.Float(
         string='Quantity',
         default=1,
     )
     subtotal = fields.Float(compute='_compute_value_subtotal')
-    unit_price = fields.Float(required=True)
+    unit_price = fields.Float()
 
     @api.multi
     @api.depends('qty', 'unit_price')

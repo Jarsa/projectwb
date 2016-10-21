@@ -40,13 +40,13 @@ class ProjectWbsElement(models.Model):
     )
     nbr_tasks = fields.Integer(
         string='Number of Tasks',
-        compute='_count_tasks')
+        compute='_compute_count_tasks')
     nbr_childs = fields.Integer(
         string='Number of Child WBS Elements',
-        compute='_count_childs')
+        compute='_compute_count_childs')
     nbr_docs = fields.Integer(
         string='Number of Documents',
-        compute='_count_attached_docs')
+        compute='_compute_count_attached_docs')
     color = fields.Integer(string='Color Index')
     analytic_account_id = fields.Many2one(
         'account.analytic.account',
@@ -56,16 +56,16 @@ class ProjectWbsElement(models.Model):
         string='Parent nalytic account')
 
     @api.depends('task_ids')
-    def _count_tasks(self):
+    def _compute_count_tasks(self):
         for record in self:
             record.nbr_tasks = len(record.task_ids)
 
     @api.depends('child_ids')
-    def _count_childs(self):
+    def _compute_count_childs(self):
         for record in self:
             record.nbr_childs = len(record.child_ids)
 
-    def _count_attached_docs(self):
+    def _compute_count_attached_docs(self):
         attachment = self.env['ir.attachment']
         task = self.env['project.task']
         for record in self:
