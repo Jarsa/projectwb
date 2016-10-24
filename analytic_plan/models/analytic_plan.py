@@ -92,7 +92,6 @@ class AnalyticPlan(models.Model):
                     raise exceptions.ValidationError(
                         _('You must have assigned the expense / income'
                             ' accounts for the product. Please check it.'))
-                    rec.general_account_id = False
                 if expense:
                     rec.general_account_id = expense_account
                     rec.amount_currency = (
