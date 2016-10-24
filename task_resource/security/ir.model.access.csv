@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_analytic_resource_plan,access_analytic_resource_plan,model_analytic_resource_plan_line,,1,1,1,1
+access_task_resource,access_task_resource,model_task_resource,,1,1,1,1
+access_total_task_resource,access_total_task_resource,model_total_task_resource,,1,1,1,1
+access_project_task,access_project_task,model_project_task,,1,1,1,1

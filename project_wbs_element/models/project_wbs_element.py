@@ -56,7 +56,6 @@ class ProjectWbsElement(models.Model):
         string='Parent nalytic account')
     total_charge = fields.Float(compute="_compute_total_charges")
 
-
     @api.depends('task_ids')
     def _compute_count_tasks(self):
         for record in self:

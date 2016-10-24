@@ -27,7 +27,7 @@ class AnalyticPlan(models.Model):
         default=lambda self: self.env.user.company_id.currency_id)
     account_id = fields.Many2one(
         'account.analytic.account',
-        string='Analytic Account', 
+        string='Analytic Account',
         required=True,
         related='project_id.analytic_account_id')
     company_id = fields.Many2one(

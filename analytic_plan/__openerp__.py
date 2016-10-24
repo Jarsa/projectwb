@@ -5,7 +5,9 @@
 {
     'name': 'Analytic Plan',
     'version': '9.0.1.0.0',
-    'author': 'Jarsa Sistemas, S.A de C.V.',
+    'author': (
+        'Jarsa Sistemas, S.A de C.V.,'
+        'Odoo Community Association (OCA)'),
     'description': 'This module is to analytic plan',
     'website': 'https://www.jarsa.com.mx',
     'category': 'Warehouse Management',

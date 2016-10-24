@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
+<odoo>
     <data>
         <template id="assets_backend" name="web_gantt8 assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
@@ -7,7 +7,6 @@
                 <link rel="stylesheet" href="/web_gantt8/static/src/css/gantt.css"/>
                 <script type="text/javascript" src="/web_gantt8/static/src/js/gantt.js"/>
             </xpath>
-        </template>
- 
+        </template> 
     </data>
-</openerp>
+</odoo>
