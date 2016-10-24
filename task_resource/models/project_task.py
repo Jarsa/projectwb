@@ -50,5 +50,5 @@ class ProjectTask(models.Model):
                         'qty': record.qty * rec.qty,
                         'unit_price': record.product_id.lst_price,
                         'subtotal': rec.subtotal,
-                        'task_resource_id': rec.id
+                        'task_resource_id': rec.id,
                         })

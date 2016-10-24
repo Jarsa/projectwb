@@ -30,17 +30,6 @@ class AnalyticBillingPlan(models.Model):
         if self.account_id:
             self.customer_id = self.account_id.partner_id
 
-    @api.onchange('product_id')
-    def _onchange_product_id(self):
-        if self.product_id:
-            self.product_uom_id = self.product_id.product_uom_id
-            self.price_unit = self.product_id.unit_price
-
-    @api.onchange('unit_amount', 'price_unit')
-    def _compute_amount(self):
-        for rec in self:
-            rec.amount_currency = rec.price_unit * rec.unit_amount
-
     @api.multi
     def action_button_confirm(self):
         for rec in self:

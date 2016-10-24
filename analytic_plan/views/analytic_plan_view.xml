@@ -7,18 +7,15 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Analytic Entries" editable="top">
-                    <field name="account_id"/>
+                    <field name="project_id"/>
+                    <field name="account_id" readonly="True"/>
                     <field name="date"/>                    
                     <field name="name"/>
-                    <field name="journal_id" invisible="False"/>    
-                    <field name="product_id" />
-                    <field name="unit_amount"  sum="Total Quantity"/>
-                    <field name="product_uom_id"  />
+                    <field name="journal_id" invisible="False"/>
                     <field name="amount_currency" />
                     <field name="currency_id" />
                     <field name="amount" sum="Total"/>
                     <field name="company_id" invisible="True"/>
-                    <field name="general_account_id"/>
                 </tree>
             </field>
         </record>
@@ -32,9 +29,9 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="account_id"/>
+                                <field name="project_id"/>
+                                <field name="account_id" readonly="True"/>
                                 <field name="journal_id"/>
-                                <field name="user_id"/>
                             </group>
                             <group>
                                 <field name="date"/>
@@ -45,18 +42,7 @@
                                 <field name="amount_currency"/>
                                 <field name="currency_id"/>
                                 <field name="amount"/>
-                            </group>
-                            <group string="Product Information">
-                                <field name="product_id"/>
-                                <label for="unit_amount"/>
-                                <div>
-                                    <field name="unit_amount" class="oe_inline"/>
-                                    <field name="product_uom_id" class="oe_inline"/>
-                                </div>
-                            </group>
-                            <group string="General Accounting">
-                                <field name="general_account_id"/>
-                            </group>                        
+                            </group>                     
                         </group>
                         <notebook>
                         <page string="Notes" name="notes">
@@ -83,16 +69,11 @@
                     <filter name="purchases" string="Purchases" domain="[('journal_id.type','=','purchase')]" help="Analytic Journal Items related to a purchase journal."/>
                     <filter name="others" string="Others" domain="[('journal_id.type','in',('cash','general','situation'))]"/>
                     <separator/>
-                    <filter string="My Entries" domain="[('user_id','=',uid)]"/>
                     <field name="account_id"/>
-                    <field name="user_id"/>
                     <group string="Group By..." expand="0">
                         <filter string="Analytic Account" context="{'group_by':'account_id'}"/>
-                        <filter string="Fin. Account" context="{'group_by':'general_account_id'}"/>
                         <filter string="Journal" context="{'group_by':'journal_id'}" name="group_journal"/>
                         <separator/>
-                        <filter string="Product" context="{'group_by':'product_id'}"/>
-                        <filter string="User" context="{'group_by':'user_id'}"/>
                         <separator/>
                         <filter string="Date" context="{'group_by':'date'}" name="group_date"/>
                     </group>
@@ -106,7 +87,6 @@
             <field name="arch" type="xml">
                 <graph string="Analytic line planning" type="bar">
                     <field name="date"/>
-                    <field name="product_id" group="True"/>
                     <field name="amount" operator="+"/>
                 </graph>
              </field>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 Eficent Business and IT Consulting Services S.L.
+# © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from openerp import api, fields, models, _
@@ -54,6 +54,7 @@ class ProjectWbsElement(models.Model):
     parent_analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Parent nalytic account')
+    total_charge = fields.Float(compute="_compute_total_charges")
 
     @api.depends('task_ids')
     def _compute_count_tasks(self):
@@ -236,3 +237,9 @@ class ProjectWbsElement(models.Model):
                         ' / '+str(rec.name.encode("utf-8")))
                 rec.analytic_account_id.name = name
                 return res
+
+    @api.depends('child_ids')
+    def _compute_total_charges(self):
+        for rec in self:
+            for child in rec.child_ids:
+                rec.total_charge = rec.total_charge + child.total
