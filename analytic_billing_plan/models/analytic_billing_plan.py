@@ -14,7 +14,8 @@ class AnalyticBillingPlan(models.Model):
     has_active_order = fields.Boolean(
         string='Billing request',
         help="Indicates that this billing plan line "
-        "contains at least one non-cancelled billing request.")
+        "contains at least one non-cancelled billing request.",
+        default=True)
     state = fields.Selection(
         [('draft', 'Draft'),
          ('confirm', 'Confirmed')], string='Status',
@@ -24,6 +25,7 @@ class AnalyticBillingPlan(models.Model):
     concept = fields.Many2one('product.product')
     price_unit = fields.Float("Price Unit")
     invoice_id = fields.Many2one('account.invoice')
+    billing_id = fields.Many2one('project.task')
 
     @api.onchange('account_id')
     def _onchange_account(self):
@@ -43,14 +45,23 @@ class AnalyticBillingPlan(models.Model):
                     rec.customer_id.property_account_receivable_id.id),
                 'type': 'out_invoice',
                 'invoice_line_ids': [(0, False, {
-                    'product_id': rec.product_id.id,
-                    'quantity': rec.unit_amount,
+                    'concept_id': rec.product_id.id,
+                    'quantity': rec.quantity,
                     'price_unit': rec.price_unit,
                     'invoice_line_tax_ids': [
                         (6, 0, [x.id for x in rec.product_id.tax_ids])],
                     'name': rec.product_id.name,
-                    'account_id': rec.product_id.account_id.id})]
+                    'account_id': (
+                        rec.product_id.wbs_element_id.
+                        analytic_account_id.id)})]
             }
-
             invoice_id = self.env['account.invoice'].create(invoice)
-            rec.write({'invoice_id': invoice_id.id})
+            rec.write({
+                'invoice_id': invoice_id.id,
+                'state': 'confirm'})
+
+    @api.multi
+    def action_button_draft(self):
+        for rec in self:
+            rec.invoice_id.unlink()
+            rec.write({'state': 'draft'})

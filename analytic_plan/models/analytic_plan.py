@@ -28,11 +28,15 @@ class AnalyticPlan(models.Model):
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account',
-        required=True,
-        related='project_id.analytic_account_id')
+        required=True)
     company_id = fields.Many2one(
         'res.company', string='Company',
         readonly=True)
+    product_uom_id = fields.Many2one('product.uom', string='UoM')
+    product_id = fields.Many2one('project.task', string='Product')
+    general_account_id = fields.Many2one(
+        'account.account', string='General Account',
+        required=True)
     journal_id = fields.Many2one(
         'analytic.plan.journal',
         string='Planning Analytic Journal')
