@@ -9,6 +9,7 @@
     "category": "Generic Modules",
     "author": "Eficent Business and IT Consulting Services S.L., "
               "Odoo Community Association (OCA)",
+    "description": "This module can add a code for the tasks",
     "website": "https://www.odoo-community.org",
     "license": "LGPL-3",
     "depends": ['project', 'product'],
