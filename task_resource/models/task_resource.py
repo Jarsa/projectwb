@@ -12,7 +12,6 @@ class TaskResource(models.Model):
         comodel_name='project.task',
         string='Task',
     )
-    description = fields.Char('Description', required=True)
     product_id = fields.Many2one(
         comodel_name='product.product',
         string='product',
@@ -25,6 +24,7 @@ class TaskResource(models.Model):
         string='Quantity',
         default=1,
     )
+    description = fields.Char('Description')
 
     @api.multi
     @api.onchange('product_id')

@@ -13,30 +13,14 @@
                 </tree>
             </field>
         </record>
-        <record id="view_task_resource_tree2" model="ir.ui.view">
-            <field name="name">task.resource.tree2</field>
-            <field name="model">analytic.resource.plan.line</field>
-            <field name="arch" type="xml">
-                <tree default_order="sequence" editable="bottom" string="Task Resource">
-                    <field name="product_id"/>
-                    <field name="account_id"/>
-                    <field name="date" required="1"/>
-                    <field name="qty" required="1" sum="Total qty"/>
-                    <field name="unit_price" required="1"/>
-                    <field name="subtotal" sum="Total subtotal" required="1"/>
-                </tree>
-            </field>
-        </record>
         <record id="view_task_form2" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
-                <notebook position="inside">
-                    <page name="resources" string="Resources">
-                        <field context="{'tree_view_ref':'view_task_resource_tree'}" name="resource_ids" nolabel="1"/>
-                    </page>
-                </notebook>
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" icon="fa-tasks" name="%(action_total_task_resource)d" type="action" string="Insume Explotion"/>
+                </div>
                 <notebook position="inside">
                     <page name="concepts" string="Concepts">
                         <group>
@@ -49,7 +33,16 @@
                 </notebook>
                 <notebook position="inside">
                     <page name="total" string="Total">
-                        <field context="{'tree_view_ref':'view_task_resource_tree2'}" name="resource_line_ids"/>
+                        <field name="resource_line_ids">
+                            <tree default_order="sequence" editable="bottom" string="Task Resource">
+                                <field name="account_id"/>
+                                <field name="product_id"/>
+                                <field name="description"/>
+                                <field name="qty" sum="Total qty"/>
+                                <field name="uom_id" required="1"/>
+                                <field name="subtotal"/>
+                            </tree>
+                        </field>
                     </page>
                 </notebook>
             </field>

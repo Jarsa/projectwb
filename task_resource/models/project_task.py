@@ -17,7 +17,8 @@ class ProjectTask(models.Model):
     resource_line_ids = fields.One2many(
         comodel_name='analytic.resource.plan.line',
         inverse_name='task_resource_id',
-        compute='_compute_resource_concepts',
+        # compute='_compute_resource_concepts',
+        store=True
         )
     uom_id = fields.Many2one(
         comodel_name='product.uom',
@@ -33,22 +34,5 @@ class ProjectTask(models.Model):
     @api.multi
     @api.depends('qty', 'unit_price')
     def _compute_value_subtotal(self):
-        for rec in self:
-            rec.subtotal = rec.qty * rec.unit_price
-
-    @api.multi
-    @api.depends('resource_ids', 'qty')
-    def _compute_resource_concepts(self):
-        for rec in self:
-            for item in rec.resource_line_ids:
-                item.unlink()
-            if rec.resource_ids:
-                for record in rec.resource_ids:
-                    rec.resource_line_ids += rec.resource_line_ids.create({
-                        'product_id': record.product_id.id,
-                        'account_id': rec.project_id.analytic_account_id.id,
-                        'qty': record.qty * rec.qty,
-                        'unit_price': record.product_id.lst_price,
-                        'subtotal': rec.subtotal,
-                        'task_resource_id': rec.id,
-                        })
+        for rec2 in self:
+            rec2.subtotal = rec2.qty * rec2.unit_price
