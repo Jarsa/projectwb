@@ -12,7 +12,10 @@
         'Odoo Community Association (OCA)'),
     'website': 'https://www.odoo-community.org',
     'license': 'LGPL-3',
-    'depends': ['project', 'product'],
+    'depends': [
+        'project',
+        'product',
+        'project_wbs_element'],
     'data': [
         'security/ir.model.access.csv',
         'wizards/purchase_request.xml',

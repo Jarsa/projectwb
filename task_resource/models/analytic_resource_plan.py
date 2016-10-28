@@ -11,7 +11,7 @@ class AnalyticResourcePlanLine(models.Model):
 
     task_resource_id = fields.Many2one(
         'project.task',
-        )
+    )
     product_id = fields.Many2one(
         'product.product',
         string="Product")

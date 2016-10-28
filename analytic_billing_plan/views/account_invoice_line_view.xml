@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="invoice_line_ids" position="replace">
+                    <field context="{'type': type, 'journal_id': journal_id, 'default_invoice_id': id}" mode="tree,kanban" name="invoice_line_ids" nolabel="1" widget="one2many_list">
+                        <tree editable="bottom" string="Invoice Lines">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field invisible="1" name="company_id"/>
+                            <field domain="[('company_id', '=', parent.company_id), ('internal_type', '=', 'other')]" groups="account.group_account_user" name="account_id"/>
+                            <field domain="[('company_id', '=', parent.company_id), ('account_type', '=', 'normal')]" groups="analytic.group_analytic_accounting" name="account_analytic_id"/>
+                            <field name="quantity"/>
+                            <field groups="product.group_uom" name="uom_id"/>
+                            <field name="price_unit"/>
+                            <field groups="sale.group_discount_per_so_line" name="discount"/>
+                            <field context="{'type':parent.type}" domain="[('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]" name="invoice_line_tax_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                            <field name="price_subtotal"/>
+                            <field invisible="1" name="currency_id"/>
+                        </tree>
+                        <kanban class="o_kanban_mobile">
+                            <field name="concept_id" attrs="{'invisible':[('concept_id','=',False)]}"/>
+                            <field name="product_id" attrs="{'invisible':[('product_id','=',False)]}"/>
+                            <field name="price_subtotal"/>
+                            <field name="quantity"/>
+                            <field groups="product.group_uom" name="uom_id"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <strong>
+                                                    <span>
+                                                        <t t-esc="record.concept_id.value or 'None'"/>
+                                                    </span>
+                                                </strong>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8 text-muted">
+                                                <span>
+                                                    <t t-esc="record.quantity.value"/>
+                                                    <t t-esc="record.uom_id.value"/>
+                                                </span>
+                                            </div>
+                                            <div class="col-xs-4 text-muted">
+                                                <span class="text-right">
+                                                    <t t-esc="record.price_subtotal.value"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                </field>
+            </field>
+        </record>
+        <record id="view_invoice_line_form" model="ir.ui.view">
+            <field name="name">account.invoice.line.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="replace">
+                    <field name="concept_id" attrs="{'invisible':[('concept_id','=',False)]}" />
+                    <field name="product_id" attrs="{'invisible':[('product_id','=',False)]}"/>
+                </field>
+                </field>
+        </record>
+    </data>
+</odoo>

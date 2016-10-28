@@ -17,7 +17,6 @@ class ProjectTask(models.Model):
     resource_line_ids = fields.One2many(
         comodel_name='analytic.resource.plan.line',
         inverse_name='task_resource_id',
-        # compute='_compute_resource_concepts',
         store=True
         )
     uom_id = fields.Many2one(
