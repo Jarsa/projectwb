@@ -7,19 +7,23 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Analytic Billing">
+                    <header class="text-center">
+                        <field name="name" readonly="1" string="Concept"/>
+                        <label string="Complet Billing" attrs="{'invisible':[('qty','!=',0.00)]}"/>
+                    </header>
                     <group>
-                        <field name="product_id"/>
-                        <field name="project_id" readonly="1"/>
-                        <field name="analytic_account_id" readonly="1"/>
-                        <field name="quantity" readonly="1"/>
+                        <field name="currency_id" invisible="1" />
+                        <field name="unit_price" readonly="1" widget="monetary"/>
+                        <field name="qty" readonly="1" string="Quantity available to invoice"/>
                         <field name="quantity_invoice"/>
                         <field name="remaining_quantity" readonly="1"/>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="total_invoice" readonly="1" widget="monetary"/>
+                        </group>
                     </group>
                     <footer>
                         <button class="oe_highlight" name="create_billing" string="Create Billing Plan" type="object"/> or
-                        
-                        <button class="oe_link" special="cancel" string="Cancel"/>
-                    </footer>
+                        <button class="oe_link" special="cancel" string="Cancel"/></footer>
                 </form>
             </field>
         </record>

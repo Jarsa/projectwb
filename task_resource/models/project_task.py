@@ -18,7 +18,7 @@ class ProjectTask(models.Model):
         comodel_name='analytic.resource.plan.line',
         inverse_name='task_resource_id',
         compute='_compute_resource_concepts',
-        )
+    )
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
