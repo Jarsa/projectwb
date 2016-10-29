@@ -15,7 +15,10 @@
     'depends': [
         'project',
         'product',
-        'project_wbs_element'],
+        'project_wbs_element',
+        'purchase_request_to_rfq',
+        ],
+
     'data': [
         'security/ir.model.access.csv',
         'wizards/purchase_request.xml',
