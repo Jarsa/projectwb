@@ -47,5 +47,36 @@
                 </notebook>
             </field>
         </record>
+        <record model="ir.ui.view" id="view_task_kanban">
+            <field name="name">project.task.kanban</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <div>
+                        <br/>
+                        <label> Total: $</label>
+                        <field name="subtotal"/>
+                    </div>
+                </field>
+            </field>
+         </record>
+         <record id="view_task_tree2" model="ir.ui.view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="code"/>
+                </field>
+                <field name="project_id"
+                       position="after">
+                    <field name ="uom_id"/>
+                    <field name="qty" sum="Total Qty"/>
+                    <field name="unit_price"/>
+                    <field name="subtotal" sum="subtotal"/>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>

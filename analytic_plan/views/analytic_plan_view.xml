@@ -12,6 +12,7 @@
                     <field name="date"/>                    
                     <field name="name"/>
                     <field name="journal_id" invisible="False"/>
+                    <field name="analytic_plan_version" />
                     <field name="amount_currency" />
                     <field name="currency_id" />
                     <field name="amount" sum="Total"/>
