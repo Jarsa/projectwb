@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="total_task_resource_tree" model="ir.ui.view">
+            <field name="name">analytic.resource.plan.line.view.tree</field>
+            <field name="model">analytic.resource.plan.line</field>
+            <field name="arch" type="xml">
+                <tree editable="top" string="Total task resource">
+                    <field name="account_id"/>
+                    <field name="product_id"/>
+                    <field name="description"/>
+                    <field name="qty" sum="Total qty"/>
+                    <field name="uom_id" required="1"/>
+                    <field name="subtotal"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_total_task_resource" model="ir.actions.act_window">
+            <field name="name">Insume Explotion</field>
+            <field name="res_model">analytic.resource.plan.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+    <menuitem id="menu_task" name="Insume Explotion" parent="project.menu_project_management"/>
+    <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="menu_task"/>
+</odoo>

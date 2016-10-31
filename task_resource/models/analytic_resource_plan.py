@@ -19,9 +19,19 @@ class AnalyticResourcePlanLine(models.Model):
         'account.analytic.account',
         string='Analytic Account')
     date = fields.Date(default=fields.Date.today)
-    qty = fields.Float(string="Quantity")
-    subtotal = fields.Float(compute='_compute_value_subtotal')
+    qty = fields.Float(string="Quantity", default="1")
+    subtotal = fields.Float()
     unit_price = fields.Float()
+    description = fields.Char('Description')
+    uom_id = fields.Many2one(
+        comodel_name='product.uom',
+        string='UoM',
+    )
+
+    @api.onchange('product_id')
+    def onchange_product(self):
+        self.description = self.product_id.description
+        self.uom_id = self.product_id.uom_id
 
     @api.model
     def default_get(self, field):
@@ -37,9 +47,3 @@ class AnalyticResourcePlanLine(models.Model):
             return res
         else:
             return super(AnalyticResourcePlanLine, self).default_get(field)
-
-    @api.multi
-    @api.depends('qty', 'unit_price')
-    def _compute_value_subtotal(self):
-        for rec in self:
-            rec.subtotal = rec.qty * rec.unit_price
