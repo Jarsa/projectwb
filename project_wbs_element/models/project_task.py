@@ -10,9 +10,10 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     wbs_element_id = fields.Many2one(
-        'project.wbs_element',
-        string='WBS Element')
-
+        comodel_name='project.wbs_element',
+        string='WBS Element',
+        copy=True
+    )
     analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic account')
@@ -29,7 +30,7 @@ class ProjectTask(models.Model):
             if record.wbs_element_id and record.wbs_element_id.child_ids:
                 raise UserError(
                     _('A WBS Element that is parent of others cannot have '
-                      'tasks assigned.'))
+                      'concepts assigned.'))
 
     @api.model
     def create(self, values):

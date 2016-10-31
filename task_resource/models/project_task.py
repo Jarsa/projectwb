@@ -27,7 +27,7 @@ class ProjectTask(models.Model):
         string='Quantity',
         default=1,
     )
-    subtotal = fields.Float(compute='_compute_value_subtotal')
+    subtotal = fields.Float()
     unit_price = fields.Float()
 
     @api.multi

@@ -49,6 +49,9 @@ class AnalyticPlan(models.Model):
     project_id = fields.Many2one(
         'project.project',
         string='Project')
+    analytic_plan_version = fields.Many2one(
+        'analytic.plan.version',
+        string='Version')
 
     @api.multi
     @api.constrains('amount_currency', 'amount')
