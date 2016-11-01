@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="resource_control_form" model="ir.ui.view">
+			<field name="name">resource.control.form</field>
+			<field name="model">resource.control</field>
+			<field name="arch" type="xml">
+				<form string="Resource Control">
+				<header>
+					<button class="oe_highlight" name="action_approve" states="approved, pending, reject" string="Approve" type="object"/>
+					<button class="oe_highlight" name="action_reject" states="approved, pending, reject" string="Reject" type="object"/>
+					<button class="oe_highlight" name="action_pending" states="approved, pending, reject" string="Pending" type="object"/>
+					<field name="state" widget="statusbar"/>
+				</header>
+					<sheet>
+						<group colspan="2" col="2">
+							<field name="insume_explotion_id"/>
+							<field name="task_id"/>
+						</group>
+						<group colspan="2" col="2">
+							<field name="type"/>
+							<field name="state"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	 	<record id="resource_control_tree" model="ir.ui.view">
+			<field name="name">resource.control.tree</field>
+			<field name="model">resource.control</field>
+			<field name="arch" type="xml">
+				<tree string="Resource control">
+					<field name="insume_explotion_id"/>
+					<field name="task_id"/>
+					<field name="type"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+		<record id="action_resource_control" model="ir.actions.act_window">
+			<field name="name">Resource Control</field>
+			<field name="res_model">resource.control</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem id="resource_control_menu" name="Adictiva Deductiva" parent="project.menu_project_management"/>
+		<menuitem action="action_resource_control" id="analytic_billing_plan_line_entries" parent="task_resource.resource_control_menu" sequence="2"/>
+	</data>
+</odoo>
