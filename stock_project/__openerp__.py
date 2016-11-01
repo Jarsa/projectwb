@@ -20,6 +20,9 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'views/analytic_resource_plan_view.xml',
+        'views/project_project_view.xml',
+        'wizards/resource_consume_view.xml'
     ],
     'installable': True,
 }
