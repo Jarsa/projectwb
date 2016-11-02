@@ -24,7 +24,7 @@ class ProjectProject(models.Model):
             'name':  res.name + '/ [Resource control]',
             'active': True,
             'implementation': 'no_gap',
-            'prefix': res.name +'-RC-',
+            'prefix': res.name + '-RC-',
             'number_increment': 1
             })
         res.resource_sequence_id = resource_sequence
