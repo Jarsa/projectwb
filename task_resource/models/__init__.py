@@ -7,3 +7,4 @@ from . import project_task
 from . import task_resource
 from . import total_task_resource
 from . import resource_control
+from . import project_project
