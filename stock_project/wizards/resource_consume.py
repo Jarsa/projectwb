@@ -65,7 +65,6 @@ class ResourceConsume(models.TransientModel):
     @api.multi
     def make_consume(self):
         stock_picking_obj = self.env['stock.picking']
-        # stock_move_obj = self.env['stock.move']
         moves = []
         for item in self.item_ids:
             if item.qty_to_consume > item.qty_on_hand:
