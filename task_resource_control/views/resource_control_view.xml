@@ -50,7 +50,5 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-		<menuitem id="resource_control_menu" name="Additive/Deductively control" parent="project.menu_project_management"/>
-		<menuitem action="action_resource_control" id="analytic_billing_plan_line_entries" parent="task_resource.resource_control_menu" sequence="2"/>
 	</data>
 </odoo>

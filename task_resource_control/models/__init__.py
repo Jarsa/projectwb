@@ -3,3 +3,4 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from . import resource_control
+from . import project_project
