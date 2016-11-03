@@ -27,11 +27,8 @@ class AnalyticResourcePlanLine(models.Model):
                  ('location_id', '=',
                     rec.task_resource_id.project_id.location_id.id)])
             if products:
-                if len(products) > 1:
-                    for product in products:
-                        rec.qty_on_hand += product.qty
-                else:
-                    rec.qty_on_hand = product.qty
+                for product in products:
+                    rec.qty_on_hand += product.qty
 
     @api.multi
     def _compute_qty_consumed(self):
@@ -45,8 +42,5 @@ class AnalyticResourcePlanLine(models.Model):
                     picking_out_id.default_location_dest_id.id),
                  ('state', '=', 'done')])
             if products:
-                if len(products) > 1:
-                    for product in products:
-                        rec.qty_consumed += product.product_uom_qty
-                else:
-                    rec.qty_consumed = product.product_uom_qty
+                for product in products:
+                    rec.qty_consumed += product.product_uom_qty
