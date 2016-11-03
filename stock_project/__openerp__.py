@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 Eficent Business and IT Consulting Services S.L.
+# Copyright 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -21,7 +21,6 @@
     'data': [
         'security/ir.model.access.csv',
         'views/analytic_resource_plan_view.xml',
-        'views/project_project_view.xml',
         'wizards/resource_consume_view.xml'
     ],
     'installable': True,
