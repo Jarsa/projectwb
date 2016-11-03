@@ -6,7 +6,7 @@
 			<field name="model">project.project</field>
 			<field name="inherit_id" ref="project.edit_project"/>
 			<field name="arch" type="xml">
-				<field name="sequence" position="before">
+				<field name="partner_id" position="before">
 					<field name="code" required="1" style="width: 20%;"/>
 					<field invisible="1" name="picking_out_id"/>
 				</field>
