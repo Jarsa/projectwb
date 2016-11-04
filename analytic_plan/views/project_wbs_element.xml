@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="project_wbs_element_form_view2" model="ir.ui.view">
+            <field name="name">project.wbs.element.form</field>
+            <field name="model">project.wbs_element</field>
+            <field name="inherit_id" ref="project_wbs_element.project_wbs_element_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr='//div[@name="button_box"]' position='inside'>
+                    <button string="Resource plan lines!"
+                        name="%(action_analytic_plan_journal_open_form)d"
+                        type="action"
+                        context="{'default_account_id': analytic_account_id,'search_default_account_id': [analytic_account_id]}"
+                        groups="project.group_project_user,project.group_project_manager"
+                        icon="fa-tasks"/>
+                </xpath>
+                <notebook position="inside">
+                    <page string="Analytic Plan">
+                        <group>
+                            <field name="analytic_plan_version_id"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>
