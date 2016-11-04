@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © <2016> <Jarsa Sistemas, S.A. de C.V.>
+# Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from openerp import api, fields, models, _
@@ -38,7 +38,8 @@ class ProjectTask(models.Model):
         if not task.wbs_element_id:
             name = task.name
         else:
-            name = ('[' + task.wbs_element_id.code + '] ' +
+            name = ('[' + task.project_id.name + '] /' +
+                    '[' + task.wbs_element_id.code + '] ' +
                     task.wbs_element_id.name + ' / ' + task.name)
         task.analytic_account_id = (
             task.analytic_account_id.create({
