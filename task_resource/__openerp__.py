@@ -23,7 +23,7 @@
         'security/ir.model.access.csv',
         'wizards/purchase_request.xml',
         'views/total_task_resource_view.xml',
-        'views/task_resource.xml'
+        'views/task_resource.xml',
     ],
     'installable': True,
 }

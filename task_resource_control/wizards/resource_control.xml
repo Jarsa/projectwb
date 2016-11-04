@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--  Make Payment-->
+        <record id="project_view_resource_control" model="ir.ui.view">
+            <field name="name">Wizard Resource control</field>
+            <field name="model">resource.control.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Make an Aditive / Deductive">
+                    <group col="4">
+                        
+                    </group>
+                    <footer>
+                        <button name="make_control" class="oe_highlight" string="Confirm" type="object"/>
+                        <button special="cancel" string="Cancel"/></footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_view_resource_control" key2="client_action_multi" name="Deductive/Aditive" src_model="analytic.resource.plan.line" res_model="resource.control.wizard" target="new" view_mode="form"/>
+</data>
+</odoo>

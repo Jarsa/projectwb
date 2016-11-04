@@ -22,6 +22,7 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'wizards/resource_control.xml',
         'views/resource_control_view.xml',
     ],
     'installable': True,
