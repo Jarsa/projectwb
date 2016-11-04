@@ -7,7 +7,6 @@ from openerp import api, fields, models
 class AnalyticBillingPlan(models.Model):
     _name = 'analytic.billing.plan'
     _description = "Analytic Billing Plan"
-    _inherit = 'analytic.plan'
 
     customer_id = fields.Many2one(
         'res.partner', string="Customer", readonly=True)
@@ -26,6 +25,37 @@ class AnalyticBillingPlan(models.Model):
     price_unit = fields.Float("Price Unit")
     invoice_id = fields.Many2one('account.invoice')
     billing_id = fields.Many2one('project.task')
+    name = fields.Char(string='Activity description', required=True)
+    date = fields.Date('Date', required=True, default=fields.Date.today)
+    amount = fields.Float(
+        string='Amount', required=True,
+        help=('Calculated by multiplying the quantity '
+              'and the price given in the Product\'s '
+              'cost price. Always expressed in the '
+              'company main currency.'))
+    amount_currency = fields.Float(
+        string='Amount Currency',
+        help="The amount expressed in an optional other currency.")
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Currency',
+        default=lambda self: self.env.user.company_id.currency_id)
+    account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic Account',
+        required=True)
+    company_id = fields.Many2one(
+        'res.company', string='Company',
+        readonly=True)
+    product_uom_id = fields.Many2one('product.uom', string='UoM')
+    product_id = fields.Many2one('project.task', string='Product')
+    general_account_id = fields.Many2one(
+        'account.account', string='General Account',
+        required=True)
+    ref = fields.Char()
+    project_id = fields.Many2one(
+        'project.project',
+        string='Project')
 
     @api.onchange('account_id')
     def _onchange_account(self):

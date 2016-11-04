@@ -30,18 +30,11 @@
                                 <field name="quantity" required="1"/>
                             </group>
                             <group col="4" colspan="2" groups="analytic.group_analytic_accounting" string="Analytic     Information">
-                                <field name="version_id"/>
-                                <field name="journal_id"/>
                                 <field name="ref"/>
                                 <field groups="base.group_multi_company" name="company_id"/>
                                 <field colspan="4" name="amount"/>
                             </group>
                         </group>
-                        <notebook>
-                            <page name="notes" string="Notes">
-                                <field name="notes" nolabel="1" widget="html"/>
-                            </page>
-                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -56,13 +49,11 @@
                     <field name="customer_id"/>
                     <field name="date"/>
                     <field name="name"/>
-                    <field name="version_id"/>
                     <field name="currency_id" required="1"/>
                     <field name="quantity"/>
                     <field name="concept"/>
                     <field name="amount"/>
                     <field name="company_id"/>
-                    <field name="journal_id"/>
                     <field name="ref"/>
                     <field name="has_active_order"/>
                 </tree>
@@ -78,8 +69,6 @@
                         <field name="account_id"/>
                         <field name="customer_id"/>
                         <field name="name"/>
-                        <field name="version_id"/>
-                        <field name="journal_id"/>
                     </group>
                 </search>
             </field>

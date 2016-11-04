@@ -19,7 +19,7 @@ class ProjectWbsElement(models.Model):
         'resources',
         'wbs_element_id',
         compute='_compute_wbs_resource'
-        )
+    )
 
     @api.depends('parent_id')
     def _compute_button_resource(self):
@@ -37,10 +37,9 @@ class ProjectWbsElement(models.Model):
     @api.depends('resource_ids')
     def _compute_wbs_resource(self):
         for rec in self:
-            import ipdb; ipdb.set_trace()
             rec.resource_ids.unlink()
             resources = self.env['analytic.resource.plan.line'].search(
-                    [('account_id', '=', rec.analytic_account_id.id)])
+                [('account_id', '=', rec.analytic_account_id.id)])
 
             for resource in resources:
                 rec.resource_ids.create({
