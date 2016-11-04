@@ -28,7 +28,7 @@ class ResourceConsume(models.TransientModel):
         }
 
     @api.multi
-    def _check_consume_line(self, line, control):
+    def _check_consume_line(self, line, control, project_validator):
         if control == 0:
             old_project = line.task_resource_id.project_id.id
             current_project = line.task_resource_id.project_id.id
@@ -36,8 +36,7 @@ class ResourceConsume(models.TransientModel):
         else:
             current_project = line.task_resource_id.project_id.id
         if old_project != current_project:
-            raise exceptions.ValidationError(
-                _('The resources must be for the same project.'))
+            return not(project_validator)
         else:
             old_project = line.task_resource_id.project_id.id
 
@@ -56,8 +55,12 @@ class ResourceConsume(models.TransientModel):
 
         items = []
         control = 0
+        project_validator = True
         for line in resource_line_obj.browse(resource_line_ids):
-            self._check_consume_line(line, control)
+            self._check_consume_line(line, control, project_validator)
+            if not project_validator:
+                raise exceptions.ValidationError(
+                    _('The resources must be for the same project.'))
             items.append([0, 0, self._prepare_item(line)])
         res['item_ids'] = items
         return res
@@ -86,6 +89,8 @@ class ResourceConsume(models.TransientModel):
                 'product_uom': item.uom_id.id,
                 'product_uom_qty': item.qty_to_consume,
                 'account_analytic_id': item.analytic_account_id.id,
+                'task_id': item.line_id.task_resource_id.id,
+                'project_id': item.line_id.task_resource_id.project_id.id,
                 })
             moves.append(move)
         picking_dict = {
@@ -100,7 +105,6 @@ class ResourceConsume(models.TransientModel):
             'location_id': (
                 item.line_id.task_resource_id.project_id.
                 picking_out_id.default_location_src_id.id),
-            'account_analytic_id': item.analytic_account_id.id,
         }
         picking = stock_picking_obj.create(picking_dict)
         return {
