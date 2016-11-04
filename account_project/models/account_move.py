@@ -2,9 +2,7 @@
 # © 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp.tools.translate import _
-from openerp import api, fields, models
-from openerp.exceptions import Warning
+from openerp import fields, models
 
 
 class AccountMoveLine(models.Model):

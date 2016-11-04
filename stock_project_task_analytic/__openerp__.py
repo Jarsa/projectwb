@@ -13,7 +13,7 @@
     "category": "Warehouse Management",
     "license": "AGPL-3",
     "depends": [
-        "stock_project",
+        "stock_project_analytic",
     ],
     "data": [
         "views/stock_move_views.xml",
