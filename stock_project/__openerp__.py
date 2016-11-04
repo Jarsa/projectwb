@@ -14,6 +14,7 @@
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [
+        'account_accountant',
         'stock',
         'task_resource',
         ],

@@ -24,22 +24,9 @@ class ResourceConsume(models.TransientModel):
             'description': line.description or line.product_id.name,
             'uom_id': line.uom_id.id,
             'qty': line.qty,
-            'qty_on_hand': line.qty_on_hand
+            'qty_on_hand': line.qty_on_hand,
+            'qty_to_consume': 1.0,
         }
-
-    @api.multi
-    def _check_consume_line(self, line, control):
-        if control == 0:
-            old_project = line.task_resource_id.project_id.id
-            current_project = line.task_resource_id.project_id.id
-            control = 1
-        else:
-            current_project = line.task_resource_id.project_id.id
-        if old_project != current_project:
-            raise exceptions.ValidationError(
-                _('The resources must be for the same project.'))
-        else:
-            old_project = line.task_resource_id.project_id.id
 
     @api.model
     def default_get(self, fields):
@@ -59,6 +46,23 @@ class ResourceConsume(models.TransientModel):
         for line in resource_line_obj.browse(resource_line_ids):
             self._check_consume_line(line, control)
             items.append([0, 0, self._prepare_item(line)])
+        project_validator = False
+        for line in resource_line_obj.browse(resource_line_ids):
+            if control == 0:
+                old_project = line.task_resource_id.project_id.id
+                current_project = line.task_resource_id.project_id.id
+                control = 1
+            else:
+                current_project = line.task_resource_id.project_id.id
+            if old_project != current_project:
+                project_validator = True
+            else:
+                old_project = line.task_resource_id.project_id.id
+                items.append([0, 0, self._prepare_item(line)])
+
+        if project_validator:
+            raise exceptions.ValidationError(
+                _('The resources must be for the same project.'))
         res['item_ids'] = items
         return res
 
@@ -70,7 +74,7 @@ class ResourceConsume(models.TransientModel):
             if item.qty_to_consume > item.qty_on_hand:
                 raise exceptions.ValidationError(
                     _('The quantity to consume must be lower or equal'
-                        ' than the quantity on hand.'))
+                        ' than the quantity on hand. Please check your data.'))
             today = fields.Datetime.now()
             move = (0, 0, {
                 'company_id': self.env.user.company_id.id,
