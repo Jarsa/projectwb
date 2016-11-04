@@ -15,7 +15,6 @@
         'task_resource',
         'project_wbs_element',
         'account',
-        'analytic_plan',
     ],
     'data': [
         'views/account_invoice_line_view.xml',
