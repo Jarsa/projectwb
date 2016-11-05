@@ -36,5 +36,5 @@ class ProjectProject(models.Model):
                     'company_id': self.env.user.company_id.id,
                     'name': name,
                     'account_type': 'normal',
-                }))
+                }).id)
         return super(ProjectProject, self).create(vals)

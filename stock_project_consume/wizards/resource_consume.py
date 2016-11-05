@@ -14,6 +14,10 @@ class ResourceConsume(models.TransientModel):
     item_ids = fields.One2many(
         'resource.consume.line',
         'wiz_id', string='Items')
+    project_id = fields.Many2one(
+        'project.project')
+    location_id = fields.Many2one(
+        'stock.location')
 
     @api.model
     def _prepare_item(self, line):
@@ -43,9 +47,6 @@ class ResourceConsume(models.TransientModel):
 
         items = []
         control = 0
-        for line in resource_line_obj.browse(resource_line_ids):
-            self._check_consume_line(line, control)
-            items.append([0, 0, self._prepare_item(line)])
         project_validator = False
         for line in resource_line_obj.browse(resource_line_ids):
             if control == 0:
@@ -64,6 +65,9 @@ class ResourceConsume(models.TransientModel):
             raise exceptions.ValidationError(
                 _('The resources must be for the same project.'))
         res['item_ids'] = items
+        res['project_id'] = old_project
+        res['location_id'] = self.env['project.project'].search(
+            [('id', '=', old_project)]).location_id.id
         return res
 
     @api.multi
@@ -75,6 +79,13 @@ class ResourceConsume(models.TransientModel):
                 raise exceptions.ValidationError(
                     _('The quantity to consume must be lower or equal'
                         ' than the quantity on hand. Please check your data.'))
+            elif not item.line_id.task_resource_id.project_id.picking_out_id:
+                raise exceptions.ValidationError(
+                    _('The project must have a picking type for the consume.'))
+            elif item.qty_to_consume > item.qty:
+                raise exceptions.ValidationError(
+                    _('The quantity to consume must be lower or equal'
+                        ' than the quantity planned. Please check your data.'))
             today = fields.Datetime.now()
             move = (0, 0, {
                 'company_id': self.env.user.company_id.id,
@@ -90,21 +101,17 @@ class ResourceConsume(models.TransientModel):
                 'product_uom': item.uom_id.id,
                 'product_uom_qty': item.qty_to_consume,
                 'account_analytic_id': item.analytic_account_id.id,
+                'project_id': item.line_id.task_resource_id.project_id.id,
+                'task_id': item.line_id.task_resource_id.id,
                 })
             moves.append(move)
         picking_dict = {
             'company_id': self.env.user.company_id.id,
             'move_lines': moves,
-            'picking_type_id': (
-                item.line_id.task_resource_id.project_id.
-                picking_out_id.id),
+            'picking_type_id': self.project_id.picking_out_id.id,
             'location_dest_id': (
-                item.line_id.task_resource_id.project_id.
-                picking_out_id.default_location_dest_id.id),
-            'location_id': (
-                item.line_id.task_resource_id.project_id.
-                picking_out_id.default_location_src_id.id),
-            'account_analytic_id': item.analytic_account_id.id,
+                self.project_id.picking_out_id.default_location_dest_id.id),
+            'location_id': self.location_id.id,
         }
         picking = stock_picking_obj.create(picking_dict)
         return {
