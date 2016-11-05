@@ -24,6 +24,20 @@ class ProjectInvoice(models.TransientModel):
         invoice_names = ''
         control = 0
         lines = []
+        for partner_id in partner_ids:
+            if control == 0:
+                old_partner = partner_id
+                current_partner = partner_id
+                control = 1
+            else:
+                current_partner = partner_id
+            if old_partner != current_partner:
+                raise exceptions.ValidationError(
+                    _('The invoices must be of the same customer. '
+                      'Please check it.'))
+            else:
+                old_partner = partner_id
+
         for invoice in active_ids:
             if len(invoice.invoice_id) > 0:
                 raise exceptions.ValidationError(
@@ -59,6 +73,7 @@ class ProjectInvoice(models.TransientModel):
                             'account_id': invoice.product_id.
                             wbs_element_id.analytic_account_id.id,
                         }))
+
         invoice_id_create = self.env['account.invoice'].create({
             'partner_id': invoice.customer_id.id,
             'fiscal_position_id': (
@@ -73,19 +88,6 @@ class ProjectInvoice(models.TransientModel):
         for invoice_create in active_ids:
             invoice_create.invoice_id = invoice_id_create.id
 
-        for partner_id in partner_ids:
-            if control == 0:
-                old_partner = partner_id
-                current_partner = partner_id
-                control = 1
-            else:
-                current_partner = partner_id
-            if old_partner != current_partner:
-                raise exceptions.ValidationError(
-                    _('The invoices must be of the same customer. '
-                      'Please check it.'))
-            else:
-                old_partner = partner_id
         return {
             'name': 'Customer Invoice',
             'view_type': 'form',

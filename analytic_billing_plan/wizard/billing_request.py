@@ -11,28 +11,23 @@ class WizardBillingPlan(models.TransientModel):
     _name = 'wizard.billing.plan'
     _inherit = 'project.task'
 
-    remaining_quantity = fields.Float(
-        compute='_compute_remaining_quantity')
+    remaining_quantity = fields.Float()
     project_task = fields.Many2one('project.task')
-    total_invoice = fields.Float(compute='_compute_total_invoice')
+    total_invoice = fields.Float()
 
     @api.depends('quantity_invoice', 'unit_price')
     def _compute_total_invoice(self):
         for rec in self:
             rec.total_invoice = rec.quantity_invoice * rec.unit_price
 
-    @api.depends('qty', 'quantity_invoice')
-    def _compute_remaining_quantity(self):
+    @api.multi
+    def create_billing(self):
         for rec in self:
             rec.remaining_quantity = rec.qty - rec.quantity_invoice
             if rec.remaining_quantity < 0.0:
                 raise exceptions.ValidationError(
                     _('The quantity to invoice must be less than'
                         'the remaining quantity'))
-
-    @api.multi
-    def create_billing(self):
-        for rec in self:
             billing = self.env['analytic.billing.plan']
             if rec.qty == rec.quantity_invoice:
                 ref = _(
@@ -52,7 +47,7 @@ class WizardBillingPlan(models.TransientModel):
                 [('name', '=', rec.project_id.name)])
             billing.create({
                 "account_id": (
-                    rec.project_task.wbs_element_id.analytic_account_id.id),
+                    rec.project_task.analytic_account_id.id),
                 "customer_id": rec.project_id.partner_id.id,
                 "date": fields.Date.today(),
                 "name": rec.name,
@@ -61,7 +56,6 @@ class WizardBillingPlan(models.TransientModel):
                 "amount_currency": -(
                     rec.unit_price * rec.quantity_invoice),
                 "product_uom_id": rec.project_task.uom_id.id,
-                "version_id": rec.project_id.version_id.id,
                 "currency_id": self.env.user.company_id.currency_id.id,
                 "quantity": rec.quantity_invoice,
                 "concept": rec.id,

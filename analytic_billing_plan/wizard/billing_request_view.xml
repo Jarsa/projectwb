@@ -26,13 +26,6 @@
                 </form>
             </field>
         </record>
-        <record id="wizard_billing_plan" model="ir.actions.act_window">
-            <field name="name">Billing Request</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">wizard.billing.plan</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
+        <act_window id="action_view_billing_request" key2="client_action_multi" name="Create Billing Request" res_model="wizard.billing.plan" src_model="project.task" target="new" view_mode="form"/>
     </data>
 </odoo>
