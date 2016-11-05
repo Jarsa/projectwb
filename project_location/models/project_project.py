@@ -14,8 +14,6 @@ class ProjectProject(models.Model):
         string='Project Location'
     )
     code = fields.Char()
-    picking_out_id = fields.Many2one(comodel_name='stock.picking.type')
-    picking_in_id = fields.Many2one(comodel_name='stock.picking.type')
 
     @api.model
     def create(self, vals):
