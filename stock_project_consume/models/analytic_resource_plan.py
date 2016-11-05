@@ -29,6 +29,8 @@ class AnalyticResourcePlanLine(models.Model):
             if products:
                 for product in products:
                     rec.qty_on_hand += product.qty
+            else:
+                rec.qty_on_hand = 0
 
     @api.multi
     def _compute_qty_consumed(self):
