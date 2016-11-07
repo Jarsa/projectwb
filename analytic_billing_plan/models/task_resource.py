@@ -26,3 +26,14 @@ class TaskResource(models.Model):
         for record in self:
             record.nbr_billing = len(record.line_billing_ids.search(
                 [('product_id', '=', record.id)]))
+
+    @api.multi
+    def request_billing_request(self):
+        return {
+            'name': 'Billing Request',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'analytic.billing.plan',
+            'domain': [('account_id', '=', self.analytic_account_id.id)],
+            'type': 'ir.actions.act_window',
+        }

@@ -9,7 +9,7 @@
                 <form string="Analytic Billing Plan" version="9.0">
                     <header>
                         <button class="oe_highlight" name="action_button_draft" states="confirm" string="Draft" type="object"/>
-                        <button class="oe_highlight" confirm="Sure you want to bill the billing request?" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
+                        <button class="oe_highlight" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet string="Resource Plan Lines">
@@ -80,7 +80,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_analytic_billing_plan_line_filter"/>
         </record>
-        <menuitem id="analytic_billing_plan_menu" name="Billing Plan" parent="project.menu_project_management"/>
+        <menuitem id="analytic_billing_plan_menu" name="Billing Plan" parent="base.menu_main_pm"/>
         <menuitem action="action_analytic_billing_plan_line_open_form" id="analytic_billing_plan_line_entries" parent="analytic_billing_plan.analytic_billing_plan_menu" sequence="1"/>
     </data>
 </odoo>
