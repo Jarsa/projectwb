@@ -18,6 +18,10 @@ class ProjectTask(models.Model):
         'account.analytic.account',
         string='Analytic account')
 
+    wbs_element_account = fields.Many2one(
+        'account.analytic.account',
+        string='Wbs Analytic Account')
+
     @api.onchange('wbs_element_id')
     def _onchange_wbs_element_id(self):
         if self.wbs_element_id:
@@ -47,4 +51,6 @@ class ProjectTask(models.Model):
                 'company_id': self.env.user.company_id.id,
                 'name': name,
                 'account_type': 'normal'}))
+        task.wbs_element_account = (
+            task.wbs_element_id.analytic_account_id)
         return task
