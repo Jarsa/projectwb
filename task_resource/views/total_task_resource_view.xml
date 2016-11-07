@@ -6,12 +6,14 @@
             <field name="model">analytic.resource.plan.line</field>
             <field name="arch" type="xml">
                 <tree editable="top" string="Total task resource">
-                    <field name="account_id"/>
-                    <field name="product_id"/>
-                    <field name="description"/>
-                    <field name="qty" sum="Total qty"/>
-                    <field name="uom_id" required="1"/>
-                    <field name="subtotal"/>
+                    <field name="account_id" readonly="1"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="description" readonly="1"/>
+                    <field name="resource_type" readonly="1"/>
+                    <field name="qty" sum="Total qty" readonly="1"/>
+                    <field name="real_qty" sum="Total real_qty"/>
+                    <field name="uom_id" required="1" readonly="1"/>
+                    <field name="subtotal" readonly="1"/>
                 </tree>
             </field>
         </record>
@@ -21,7 +23,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
         </record>
+        <menuitem id="menu_task" name="Insume Explotion" parent="project.menu_project_management"/>
+        <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="menu_task"/>
     </data>
-    <menuitem id="menu_task" name="Insume Explotion" parent="project.menu_project_management"/>
-    <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="menu_task"/>
 </odoo>
