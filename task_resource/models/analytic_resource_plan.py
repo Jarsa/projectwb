@@ -19,7 +19,7 @@ class AnalyticResourcePlanLine(models.Model):
         'account.analytic.account',
         string='Analytic Account')
     date = fields.Date(default=fields.Date.today)
-    qty = fields.Float(string="Quantity", default="1")
+    qty = fields.Float(string="Quantity")
     subtotal = fields.Float()
     unit_price = fields.Float()
     description = fields.Char('Description')
@@ -27,23 +27,33 @@ class AnalyticResourcePlanLine(models.Model):
         comodel_name='product.uom',
         string='UoM',
     )
+    purchase_request_ids = fields.Many2many(
+        comodel_name='purchase.request',
+        string='Purchase Requests')
+    resource_type = fields.Selection(
+        [('steel', 'Steel'),
+         ('dust', 'Dust'),
+         ('pyw', 'Paint & waterproofing'),
+         ('fuel', 'Fuel'),
+         ('ironmonger', 'Ironmonger'),
+         ('wood', 'Wood'),
+         ('hydro-sanitary', 'Hydro-Sanitary'),
+         ('electric', 'Electric'),
+         ('tool', 'Tool'),
+         ('equipment', 'Equipment'),
+         ('specialized-equipment', 'Specialized-Equipment'),
+         ('workforce', 'Workforce'),
+         ('stony', 'Stony'),
+         ('concrete', 'Concrete'),
+         ('services', 'Services'),
+         ('aluminum&doors', 'Aluminum Works & Doors'),
+         ('smithy', 'Smithy')], string='Resource Type',
+        required=True, default='steel')
+    real_qty = fields.Float(string="Quantity Real")
+    requested_qty = fields.Float(string="Requestes Quantity")
 
     @api.onchange('product_id')
     def onchange_product(self):
         self.description = self.product_id.description
         self.uom_id = self.product_id.uom_id
-
-    @api.model
-    def default_get(self, field):
-        if 'active_id' in self.env.context:
-            record_id = self.env.context['active_id']
-            plan = self.env['project.wbs_element'].search(
-                [('id', '=', record_id)])
-            res = super(AnalyticResourcePlanLine, self).default_get(field)
-            res.update({'account_id': plan.analytic_account_id.id})
-            res.update(domain={
-                'account_id': plan.analytic_account_id.id
-            })
-            return res
-        else:
-            return super(AnalyticResourcePlanLine, self).default_get(field)
+        self.account_id = self.task_resource_id.analytic_account_id
