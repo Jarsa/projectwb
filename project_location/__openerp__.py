@@ -16,6 +16,7 @@
         'project',
         'stock',
         'task_resource',
+        'project_picking_type',
         ],
     'data': [
         'views/project_project_view.xml',

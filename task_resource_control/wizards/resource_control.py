@@ -57,7 +57,6 @@ class ResourceControl(models.TransientModel):
     def make_control(self):
         for rec in self:
             for item in rec.item_ids:
-                import ipdb; ipdb.set_trace()
                 if not item.task_id:
                     item.line_id.write({'real_qty': item.new_qty})
                 else:

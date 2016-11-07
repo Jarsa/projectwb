@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="resource_consume_view" model="ir.ui.view">
+            <field name="name">Resources_Consume</field>
+            <field name="model">resource.consume</field>
+            <field name="arch" type="xml">
+                <form string="Make Consume">
+                    <header class="text-center">
+                        <separator string="Consume Resources"/>
+                    </header>
+                    <field name="item_ids">
+                         <tree create="0" delete="0" editable="top">
+                            <field name="analytic_account_id"/>
+                            <field name="product_id"/>
+                            <field name="description"/>
+                            <field name="uom_id"/>
+                            <field name="qty"/>
+                            <field name="qty_on_hand"/>
+                            <field name="qty_to_consume"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="make_consume" class="oe_highlight" string="Confirm" type="object"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window 
+            id="action_resource_consume_view" 
+            key2="client_action_multi" 
+            name="Make Resource Consume" 
+            res_model="resource.consume" 
+            src_model="analytic.resource.plan.line" 
+            target="new" 
+            view_mode="form"/>
+    </data>
+</odoo>

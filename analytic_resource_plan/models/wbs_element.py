@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © <2016> <Jarsa Sistemas, S.A. de C.V.>
+# Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import api, fields, models
@@ -19,7 +19,7 @@ class ProjectWbsElement(models.Model):
         'resources',
         'wbs_element_id',
         compute='_compute_wbs_resource'
-        )
+    )
 
     @api.depends('parent_id')
     def _compute_button_resource(self):
@@ -37,10 +37,9 @@ class ProjectWbsElement(models.Model):
     @api.depends('resource_ids')
     def _compute_wbs_resource(self):
         for rec in self:
-            import ipdb; ipdb.set_trace()
             rec.resource_ids.unlink()
             resources = self.env['analytic.resource.plan.line'].search(
-                    [('account_id', '=', rec.analytic_account_id.id)])
+                [('account_id', '=', rec.analytic_account_id.id)])
 
             for resource in resources:
                 rec.resource_ids.create({
