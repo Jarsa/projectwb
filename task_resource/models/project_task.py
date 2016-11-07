@@ -68,7 +68,7 @@ class ProjectTask(models.Model):
                     })
             else:
                 for item in resources:
-                    if not item.purchase_request_ids:
+                    if not item.purchase_request_ids and rec.state == 'draft':
                         item.unlink()
                 for resource in rec.resource_ids:
                     for line in resources:
@@ -110,9 +110,9 @@ class ProjectTask(models.Model):
     @api.multi
     def action_button_confirm(self):
         for rec in self:
-            rec.write({'state': 'confirm'})
+            rec.state = 'confirm'
 
     @api.multi
     def action_button_draft(self):
         for rec in self:
-            rec.write({'state': 'draft'})
+            rec.state = 'draft'
