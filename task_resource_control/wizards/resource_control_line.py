@@ -2,7 +2,6 @@
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-
 from openerp import fields, models
 
 
@@ -46,3 +45,4 @@ class ResourceControlLine(models.TransientModel):
     unit_price = fields.Float(
         string='Unit price')
     subtotal = fields.Float(string='Subtotal')
+    type = fields.Char(string='Control type')

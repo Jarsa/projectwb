@@ -9,6 +9,8 @@ class AnalyticResourcePlanLine(models.Model):
     _name = "analytic.resource.plan.line"
     _description = "Resource Plan"
 
+    name = fields.Char(
+        string='Name')
     task_resource_id = fields.Many2one(
         'project.task',
     )
@@ -22,7 +24,7 @@ class AnalyticResourcePlanLine(models.Model):
     qty = fields.Float(string="Quantity")
     subtotal = fields.Float()
     unit_price = fields.Float()
-    description = fields.Char('Description')
+    description = fields.Char(string='Description')
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
@@ -57,3 +59,12 @@ class AnalyticResourcePlanLine(models.Model):
         self.description = self.product_id.description
         self.uom_id = self.product_id.uom_id
         self.account_id = self.task_resource_id.analytic_account_id
+
+    @api.model
+    def create(self, values):
+        res = super(AnalyticResourcePlanLine, self).create(values)
+        project = res.task_resource_id.project_id.name
+        product = res.product_id.name
+        task = res.task_resource_id.name
+        res.name = '[' + project + ' / ' + task + ']' + '[' + product + ']'
+        return res

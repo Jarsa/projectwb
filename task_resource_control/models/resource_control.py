@@ -8,16 +8,21 @@ class ResourceControl(models.Model):
     _name = "resource.control"
     _description = "Control the quantity of insumes used in a task"
 
-    name = fields.Char(string="Resource Name")
+    name = fields.Char(string="Resource Control Name")
     project_id = fields.Many2one(
         'project.project',
         string="Project")
     insume_explotion_id = fields.Many2one(
         'analytic.resource.plan.line',
         string="Insume explotion")
-    task_id = fields.Many2one('project.task', string="Task")
+    task_id = fields.Many2one(
+        'project.task',
+        string="Task")
+    analytic_account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic account')
     type = fields.Selection([
-        ('deductively', "Deductively"),
+        ('deductive', "Deductive"),
         ('additive', "Additive")])
     reason = fields.Html()
     state = fields.Selection([
@@ -25,6 +30,8 @@ class ResourceControl(models.Model):
         ('approved', "Approve"),
         ('reject', "Reject"),
     ], default='pending')
+    new_qty = fields.Float(
+        string="New quantity changed")
 
     @api.model
     def create(self, values):
