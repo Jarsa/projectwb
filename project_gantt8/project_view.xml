@@ -22,7 +22,7 @@
             <field name="model">project.project</field>
             <field name="type">gantt8</field>
             <field name="arch" type="xml">
-                <gantt8 date_start="date_start" date_stop="date" progress="progress_rate" string="Projects"/>
+                <gantt8 date_start="date_start" date_stop="date" string="Projects"/>
             </field>
         </record>
         <record id="project.open_view_project_all" model="ir.actions.act_window">

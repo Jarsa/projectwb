@@ -46,3 +46,5 @@ class AnalyticResourcePlanLine(models.Model):
             if products:
                 for product in products:
                     rec.qty_consumed += product.product_uom_qty
+            else:
+                rec.qty_consumed = 0
