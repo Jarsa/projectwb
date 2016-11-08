@@ -43,8 +43,6 @@ class WizardBillingPlan(models.TransientModel):
                 active_order = True
             rec.project_task.write(
                 {'remaining_quantity': rec.remaining_quantity})
-            general_account = self.env['account.analytic.account'].search(
-                [('name', '=', rec.project_id.name)])
             billing.create({
                 "account_id": (
                     rec.project_task.analytic_account_id.id),
@@ -63,7 +61,7 @@ class WizardBillingPlan(models.TransientModel):
                     rec.unit_price * rec.quantity_invoice),
                 "company_id": self.env.user.company_id.id,
                 "ref": ref,
-                "general_account_id": general_account.id,
+                # "account_id": analytic_account.id,
                 "has_active_order": active_order,
             })
 

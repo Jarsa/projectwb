@@ -50,8 +50,7 @@ class AnalyticBillingPlan(models.Model):
     product_uom_id = fields.Many2one('product.uom', string='UoM')
     product_id = fields.Many2one('project.task', string='Product')
     general_account_id = fields.Many2one(
-        'account.account', string='General Account',
-        required=True)
+        'account.account', string='General Account',)
     ref = fields.Char()
     project_id = fields.Many2one(
         'project.project',
