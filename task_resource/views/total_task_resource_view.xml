@@ -6,15 +6,26 @@
             <field name="model">analytic.resource.plan.line</field>
             <field name="arch" type="xml">
                 <tree editable="top" string="Total task resource">
+                    <field name="project_id" readonly="1"/>
                     <field name="account_id" readonly="1"/>
                     <field name="product_id" readonly="1"/>
                     <field name="description" readonly="1"/>
                     <field name="resource_type" readonly="1"/>
-                    <field name="qty" sum="Total qty" readonly="1"/>
+                    <field name="qty" readonly="1" sum="Total qty"/>
                     <field name="real_qty" sum="Total real_qty"/>
-                    <field name="uom_id" required="1" readonly="1"/>
+                    <field name="uom_id" readonly="1" required="1"/>
                     <field name="subtotal" readonly="1"/>
                 </tree>
+            </field>
+        </record>
+        <record id="view_task_resource_filter" model="ir.ui.view">
+            <field name="name">analytic.resource.plan.line.view.search</field>
+            <field name="model">analytic.resource.plan.line</field>
+            <field name="arch" type="xml">
+                <search string="Groups">
+                    <filter context="{'group_by':'account_id'}" string="Account"/>
+                    <filter context="{'group_by':'project_id'}" string="Project"/>
+                </search>
             </field>
         </record>
         <record id="action_total_task_resource" model="ir.actions.act_window">
@@ -23,7 +34,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
         </record>
-        <menuitem id="menu_task" name="Insume Explotion" parent="project.menu_project_management"/>
-        <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="menu_task"/>
+        <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="base.menu_main_pm"/>
     </data>
 </odoo>

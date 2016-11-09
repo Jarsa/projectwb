@@ -2,7 +2,7 @@
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
-from openerp import api, fields, models
+from openerp import _, exceptions, api, fields, models
 
 
 class PurchaseRequest(models.TransientModel):
@@ -13,6 +13,10 @@ class PurchaseRequest(models.TransientModel):
     item_ids = fields.One2many(
         'purchase.request.line.wizard',
         'wiz_id', string='Items')
+    project_id = fields.Many2one(
+        'project.project')
+    location_id = fields.Many2one(
+        'stock.location')
 
     @api.model
     def _prepare_item(self, line):
@@ -39,10 +43,28 @@ class PurchaseRequest(models.TransientModel):
             'Bad context propagation'
 
         items = []
-        # self._check_valid_request_line(resource_line_ids)
+        control = 0
+        project_validator = False
         for line in resource_line_obj.browse(resource_line_ids):
-            items.append([0, 0, self._prepare_item(line)])
+            if control == 0:
+                old_project = line.task_resource_id.project_id.id
+                current_project = line.task_resource_id.project_id.id
+                control = 1
+            else:
+                current_project = line.task_resource_id.project_id.id
+            if old_project != current_project:
+                project_validator = True
+            else:
+                old_project = line.task_resource_id.project_id.id
+                items.append([0, 0, self._prepare_item(line)])
+
+        if project_validator:
+            raise exceptions.ValidationError(
+                _('The resources of the tasks must be in the same project.'))
         res['item_ids'] = items
+        res['project_id'] = old_project
+        res['location_id'] = self.env['project.project'].search(
+            [('id', '=', old_project)]).location_id.id
         return res
 
     @api.multi

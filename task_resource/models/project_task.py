@@ -14,9 +14,6 @@ class ProjectTask(models.Model):
         string='Task Resource',
         copy=True,
         store=True)
-    analytic_account_id = fields.Many2one(
-        'account.analytic.account',
-        string='Analytic account')
     state = fields.Selection(
         [('draft', 'Draft'),
          ('confirm', 'Confirmed')], string='Status',
@@ -28,6 +25,11 @@ class ProjectTask(models.Model):
         store=True,
         compute='_compute_resources_line_ids'
         )
+    project_id = fields.Many2one(
+        'project.project')
+    analytic_account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic account')
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
@@ -55,6 +57,7 @@ class ProjectTask(models.Model):
                 for resource in rec.resource_ids:
                     rec.resource_line_ids.create({
                         'task_resource_id': rec.id,
+                        'project_id': rec.project_id.id,
                         'account_id': resource.account_id.id,
                         'product_id': resource.product_id.id,
                         'description': resource.description,
@@ -77,6 +80,7 @@ class ProjectTask(models.Model):
                     if resource.product_id.id not in list_item:
                         rec.resource_line_ids.create({
                             'task_resource_id': rec.id,
+                            'project_id': rec.project_id.id,
                             'account_id': resource.account_id.id,
                             'product_id': resource.product_id.id,
                             'description': resource.description,

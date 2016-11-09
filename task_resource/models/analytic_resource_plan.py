@@ -12,9 +12,13 @@ class AnalyticResourcePlanLine(models.Model):
     task_resource_id = fields.Many2one(
         'project.task',
     )
+    project_id = fields.Many2one(
+        'project.project',
+        string='Project',
+        readonly=True,)
     product_id = fields.Many2one(
         'product.product',
-        string="Product")
+        string='Product')
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account')
