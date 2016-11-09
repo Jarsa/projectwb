@@ -20,12 +20,29 @@ class TaskResource(models.Model):
         string='Currency',
         default=lambda self: self.env.user.company_id.currency_id)
     tax_ids = fields.Many2many('account.tax', string="Taxes")
+    billing_task_total = fields.Float(
+        string='Billing Total',
+        compute='_compute_billing_total')
+
+    @api.multi
+    def _compute_billing_total(self):
+        for rec in self:
+            invoices = self.env['account.invoice'].search(
+                [('project_id', '=', rec.project_id.id),
+                 ('state', '=', 'paid')])
+            if invoices:
+                for invoice in invoices:
+                    for line in invoice.invoice_line_ids:
+                        if line.concept_id == rec.id:
+                            rec.billing_task_total += invoice.subtotal * 1.16
+            else:
+                rec.billing_task_total = 0.0
 
     @api.depends('line_billing_ids')
     def _compute_nrb_billing(self):
         for record in self:
             record.nbr_billing = len(record.line_billing_ids.search(
-                [('product_id', '=', record.id)]))
+                [('task_id', '=', record.id)]))
 
     @api.multi
     def request_billing_request(self):

@@ -6,20 +6,23 @@
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
-                <div name="button_box" position='inside'>
-                    <button 
-                        name="request_billing_request"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-money">
-                        <field 
-                            name="nbr_billing"
-                            widget="statinfo"
-                            />
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" icon="fa-money" name="request_billing_request" type="object">
+                        <field name="nbr_billing" widget="statinfo"/>
                     </button>
                 </div>
                 <field name="tag_ids" position="after">
                     <field name="tax_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_task_tree2" model="ir.ui.view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="task_resource.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="subtotal" position="after">
+                    <field name="billing_task_total"/>
                 </field>
             </field>
         </record>

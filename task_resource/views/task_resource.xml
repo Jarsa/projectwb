@@ -6,7 +6,6 @@
             <field name="model">task.resource</field>
             <field name="arch" type="xml">
                 <tree default_order="sequence" editable="bottom" string="Task Resource">
-                    <field name="product_id"/>
                     <field name="description"/>
                     <field name="qty" sum="Total qty"/>
                     <field name="uom_id" required="1"/>

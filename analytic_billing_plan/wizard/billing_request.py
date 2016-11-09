@@ -13,7 +13,7 @@ class WizardBillingPlan(models.TransientModel):
 
     remaining_quantity = fields.Float()
     project_task = fields.Many2one('project.task')
-    total_invoice = fields.Float()
+    total_invoice = fields.Float(compute='_compute_total_invoice')
 
     @api.depends('quantity_invoice', 'unit_price')
     def _compute_total_invoice(self):
@@ -49,20 +49,20 @@ class WizardBillingPlan(models.TransientModel):
                 "customer_id": rec.project_id.partner_id.id,
                 "date": fields.Date.today(),
                 "name": rec.name,
-                "product_id": rec.project_task.id,
                 "price_unit": rec.unit_price,
                 "amount_currency": -(
                     rec.unit_price * rec.quantity_invoice),
                 "product_uom_id": rec.project_task.uom_id.id,
                 "currency_id": self.env.user.company_id.currency_id.id,
                 "quantity": rec.quantity_invoice,
-                "concept": rec.id,
+                "task_id": rec.id,
                 "amount": (
                     rec.unit_price * rec.quantity_invoice),
                 "company_id": self.env.user.company_id.id,
                 "ref": ref,
                 # "account_id": analytic_account.id,
                 "has_active_order": active_order,
+                "project_id": rec.project_id.id
             })
 
     @api.model
@@ -72,7 +72,7 @@ class WizardBillingPlan(models.TransientModel):
             plan = self.env['project.task'].search(
                 [('id', '=', record_id)])
             lines = plan.line_billing_ids.search(
-                [('product_id', '=', plan.id)])
+                [('task_id', '=', plan.id)])
             res = super(WizardBillingPlan, self).default_get(field)
             res.update({
                 'name': plan.name,

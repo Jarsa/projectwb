@@ -21,7 +21,6 @@ class AnalyticBillingPlan(models.Model):
         required=True, readonly=True,
         default='draft')
     quantity = fields.Float()
-    concept = fields.Many2one('product.product')
     price_unit = fields.Float("Price Unit")
     invoice_id = fields.Many2one('account.invoice')
     billing_id = fields.Many2one('project.task')
@@ -48,7 +47,7 @@ class AnalyticBillingPlan(models.Model):
         'res.company', string='Company',
         readonly=True)
     product_uom_id = fields.Many2one('product.uom', string='UoM')
-    product_id = fields.Many2one('project.task', string='Product')
+    task_id = fields.Many2one('project.task', string='Concept')
     general_account_id = fields.Many2one(
         'account.account', string='General Account',)
     ref = fields.Char()

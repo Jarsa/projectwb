@@ -75,17 +75,30 @@ class ResourceConsume(models.TransientModel):
         stock_picking_obj = self.env['stock.picking']
         moves = []
         for item in self.item_ids:
+            total_qty = item.line_id.qty_consumed + item.qty_to_consume
             if item.qty_to_consume > item.qty_on_hand:
                 raise exceptions.ValidationError(
-                    _('The quantity to consume must be lower or equal'
-                        ' than the quantity on hand. Please check your data.'))
+                    _('The quantity to consume must be lower or equal '
+                        'than the quantity on hand. Please check your data.\n'
+                        '\n Resource: %s \n Concept: %s')
+                    %
+                    (item.product_id.name, item.line_id.task_resource_id.name))
             elif not item.line_id.task_resource_id.project_id.picking_out_id:
                 raise exceptions.ValidationError(
                     _('The project must have a picking type for the consume.'))
             elif item.qty_to_consume > item.qty:
                 raise exceptions.ValidationError(
                     _('The quantity to consume must be lower or equal'
-                        ' than the quantity planned. Please check your data.'))
+                        ' than the quantity planned. Please check your data.\n'
+                        '\n Resource: %s \n Concept: %s') %
+                    (item.product_id.name, item.line_id.task_resource_id.name))
+            elif total_qty > item.qty:
+                raise exceptions.ValidationError(
+                    _('You cannot consume this quantity because the sumatory'
+                        'of the quantity exceeds the quantity planned.'
+                        ' Please check your data. \n \n Resource: %s \n'
+                        'Concept: %s') %
+                    (item.product_id.name, item.line_id.task_resource_id.name))
             today = fields.Datetime.now()
             move = (0, 0, {
                 'company_id': self.env.user.company_id.id,
