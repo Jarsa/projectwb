@@ -28,25 +28,9 @@ class TaskResource(models.Model):
         'account.analytic.account',
         string='Analytic Account')
     description = fields.Char('Description')
-    resource_type = fields.Selection(
-        [('steel', 'Steel'),
-         ('dust', 'Dust'),
-         ('pyw', 'Paint & waterproofing'),
-         ('fuel', 'Fuel'),
-         ('ironmonger', 'Ironmonger'),
-         ('wood', 'Wood'),
-         ('hydro-sanitary', 'Hydro-Sanitary'),
-         ('electric', 'Electric'),
-         ('tool', 'Tool'),
-         ('equipment', 'Equipment'),
-         ('specialized-equipment', 'Specialized-Equipment'),
-         ('workforce', 'Workforce'),
-         ('stony', 'Stony'),
-         ('concrete', 'Concrete'),
-         ('services', 'Services'),
-         ('aluminum&doors', 'Aluminum Works & Doors'),
-         ('smithy', 'Smithy')], string='Resource Type',
-        required=True, default='steel')
+    resource_type_id = fields.Many2one(
+        'resource.type',
+        string='Resource type')
 
     @api.onchange('product_id')
     def onchange_product(self):
