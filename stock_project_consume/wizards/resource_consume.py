@@ -76,7 +76,14 @@ class ResourceConsume(models.TransientModel):
         moves = []
         for item in self.item_ids:
             total_qty = item.line_id.qty_consumed + item.qty_to_consume
-            if item.qty_to_consume > item.qty_on_hand:
+            if item.qty_to_consume <= 0:
+                raise exceptions.ValidationError(
+                    _('The quantity to consume must be higher than zero'
+                        'Please check your data.\n'
+                        '\n Resource: %s \n Concept: %s')
+                    %
+                    (item.product_id.name, item.line_id.task_resource_id.name))
+            elif item.qty_to_consume > item.qty_on_hand:
                 raise exceptions.ValidationError(
                     _('The quantity to consume must be lower or equal '
                         'than the quantity on hand. Please check your data.\n'
