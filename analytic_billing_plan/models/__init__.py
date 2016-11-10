@@ -2,6 +2,9 @@
 # Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from . import account_invoice
 from . import account_invoice_line
 from . import analytic_billing_plan
 from . import task_resource
+from . import project_wbs_element
+from . import project_project

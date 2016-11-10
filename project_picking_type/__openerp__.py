@@ -2,8 +2,8 @@
 # © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 {
-    'name': 'Project Location',
-    'summary': 'Location for each project',
+    'name': 'Project Picking Type',
+    'summary': 'Picking Type OUT/IN',
     'version': '9.0.1.0.0',
     'description': 'This module allows the creation of ubication for each'
     'project created in Odoo',

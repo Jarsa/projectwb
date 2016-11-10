@@ -27,7 +27,7 @@ class ProjectTask(models.Model):
         inverse_name='task_resource_id',
         store=True,
         compute='_compute_resources_line_ids'
-        )
+    )
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
@@ -38,6 +38,22 @@ class ProjectTask(models.Model):
     )
     subtotal = fields.Float(compute='_compute_value_subtotal')
     unit_price = fields.Float()
+    total_expense = fields.Float(
+        'Total Expenses', compute="_compute_total_expense")
+
+    @api.multi
+    def _compute_total_expense(self):
+        for rec in self:
+            invoice_lines = self.env['account.invoice.line'].search([
+                ('invoice_id.state', '=', 'paid'),
+                ('product_id', 'in', [
+                    x.product_id.id for x in rec.resource_line_ids]),
+                ('account_analytic_id', '=', rec.analytic_account_id.id)])
+            if invoice_lines:
+                for line in invoice_lines:
+                        rec.total_expense += line.price_subtotal
+            else:
+                rec.total_expense = 0.0
 
     @api.multi
     @api.depends('qty', 'unit_price')
@@ -68,7 +84,7 @@ class ProjectTask(models.Model):
                     })
             else:
                 for item in resources:
-                    if not item.purchase_request_ids:
+                    if not item.purchase_request_ids and rec.state == 'draft':
                         item.unlink()
                 for resource in rec.resource_ids:
                     for line in resources:
@@ -110,9 +126,9 @@ class ProjectTask(models.Model):
     @api.multi
     def action_button_confirm(self):
         for rec in self:
-            rec.write({'state': 'confirm'})
+            rec.state = 'confirm'
 
     @api.multi
     def action_button_draft(self):
         for rec in self:
-            rec.write({'state': 'draft'})
+            rec.state = 'draft'

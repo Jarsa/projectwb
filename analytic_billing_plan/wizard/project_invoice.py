@@ -62,19 +62,19 @@ class ProjectInvoice(models.TransientModel):
                 if total > 0.0:
                     lines.append(
                         (0, 0, {
-                            'concept_id': invoice.product_id.id,
+                            'concept_id': invoice.task_id.id,
+                            'wbs_element_id': (
+                                invoice.task_id.wbs_element_id.id),
                             'quantity': invoice.quantity,
                             'price_unit': invoice.price_unit,
-                            'invoice_line_tax_ids': [(
-                                6, 0,
-                                [x.id for x in invoice.product_id.tax_ids]
-                            )],
-                            'name': invoice.product_id.name,
-                            'account_id': invoice.product_id.
-                            wbs_element_id.analytic_account_id.id,
+                            'name': invoice.task_id.name,
+                            'account_id': invoice.task_id.account_id.id,
+                            'account_analytic_id': (
+                                invoice.account_analytic_id.id)
                         }))
 
         invoice_id_create = self.env['account.invoice'].create({
+            'project_id': invoice.project_id.id,
             'partner_id': invoice.customer_id.id,
             'fiscal_position_id': (
                 invoice.customer_id.property_account_position_id.id),
