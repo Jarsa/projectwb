@@ -28,8 +28,9 @@ class PurchaseRequestLine(models.TransientModel):
         readonly=True)
     description = fields.Char(
         string='Description',
-        required=True)
-    uom_id = fields.Many2one('product.uom', string='UoM')
+        required=True,
+        readonly=True)
+    uom_id = fields.Many2one('product.uom', string='UoM', readonly=True)
     qty = fields.Float(
         string='Quantity Planned',
         readonly=True)
@@ -39,3 +40,4 @@ class PurchaseRequestLine(models.TransientModel):
     qty_to_request = fields.Float(
         string="Quantity To Request",
         default="1.0")
+    requested_qty = fields.Float(readonly=True)

@@ -27,6 +27,7 @@ class PurchaseRequest(models.TransientModel):
             'description': line.description,
             'uom_id': line.uom_id.id,
             'qty': line.qty,
+            'requested_qty': line.requested_qty
         }
 
     @api.model
@@ -70,6 +71,18 @@ class PurchaseRequest(models.TransientModel):
     @api.multi
     def make_request(self):
         lines = []
+        for rec in self:
+            for item in rec.item_ids:
+                value = item.requested_qty + item.qty_to_request
+                if value > item.qty or item.qty_to_request <= 0:
+                    raise exceptions.ValidationError(
+                        _(
+                            'You cannot request more products than you planned'
+                            '.or null quantities.'
+                            '\n \n <strong>Resource:</strong> %s'
+                            '\n Concept: %s') % (
+                            item.product_id.name,
+                            item.line_id.task_resource_id.name))
         today = datetime.strptime(fields.Datetime.now(), "%Y-%m-%d %H:%M:%S")
         for item in self.item_ids:
             line = (0, 0, {
@@ -82,7 +95,7 @@ class PurchaseRequest(models.TransientModel):
             lines.append(line)
         order = ({
             'company_id': self.env.user.company_id.id,
-            'picking_type_id': 1,
+            'picking_type_id': self.project_id.picking_in_id.id,
             'requested_by': self.env.user.id,
             'name': self.env['purchase.request']._get_default_name(),
             'line_ids': lines,
