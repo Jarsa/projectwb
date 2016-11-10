@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_task_form2" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="task_resource.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="indirects" class="oe_inline"/>
+                    <field name="field_indirects"/>
+                </field>
+                <field name="uom_id" position="after">
+                    <field name="direct_cost" widget="monetary"/>
+                    <field name="indirects_amount"/>
+                    <field name="field_indirects_amount"/>
+                    <field name="percentages_subtotal"/>
+                </field>
+                <field name="subtotal" position="replace">
+                    <field name="subtotal" style="width:100px;"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
