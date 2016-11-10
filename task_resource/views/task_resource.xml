@@ -26,12 +26,16 @@
                 <div class="oe_button_box" name="button_box">
                     <button class="oe_stat_button" icon="fa-tasks" name="insume_explotion" string="Insume Explotion" type="object"/>
                 </div>
-                <field name="user_id" position="after">
-                    <field name="uom_id" required="1"/>
-                    <field name="qty" sum="Total qty"/>
-                    <field name="unit_price" required="1"/>
-                    <field name="subtotal"/>
-                </field>
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group class="oe_subtotal_footer oe_right" style="margin-right:10%;">
+                            <field name="uom_id" class="oe_left" required="1"/>
+                            <field name="unit_price" class="oe_left" required="1"/>
+                            <field name="qty" class="oe_left" sum="Total qty"/>
+                            <field name="subtotal" class="oe_left"/>
+                        </group>
+                    </group>
+                </xpath>
                 <notebook position="inside">
                     <page name="Resources" attrs="{'invisible':[('analytic_account_id', '=', False)]}" string="Resources">
                         <field name="resource_ids" nolabel="1">
@@ -65,7 +69,7 @@
                 </notebook>
             </field>
         </record>
-        <record model="ir.ui.view" id="view_task_kanban">
+        <record id="view_task_kanban" model="ir.ui.view">
             <field name="name">project.task.kanban</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_kanban"/>
@@ -81,8 +85,8 @@
                     </div>
                 </field>
             </field>
-         </record>
-         <record id="view_task_tree2" model="ir.ui.view">
+        </record>
+        <record id="view_task_tree2" model="ir.ui.view">
             <field name="name">project.task.tree</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_tree2"/>
@@ -90,9 +94,8 @@
                 <field name="name" position="before">
                     <field name="code"/>
                 </field>
-                <field name="project_id"
-                       position="after">
-                    <field name ="uom_id"/>
+                <field name="project_id" position="after">
+                    <field name="uom_id"/>
                     <field name="qty" sum="Total Qty"/>
                     <field name="unit_price"/>
                     <field name="subtotal" sum="subtotal"/>
