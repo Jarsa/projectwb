@@ -9,7 +9,7 @@ class TaskResource(models.Model):
     _description = "Task Resource"
     _inherit = 'project.task'
 
-    line_billing_ids = fields.One2many('analytic.billing.plan', 'billing_id')
+    line_billing_ids = fields.One2many('analytic.billing.plan', 'task_id')
     nbr_billing = fields.Float(
         string="Billing Request",
         compute="_compute_nrb_billing")
@@ -23,18 +23,19 @@ class TaskResource(models.Model):
     billing_task_total = fields.Float(
         string='Billing Total',
         compute='_compute_billing_total')
+    account_id = fields.Many2one('account.account', 'Account')
 
     @api.multi
     def _compute_billing_total(self):
         for rec in self:
-            invoices = self.env['account.invoice'].search(
-                [('project_id', '=', rec.project_id.id),
-                 ('state', '=', 'paid')])
+            invoices = self.env['account.invoice'].search([
+                ('project_id', '=', rec.project_id.id),
+                ('state', '=', 'paid')])
             if invoices:
                 for invoice in invoices:
                     for line in invoice.invoice_line_ids:
-                        if line.concept_id == rec.id:
-                            rec.billing_task_total += invoice.subtotal * 1.16
+                        if line.concept_id.id == rec.id:
+                            rec.billing_task_total += line.price_subtotal
             else:
                 rec.billing_task_total = 0.0
 
@@ -51,6 +52,7 @@ class TaskResource(models.Model):
             'view_type': 'form',
             'view_mode': 'tree,form',
             'res_model': 'analytic.billing.plan',
-            'domain': [('account_id', '=', self.analytic_account_id.id)],
+            'domain': [(
+                'account_analytic_id', '=', self.analytic_account_id.id)],
             'type': 'ir.actions.act_window',
         }

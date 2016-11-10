@@ -68,7 +68,9 @@ class ProjectInvoice(models.TransientModel):
                             'quantity': invoice.quantity,
                             'price_unit': invoice.price_unit,
                             'name': invoice.task_id.name,
-                            'account_analytic_id': invoice.account_id.id,
+                            'account_id': invoice.task_id.account_id.id,
+                            'account_analytic_id': (
+                                invoice.account_analytic_id.id)
                         }))
 
         invoice_id_create = self.env['account.invoice'].create({

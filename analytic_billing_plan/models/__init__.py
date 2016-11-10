@@ -6,3 +6,5 @@ from . import account_invoice
 from . import account_invoice_line
 from . import analytic_billing_plan
 from . import task_resource
+from . import project_wbs_element
+from . import project_project

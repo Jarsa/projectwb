@@ -13,6 +13,7 @@
                 </div>
                 <field name="tag_ids" position="after">
                     <field name="tax_ids" widget="many2many_tags"/>
+                    <field name="account_id"/>
                 </field>
             </field>
         </record>
@@ -26,5 +27,19 @@
                 </field>
             </field>
         </record>
+        <record model="ir.ui.view" id="view_task_kanban">
+            <field name="name">project.task.kanban</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <div>
+                        <br/>
+                        <label> Billing Total: $</label>
+                        <field name="billing_task_total"/>
+                    </div>
+                </field>
+            </field>
+         </record>
     </data>
 </odoo>

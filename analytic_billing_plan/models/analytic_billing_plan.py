@@ -23,7 +23,6 @@ class AnalyticBillingPlan(models.Model):
     quantity = fields.Float()
     price_unit = fields.Float("Price Unit")
     invoice_id = fields.Many2one('account.invoice')
-    billing_id = fields.Many2one('project.task')
     name = fields.Char(string='Activity description', required=True)
     date = fields.Date('Date', required=True, default=fields.Date.today)
     amount = fields.Float(
@@ -39,7 +38,8 @@ class AnalyticBillingPlan(models.Model):
         'res.currency',
         string='Currency',
         default=lambda self: self.env.user.company_id.currency_id)
-    account_id = fields.Many2one(
+    account_id = fields.Many2one('account.account', 'Account')
+    account_analytic_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account',
         required=True)

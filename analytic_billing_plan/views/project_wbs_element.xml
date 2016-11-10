@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wbs_element_kanban" model="ir.ui.view">
+            <field name="name">project.wbs_element.kanban</field>
+            <field name="model">project.wbs_element</field>
+            <field name="inherit_id" ref="project_wbs_element.wbs_element_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="total_charge" position="after">
+                    <field name="billing_concept_total"/>
+                </field>
+                <xpath expr="//t[@name='total']" position="after">
+                    <br/>
+                    <t t-if="record.billing_concept_total.value">
+                        <span>
+                            <label>Billing Total: $</label>
+                            <t t-esc="record.billing_concept_total.value"/>
+                        </span>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
