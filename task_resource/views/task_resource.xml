@@ -95,8 +95,8 @@
                     <field name="code"/>
                 </field>
                 <field name="project_id" position="after">
-                    <field name="uom_id"/>
                     <field name="qty" sum="Total Qty"/>
+                    <field name="uom_id"/>
                     <field name="unit_price"/>
                     <field name="subtotal" sum="subtotal"/>
                 </field>
