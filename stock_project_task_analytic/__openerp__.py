@@ -13,6 +13,7 @@
     "category": "Warehouse Management",
     "license": "AGPL-3",
     "depends": [
+        "stock_analytic",
         "stock_project_analytic",
     ],
     "data": [
