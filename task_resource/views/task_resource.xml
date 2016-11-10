@@ -43,7 +43,7 @@
                                 <field editable="0" name="account_id"/>
                                 <field name="product_id"/>
                                 <field name="description"/>
-                                <field name="resource_type"/>
+                                <field name="resource_type_id" widget="selection"/>
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" sum="Total qty"/>
                             </tree>
@@ -58,7 +58,7 @@
                                 <field editable="0" name="account_id"/>
                                 <field name="product_id"/>
                                 <field name="description"/>
-                                <field name="resource_type"/>
+                                <field name="resource_type_id" widget="selection"/>
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" sum="Total qty"/>
                                 <field name="real_qty" readonly="1" sum="Total real_qty"/>
