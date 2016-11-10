@@ -7,14 +7,14 @@
             <field name="inherit_id" ref="project_wbs_element.wbs_element_kanban_view"/>
             <field name="arch" type="xml">
                 <field name="total_charge" position="after">
-                    <field name="billing_concept_total"/>
+                    <field name="total_concept_expense"/>
                 </field>
                 <xpath expr="//t[@name='total']" position="after">
-                    <t t-if="record.billing_concept_total.value">
+                    <t t-if="record.total_concept_expense.value">
                         <div>
                             <span>
-                                <label>Total Billing: $</label>
-                                <t t-esc="record.billing_concept_total.value"/>
+                                <label>Total Expenses: $</label>
+                                <t t-esc="record.total_concept_expense.value"/>
                             </span>
                         </div>
                     </t>

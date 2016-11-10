@@ -12,6 +12,7 @@
                 </tree>
             </field>
         </record>
+
         <record id="view_task_form2" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
@@ -71,7 +72,10 @@
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <div>
-                        <br/>
+                        <label> Total Expense: $</label>
+                        <field name="total_expense"/>
+                    </div>
+                    <div>
                         <label> Total: $</label>
                         <field name="subtotal"/>
                     </div>

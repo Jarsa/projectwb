@@ -30,7 +30,8 @@ class TaskResource(models.Model):
         for rec in self:
             invoices = self.env['account.invoice'].search([
                 ('project_id', '=', rec.project_id.id),
-                ('state', '=', 'paid')])
+                ('state', '=', 'paid'),
+                ('type', '=', 'out_invoice')])
             if invoices:
                 for invoice in invoices:
                     for line in invoice.invoice_line_ids:

@@ -17,13 +17,15 @@
         'product',
         'project_wbs_element',
         'purchase_request_to_rfq',
-        ],
+    ],
 
     'data': [
         'security/ir.model.access.csv',
         'wizards/purchase_request.xml',
         'views/total_task_resource_view.xml',
         'views/task_resource.xml',
+        'views/project_wbs_element.xml',
+        'views/project_project_view.xml',
     ],
     'installable': True,
 }

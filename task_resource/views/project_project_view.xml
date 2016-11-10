@@ -7,13 +7,13 @@
 			<field name="inherit_id" ref="project.view_project_kanban"/>
 			<field name="arch" type="xml">
 				<field name="doc_count" position="after">
-					<field name="billing_project_total"/>
+					<field name="total_project_expenses"/>
 				</field>
 				<xpath expr="//div[@class='o_kanban_primary_left']" position="after">
-					<t t-if="record.billing_project_total.value">
+					<t t-if="record.total_project_expenses.value">
 						<span>
-							<label>Total Billing: $</label>
-							<t t-esc="record.billing_project_total.value"/>
+							<label>Total Expenses: $</label>
+							<t t-esc="record.total_project_expenses.value"/>
 						</span>
 					</t>
 				</xpath>

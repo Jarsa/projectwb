@@ -34,8 +34,7 @@
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <div>
-                        <br/>
-                        <label> Billing Total: $</label>
+                        <label>Total Billing: $</label>
                         <field name="billing_task_total"/>
                     </div>
                 </field>
