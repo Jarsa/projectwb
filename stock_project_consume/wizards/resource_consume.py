@@ -95,7 +95,7 @@ class ResourceConsume(models.TransientModel):
             elif total_qty > item.qty:
                 raise exceptions.ValidationError(
                     _('You cannot consume this quantity because the sumatory'
-                        'of the quantity exceeds the quantity planned.'
+                        ' of the quantity exceeds the quantity planned.'
                         ' Please check your data. \n \n Resource: %s \n'
                         'Concept: %s') %
                     (item.product_id.name, item.line_id.task_resource_id.name))
