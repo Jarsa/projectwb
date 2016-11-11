@@ -27,6 +27,7 @@ class PurchaseRequest(models.TransientModel):
             'description': line.description,
             'uom_id': line.uom_id.id,
             'qty': line.qty,
+            'real_qty': line.real_qty,
             'requested_qty': line.requested_qty
         }
 
@@ -46,6 +47,7 @@ class PurchaseRequest(models.TransientModel):
         items = []
         control = 0
         project_validator = False
+        state_validator = False
         for line in resource_line_obj.browse(resource_line_ids):
             if control == 0:
                 old_project = line.task_resource_id.project_id.id
@@ -55,6 +57,8 @@ class PurchaseRequest(models.TransientModel):
                 current_project = line.task_resource_id.project_id.id
             if old_project != current_project:
                 project_validator = True
+            elif line.task_resource_id.state != 'confirm':
+                state_validator = True
             else:
                 old_project = line.task_resource_id.project_id.id
                 items.append([0, 0, self._prepare_item(line)])
@@ -62,6 +66,11 @@ class PurchaseRequest(models.TransientModel):
         if project_validator:
             raise exceptions.ValidationError(
                 _('The resources of the tasks must be in the same project.'))
+        elif state_validator:
+            raise exceptions.ValidationError(
+                _('The concept must be confirmed \n \n'
+                    'Resource: %s \n Concept: %s.') %
+                (line.product_id.name, line.task_resource_id.name))
         res['item_ids'] = items
         res['project_id'] = old_project
         res['location_id'] = self.env['project.project'].search(
@@ -74,7 +83,7 @@ class PurchaseRequest(models.TransientModel):
         for rec in self:
             for item in rec.item_ids:
                 value = item.requested_qty + item.qty_to_request
-                if value > item.qty or item.qty_to_request <= 0:
+                if value > item.real_qty or item.qty_to_request <= 0:
                     raise exceptions.ValidationError(
                         _(
                             'You cannot request more products than you planned'

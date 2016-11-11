@@ -54,6 +54,10 @@ class ProjectInvoice(models.TransientModel):
                             'quantity': invoice.quantity,
                             'price_unit': invoice.price_unit,
                             'name': invoice.task_id.name,
+                            'invoice_line_tax_ids': [(
+                                6, 0,
+                                [x.id for x in invoice.task_id.tax_ids]
+                                )],
                             'account_id': invoice.task_id.account_id.id,
                             'account_analytic_id': (
                                 invoice.account_analytic_id.id)

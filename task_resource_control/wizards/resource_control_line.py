@@ -46,3 +46,4 @@ class ResourceControlLine(models.TransientModel):
         string='Unit price')
     subtotal = fields.Float(string='Subtotal')
     type = fields.Char(string='Control type')
+    reason = fields.Text()

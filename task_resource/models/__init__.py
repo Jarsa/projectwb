@@ -8,4 +8,5 @@ from . import task_resource
 from . import total_task_resource
 from . import project_wbs_element
 from . import project_project
+from . import purchase_order_line
 from . import resource_type

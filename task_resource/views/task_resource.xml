@@ -36,13 +36,13 @@
                     </group>
                 </xpath>
                 <field name="user_id" position="replace">
-                    <field name="user_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="user_id"/>
                 </field>
                 <field name="project_id" position="replace">
-                    <field name="project_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="project_id"/>
                 </field>
                 <field name="date_deadline" position="replace">
-                    <field name="date_deadline" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="date_deadline"/>
                 </field>
                 <notebook position="inside">
                     <page attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="Resources" string="Resources">
@@ -50,10 +50,10 @@
                             <tree default_order="sequence" editable="bottom" string="Resources">
                                 <field editable="0" name="account_id"/>
                                 <field name="product_id" required="1"/>
-                                <field name="description"/>
-                                <field name="resource_type_id" widget="selection"/>
+                                <field name="description" required="1"/>
+                                <field name="resource_type_id" required="1" widget="selection"/>
                                 <field name="uom_id" required="1"/>
-                                <field name="qty" sum="Total qty"/>
+                                <field name="qty" required="1" sum="Total qty"/>
                             </tree>
                         </field>
                     </page>
@@ -70,7 +70,7 @@
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" sum="Total qty"/>
                                 <field name="real_qty" readonly="1" sum="Total real_qty"/>
-                                <field name="subtotal"/>
+                                <field name="subtotal" sum="subtotal"/>
                             </tree>
                         </field>
                     </page>
@@ -84,12 +84,12 @@
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <div>
-                        <label>Total Expense: $</label>
-                        <field name="total_expense"/>
+                        <label>Total Planned: $</label>
+                        <field name="subtotal"/>
                     </div>
                     <div>
-                        <label>Total: $</label>
-                        <field name="subtotal"/>
+                        <label>Total Expense: $</label>
+                        <field name="total_expense"/>
                     </div>
                 </field>
             </field>
@@ -108,6 +108,7 @@
                     <field name="uom_id"/>
                     <field name="unit_price"/>
                     <field name="subtotal" sum="subtotal"/>
+                    <field name="total_expense"/>
                 </field>
             </field>
         </record>

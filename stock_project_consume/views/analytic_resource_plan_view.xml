@@ -7,8 +7,8 @@
             <field name="inherit_id" ref="task_resource.total_task_resource_tree"/>
             <field name="arch" type="xml">
                 <field name="qty" position="after">
-                    <field name="qty_on_hand"/>
-                    <field name="qty_consumed"/>
+                    <field name="qty_on_hand" sum="Total Qty on Hand"/>
+                    <field name="qty_consumed" sum="Total Qty Consumed"/>
                 </field>
             </field>
         </record>

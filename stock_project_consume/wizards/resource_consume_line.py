@@ -33,9 +33,15 @@ class ResourceConsumeLine(models.TransientModel):
     qty = fields.Float(
         string='Quantity Planned',
         readonly=True)
+    real_qty = fields.Float(
+        string="Real Quantity",
+        readonly=True,)
     qty_on_hand = fields.Float(
         string='Quantity On Hand',
         readonly=True)
+    qty_consumed = fields.Float(
+        string='Quantity Consumed',
+        readonly=True,)
     qty_to_consume = fields.Float(
         string="Quantity To Consume",
         default="1.0")

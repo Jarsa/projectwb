@@ -28,8 +28,10 @@ class ResourceConsume(models.TransientModel):
             'description': line.description or line.product_id.name,
             'uom_id': line.uom_id.id,
             'qty': line.qty,
+            'real_qty': line.real_qty,
             'qty_on_hand': line.qty_on_hand,
             'qty_to_consume': 1.0,
+            'qty_consumed': line.qty_consumed,
         }
 
     @api.model
@@ -48,6 +50,7 @@ class ResourceConsume(models.TransientModel):
         items = []
         control = 0
         project_validator = False
+        state_validator = False
         for line in resource_line_obj.browse(resource_line_ids):
             if control == 0:
                 old_project = line.task_resource_id.project_id.id
@@ -57,6 +60,8 @@ class ResourceConsume(models.TransientModel):
                 current_project = line.task_resource_id.project_id.id
             if old_project != current_project:
                 project_validator = True
+            elif line.task_resource_id.state != 'confirm':
+                state_validator = True
             else:
                 old_project = line.task_resource_id.project_id.id
                 items.append([0, 0, self._prepare_item(line)])
@@ -64,6 +69,11 @@ class ResourceConsume(models.TransientModel):
         if project_validator:
             raise exceptions.ValidationError(
                 _('The resources must be for the same project.'))
+        elif state_validator:
+            raise exceptions.ValidationError(
+                _('The concept must be confirmed \n \n'
+                    'Resource: %s \n Concept: %s.') %
+                (line.product_id.name, line.task_resource_id.name))
         res['item_ids'] = items
         res['project_id'] = old_project
         res['location_id'] = self.env['project.project'].search(
@@ -93,13 +103,13 @@ class ResourceConsume(models.TransientModel):
             elif not item.line_id.task_resource_id.project_id.picking_out_id:
                 raise exceptions.ValidationError(
                     _('The project must have a picking type for the consume.'))
-            elif item.qty_to_consume > item.qty:
+            elif item.qty_to_consume > item.real_qty:
                 raise exceptions.ValidationError(
                     _('The quantity to consume must be lower or equal'
                         ' than the quantity planned. Please check your data.\n'
                         '\n Resource: %s \n Concept: %s') %
                     (item.product_id.name, item.line_id.task_resource_id.name))
-            elif total_qty > item.qty:
+            elif total_qty > item.real_qty:
                 raise exceptions.ValidationError(
                     _('You cannot consume this quantity because the sumatory'
                         ' of the quantity exceeds the quantity planned.'

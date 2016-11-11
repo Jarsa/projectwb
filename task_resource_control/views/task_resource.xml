@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page name="Resource change history" string="Resource change history">
-                        <field name="resource_control_id" nolabel="1" readonly="1">
+                        <field name="resource_control_ids" nolabel="1" readonly="1">
                         </field>
                     </page>
                 </notebook>
