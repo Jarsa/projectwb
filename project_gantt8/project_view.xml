@@ -22,7 +22,7 @@
             <field name="model">project.project</field>
             <field name="type">gantt8</field>
             <field name="arch" type="xml">
-                <gantt8 date_start="date_start" date_stop="date" progress="progress_rate" string="Projects"/>
+                <gantt8 date_start="date_start" date_stop="date" string="Projects"/>
             </field>
         </record>
         <record id="project.open_view_project_all" model="ir.actions.act_window">
@@ -35,26 +35,24 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field eval="2" name="priority"/>
             <field name="arch" type="xml">
-                <page>
-                    <!--                 <xpath expr="//notebook/page[2]/group" position="replace">-->
+                <xpath expr="//notebook/page[2]/group" position="replace">
                     <group col="4">
                         <group col="2">
-                            <field groups="base.group_no_one" name="sequence"/>
+                            <field name="sequence" groups="base.group_no_one"/>
                             <field name="partner_id"/>
                         </group>
                         <group col="2">
-                            <field groups="base.group_no_one" name="date_assign"/>
-                            <field groups="base.group_no_one" name="date_last_stage_update"/>
-                            <field groups="base.group_multi_company" name="company_id" options="{'no_create': True}"/>
-                            <field groups="base.group_no_one" name="displayed_image_id"/>
+                            <field name="date_assign" groups="base.group_no_one"/>
+                            <field name="date_last_stage_update" groups="base.group_no_one"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="displayed_image_id" groups="base.group_no_one"/>
                         </group>
                     </group>
                     <group string="Gantt View">
                         <field name="date_start"/>
                         <field name="date_end"/>
                     </group>
-                </page>
-                <!--                 </xpath>-->
+                </xpath>
             </field>
         </record>
         <record id="view_task_gantt" model="ir.ui.view">
@@ -63,7 +61,8 @@
             <field name="type">gantt8</field>
             <field eval="2" name="priority"/>
             <field name="arch" type="xml">
-                <gantt8 date_start="date_start" date_stop="date_end" default_group_by="project_id" progress="progress" string="Tasks"/>
+                <gantt8 date_start="date_start" date_stop="date_end" progress="progress" string="Tasks" default_group_by="project_id">
+                </gantt8>
             </field>
         </record>
         <record id="project.action_view_task" model="ir.actions.act_window">
@@ -72,6 +71,8 @@
         <record id="project.dblc_proj" model="ir.actions.act_window">
             <field name="view_mode">tree,form,calendar,graph,kanban,gantt8</field>
         </record>
-        <act_window context="{'search_default_user_id': [active_id], 'default_user_id': active_id}" id="act_res_users_2_project_task_opened" name="Assigned Tasks" res_model="project.task" src_model="res.users" view_mode="tree,form,calendar,graph,gantt8" view_type="form"/>
+        <act_window context="{'search_default_user_id': [active_id], 'default_user_id': active_id}"
+                    id="act_res_users_2_project_task_opened" name="Assigned Tasks"
+                    res_model="project.task" src_model="res.users" view_mode="tree,form,calendar,graph,gantt8" view_type="form"/>
     </data>
 </odoo>

@@ -14,9 +14,13 @@ class AnalyticResourcePlanLine(models.Model):
     task_resource_id = fields.Many2one(
         'project.task',
     )
+    project_id = fields.Many2one(
+        'project.project',
+        string='Project',
+        readonly=True,)
     product_id = fields.Many2one(
         'product.product',
-        string="Product")
+        string='Product')
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account')
@@ -32,27 +36,14 @@ class AnalyticResourcePlanLine(models.Model):
     purchase_request_ids = fields.Many2many(
         comodel_name='purchase.request',
         string='Purchase Requests')
-    resource_type = fields.Selection(
-        [('steel', 'Steel'),
-         ('dust', 'Dust'),
-         ('pyw', 'Paint & waterproofing'),
-         ('fuel', 'Fuel'),
-         ('ironmonger', 'Ironmonger'),
-         ('wood', 'Wood'),
-         ('hydro-sanitary', 'Hydro-Sanitary'),
-         ('electric', 'Electric'),
-         ('tool', 'Tool'),
-         ('equipment', 'Equipment'),
-         ('specialized-equipment', 'Specialized-Equipment'),
-         ('workforce', 'Workforce'),
-         ('stony', 'Stony'),
-         ('concrete', 'Concrete'),
-         ('services', 'Services'),
-         ('aluminum&doors', 'Aluminum Works & Doors'),
-         ('smithy', 'Smithy')], string='Resource Type',
-        required=True, default='steel')
+    resource_type_id = fields.Many2one(
+        'resource.type',
+        string='Resources types')
+
     real_qty = fields.Float(string="Quantity Real")
-    requested_qty = fields.Float(string="Requestes Quantity")
+    requested_qty = fields.Float(
+        string="Requested Quantity",
+        compute='_compute_requested_qty')
 
     @api.onchange('product_id')
     def onchange_product(self):
@@ -68,3 +59,16 @@ class AnalyticResourcePlanLine(models.Model):
         task = res.task_resource_id.name
         res.name = '[' + project + ' / ' + task + ']' + '[' + product + ']'
         return res
+
+    @api.multi
+    def _compute_requested_qty(self):
+        for rec in self:
+            requests = self.env['purchase.request'].search(
+                [('state', '!=', 'rejected')])
+            for request in requests:
+                for line in request.line_ids:
+                    if (rec.product_id.id == line.product_id.id and
+                            rec.account_id.id == line.analytic_account_id.id):
+                        rec.requested_qty += line.product_qty
+                    else:
+                        rec.requested_qty = 0.0

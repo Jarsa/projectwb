@@ -3,8 +3,8 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Stock Project',
-    'summary': 'Stock Project',
+    'name': 'Stock Project Consume',
+    'summary': 'Stock Project Consume',
     'version': '9.0.1.0.0',
     'description': 'This module allows the stock administration and'
                    'the consume of the products',

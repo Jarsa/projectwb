@@ -23,6 +23,8 @@
         'wizard/project_invoice.xml',
         'views/analytic_billing_view.xml',
         'views/task_resource.xml',
+        'views/project_wbs_element.xml',
+        'views/project_project_view.xml'
     ],
     'installable': True,
     'active': True,
