@@ -14,12 +14,7 @@
                          <tree create="0" delete="0" editable="top">
                             <field name="analytic_account_id"/>
                             <field name="product_id"/>
-                            <field name='name'/> 
-                            <field name='unit_price'/>
-                            <field name='subtotal'/>
-                            <field name="description"/>
-                            <field name="uom_id"/>
-                            <field name="qty"/>
+                            <field name="qty" readonly="1"/>
                             <field name="new_qty"/>
                         </tree>
                     </field>
