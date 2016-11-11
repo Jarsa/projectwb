@@ -21,10 +21,8 @@ class AnalyticBillingPlan(models.Model):
         required=True, readonly=True,
         default='draft')
     quantity = fields.Float()
-    concept = fields.Many2one('product.product')
     price_unit = fields.Float("Price Unit")
     invoice_id = fields.Many2one('account.invoice')
-    billing_id = fields.Many2one('project.task')
     name = fields.Char(string='Activity description', required=True)
     date = fields.Date('Date', required=True, default=fields.Date.today)
     amount = fields.Float(
@@ -40,7 +38,8 @@ class AnalyticBillingPlan(models.Model):
         'res.currency',
         string='Currency',
         default=lambda self: self.env.user.company_id.currency_id)
-    account_id = fields.Many2one(
+    account_id = fields.Many2one('account.account', 'Account')
+    account_analytic_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account',
         required=True)
@@ -48,10 +47,9 @@ class AnalyticBillingPlan(models.Model):
         'res.company', string='Company',
         readonly=True)
     product_uom_id = fields.Many2one('product.uom', string='UoM')
-    product_id = fields.Many2one('project.task', string='Product')
+    task_id = fields.Many2one('project.task', string='Concept')
     general_account_id = fields.Many2one(
-        'account.account', string='General Account',
-        required=True)
+        'account.account', string='General Account',)
     ref = fields.Char()
     project_id = fields.Many2one(
         'project.project',
@@ -65,30 +63,7 @@ class AnalyticBillingPlan(models.Model):
     @api.multi
     def action_button_confirm(self):
         for rec in self:
-            invoice = {
-                'partner_id': rec.customer_id.id,
-                'reference': rec.ref,
-                'fiscal_position_id': (
-                    rec.customer_id.property_account_position_id.id),
-                'currency_id': rec.currency_id.id,
-                'account_id': (
-                    rec.customer_id.property_account_receivable_id.id),
-                'type': 'out_invoice',
-                'invoice_line_ids': [(0, False, {
-                    'concept_id': rec.product_id.id,
-                    'quantity': rec.quantity,
-                    'price_unit': rec.price_unit,
-                    'invoice_line_tax_ids': [
-                        (6, 0, [x.id for x in rec.product_id.tax_ids])],
-                    'name': rec.product_id.name,
-                    'account_id': (
-                        rec.product_id.wbs_element_id.
-                        analytic_account_id.id)})]
-            }
-            invoice_id = self.env['account.invoice'].create(invoice)
-            rec.write({
-                'invoice_id': invoice_id.id,
-                'state': 'confirm'})
+            rec.write({'state': 'confirm'})
 
     @api.multi
     def action_button_draft(self):

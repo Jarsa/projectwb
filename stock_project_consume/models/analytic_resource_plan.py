@@ -37,12 +37,24 @@ class AnalyticResourcePlanLine(models.Model):
         for rec in self:
             products = self.env['stock.move'].search(
                 [('product_id', '=', rec.product_id.id),
+                 ('product_id.type', '!=', 'service'),
                  ('location_id', '=',
                     rec.task_resource_id.project_id.location_id.id),
                  ('location_dest_id', '=',
                     rec.task_resource_id.project_id.
                     picking_out_id.default_location_dest_id.id),
                  ('state', '=', 'done')])
+
+            services = self.env['account.invoice.line'].search(
+                [('account_analytic_id', '=', rec.account_id.id),
+                 ('product_id', '=', rec.product_id.id),
+                 ('product_id.type', '=', 'service'),
+                 ('invoice_id.state', 'in', ['open', 'paid'])])
             if products:
                 for product in products:
                     rec.qty_consumed += product.product_uom_qty
+            elif services:
+                for service in services:
+                    rec.qty_consumed += service.quantity
+            else:
+                rec.qty_consumed = 0

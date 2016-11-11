@@ -6,7 +6,6 @@
             <field name="model">task.resource</field>
             <field name="arch" type="xml">
                 <tree default_order="sequence" editable="bottom" string="Task Resource">
-                    <field name="product_id"/>
                     <field name="description"/>
                     <field name="qty" sum="Total qty"/>
                     <field name="uom_id" required="1"/>
@@ -26,12 +25,16 @@
                 <div class="oe_button_box" name="button_box">
                     <button class="oe_stat_button" icon="fa-tasks" name="insume_explotion" string="Insume Explotion" type="object"/>
                 </div>
-                <field name="user_id" position="after">
-                    <field name="uom_id" attrs="{'readonly':[('state', '=', 'confirm')]}" required="1"/>
-                    <field name="qty" sum="Total qty"/>
-                    <field name="unit_price" attrs="{'readonly':[('state', '=', 'confirm')]}" required="1"/>
-                    <field name="subtotal"/>
-                </field>
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group class="oe_subtotal_footer oe_right" style="margin-right:10%;">
+                            <field class="oe_left" name="uom_id" required="1"/>
+                            <field class="oe_left" name="unit_price" required="1"/>
+                            <field class="oe_left" name="qty" sum="Total qty"/>
+                            <field class="oe_left" name="subtotal"/>
+                        </group>
+                    </group>
+                </xpath>
                 <field name="user_id" position="replace">
                     <field name="user_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                 </field>
@@ -41,17 +44,14 @@
                 <field name="date_deadline" position="replace">
                     <field name="date_deadline" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                 </field>
-                <field name='tag_ids' position="replace">
-                    <field name="tag_ids" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
-                </field>
                 <notebook position="inside">
-                    <page name="Resources" string="Resources">
-                        <field name="resource_ids" attrs="{'invisible':[('analytic_account_id', '=', False)]}" nolabel="1">
+                    <page attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="Resources" string="Resources">
+                        <field attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="resource_ids" nolabel="1">
                             <tree default_order="sequence" editable="bottom" string="Resources">
                                 <field editable="0" name="account_id"/>
                                 <field name="product_id"/>
                                 <field name="description"/>
-                                <field name="resource_type"/>
+                                <field name="resource_type_id" widget="selection"/>
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" sum="Total qty"/>
                             </tree>
@@ -59,14 +59,14 @@
                     </page>
                 </notebook>
                 <notebook position="inside">
-                    <page name="total" string="Total">
+                    <page attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="total" string="Total">
                         <field invisible="1" name="analytic_account_id"/>
-                        <field name="resource_line_ids" attrs="{'invisible':[('analytic_account_id', '=', False)]}" nolabel="1">
+                        <field name="resource_line_ids" nolabel="1">
                             <tree default_order="sequence" editable="bottom" string="Task Resource">
                                 <field editable="0" name="account_id"/>
                                 <field name="product_id"/>
                                 <field name="description"/>
-                                <field name="resource_type"/>
+                                <field name="resource_type_id" widget="selection"/>
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" sum="Total qty"/>
                                 <field name="real_qty" readonly="1" sum="Total real_qty"/>
@@ -77,21 +77,24 @@
                 </notebook>
             </field>
         </record>
-        <record model="ir.ui.view" id="view_task_kanban">
+        <record id="view_task_kanban" model="ir.ui.view">
             <field name="name">project.task.kanban</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_kanban"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <div>
-                        <br/>
-                        <label> Total: $</label>
+                        <label>Total Expense: $</label>
+                        <field name="total_expense"/>
+                    </div>
+                    <div>
+                        <label>Total: $</label>
                         <field name="subtotal"/>
                     </div>
                 </field>
             </field>
-         </record>
-         <record id="view_task_tree2" model="ir.ui.view">
+        </record>
+        <record id="view_task_tree2" model="ir.ui.view">
             <field name="name">project.task.tree</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_tree2"/>
@@ -99,10 +102,9 @@
                 <field name="name" position="before">
                     <field name="code"/>
                 </field>
-                <field name="project_id"
-                       position="after">
-                    <field name ="uom_id"/>
+                <field name="project_id" position="after">
                     <field name="qty" sum="Total Qty"/>
+                    <field name="uom_id"/>
                     <field name="unit_price"/>
                     <field name="subtotal" sum="subtotal"/>
                 </field>

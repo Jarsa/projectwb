@@ -34,25 +34,10 @@ class AnalyticResourcePlanLine(models.Model):
     purchase_request_ids = fields.Many2many(
         comodel_name='purchase.request',
         string='Purchase Requests')
-    resource_type = fields.Selection(
-        [('steel', 'Steel'),
-         ('dust', 'Dust'),
-         ('pyw', 'Paint & waterproofing'),
-         ('fuel', 'Fuel'),
-         ('ironmonger', 'Ironmonger'),
-         ('wood', 'Wood'),
-         ('hydro-sanitary', 'Hydro-Sanitary'),
-         ('electric', 'Electric'),
-         ('tool', 'Tool'),
-         ('equipment', 'Equipment'),
-         ('specialized-equipment', 'Specialized-Equipment'),
-         ('workforce', 'Workforce'),
-         ('stony', 'Stony'),
-         ('concrete', 'Concrete'),
-         ('services', 'Services'),
-         ('aluminum&doors', 'Aluminum Works & Doors'),
-         ('smithy', 'Smithy')], string='Resource Type',
-        required=True, default='steel')
+    resource_type_id = fields.Many2one(
+        'resource.type',
+        string='Resources types')
+
     real_qty = fields.Float(string="Quantity Real")
     requested_qty = fields.Float(
         string="Requested Quantity",

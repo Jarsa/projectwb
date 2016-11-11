@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-# © <2016> <Jarsa Sistemas, S.A. de C.V.>
+# <2016> <Jarsa Sistemas S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
 {
-    'name': 'Project Picking Type',
-    'summary': 'Picking Type OUT/IN',
+    'name': 'Task Extra Fields',
+    'summary': 'Add Fields to the task to compute extra percentages',
     'version': '9.0.1.0.0',
-    'description': 'This module allows the creation of ubication for each'
-    'project created in Odoo',
+    'description': 'This module allows the compute of the task subtotal'
+                   'with extra values for example: indirects percentages',
     'category': 'Generic Modules',
     'author': (
         'Jarsa Sistemas S.A. de C.V.'),
@@ -14,11 +15,12 @@
     'license': 'LGPL-3',
     'depends': [
         'project',
-        'stock',
         'task_resource',
         ],
+
     'data': [
-        'views/project_project_view.xml',
+        'security/ir.model.access.csv',
+        'views/project_task_view.xml',
     ],
     'installable': True,
 }

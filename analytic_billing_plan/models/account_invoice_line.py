@@ -9,4 +9,7 @@ class AccountInvoiceLine(models.Model):
     _description = "account"
     _inherit = 'account.invoice.line'
 
+    wbs_element_id = fields.Many2one(
+        'project.wbs_element',
+        string='WBS Element')
     concept_id = fields.Many2one('project.task', string="Concept")

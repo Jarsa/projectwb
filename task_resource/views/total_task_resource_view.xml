@@ -10,9 +10,9 @@
                     <field name="account_id" readonly="1"/>
                     <field name="product_id" readonly="1"/>
                     <field name="description" readonly="1"/>
-                    <field name="resource_type" readonly="1"/>
-                    <field name="qty" readonly="1" sum="Total qty"/>
                     <field name="requested_qty" readonly="1"/>
+                    <field name="resource_type_id" readonly="1" widget="selection"/>
+                    <field name="qty" sum="Total qty" readonly="1"/>
                     <field name="real_qty" sum="Total real_qty"/>
                     <field name="uom_id" readonly="1" required="1"/>
                     <field name="subtotal" readonly="1"/>
