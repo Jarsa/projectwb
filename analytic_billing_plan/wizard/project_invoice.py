@@ -20,23 +20,12 @@ class ProjectInvoice(models.TransientModel):
             return {}
 
         partner_ids = []
+        project_ids = []
         total = 0.0
         invoice_names = ''
         control = 0
+        control_project = 0
         lines = []
-        for partner_id in partner_ids:
-            if control == 0:
-                old_partner = partner_id
-                current_partner = partner_id
-                control = 1
-            else:
-                current_partner = partner_id
-            if old_partner != current_partner:
-                raise exceptions.ValidationError(
-                    _('The invoices must be of the same customer. '
-                      'Please check it.'))
-            else:
-                old_partner = partner_id
 
         for invoice in active_ids:
             if len(invoice.invoice_id) > 0:
@@ -44,13 +33,10 @@ class ProjectInvoice(models.TransientModel):
                     _('The invoice already has an invoice'))
             else:
                 if (invoice.state in ('confirm')):
-                    partner_address = invoice.customer_id.address_get(
-                        ['invoice', 'contact']).get('invoice', False)
-                    if not partner_address:
-                        raise exceptions.ValidationError(
-                            _('You must configure the home address for the'
-                              ' Customer.'))
-                    partner_ids.append(partner_address)
+                    partner = invoice.customer_id.id
+                    partner_ids.append(partner)
+                    project = invoice.project_id.id
+                    project_ids.append(project)
                     currency = invoice.currency_id
                     total += currency.compute(
                         invoice.amount, self.env.user.currency_id)
@@ -72,6 +58,34 @@ class ProjectInvoice(models.TransientModel):
                             'account_analytic_id': (
                                 invoice.account_analytic_id.id)
                         }))
+
+        for partner_id in partner_ids:
+            if control == 0:
+                old_partner = partner_id
+                current_partner = partner_id
+                control = 1
+            else:
+                current_partner = partner_id
+            if old_partner != current_partner:
+                raise exceptions.ValidationError(
+                    _('The invoices must be of the same customer. '
+                      'Please check it.'))
+            else:
+                old_partner = partner_id
+
+        for project_id in project_ids:
+            if control_project == 0:
+                old_project = project_id
+                current_project = project_id
+                control_project = 1
+            else:
+                current_project = project_id
+            if old_project != current_project:
+                raise exceptions.ValidationError(
+                    _('The invoices must be of the same project. '
+                      'Please check it.'))
+            else:
+                old_project = partner_id
 
         invoice_id_create = self.env['account.invoice'].create({
             'project_id': invoice.project_id.id,
