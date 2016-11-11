@@ -14,9 +14,6 @@ class ProjectTask(models.Model):
         string='Task Resource',
         copy=True,
         store=True)
-    analytic_account_id = fields.Many2one(
-        'account.analytic.account',
-        string='Analytic account')
     state = fields.Selection(
         [('draft', 'Draft'),
          ('confirm', 'Confirmed')], string='Status',
@@ -26,8 +23,12 @@ class ProjectTask(models.Model):
         comodel_name='analytic.resource.plan.line',
         inverse_name='task_resource_id',
         store=True,
-        compute='_compute_resources_line_ids'
-    )
+        compute='_compute_resources_line_ids')
+    project_id = fields.Many2one(
+        'project.project')
+    analytic_account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic account')
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
@@ -71,10 +72,11 @@ class ProjectTask(models.Model):
                 for resource in rec.resource_ids:
                     rec.resource_line_ids.create({
                         'task_resource_id': rec.id,
+                        'project_id': rec.project_id.id,
                         'account_id': resource.account_id.id,
                         'product_id': resource.product_id.id,
                         'description': resource.description,
-                        'resource_type': resource.resource_type,
+                        'resource_type_id': resource.resource_type_id.id,
                         'uom_id': resource.uom_id.id,
                         'qty': rec.qty * resource.qty,
                         'real_qty': rec.qty * resource.qty,
@@ -83,25 +85,28 @@ class ProjectTask(models.Model):
                                 resource.product_id.lst_price))
                     })
             else:
+                list_item = []
                 for item in resources:
                     if not item.purchase_request_ids and rec.state == 'draft':
                         item.unlink()
+                    else:
+                        list_item.append(item.product_id.id)
                 for resource in rec.resource_ids:
-                    for line in resources:
-                        if resource.product_id != line.product_id:
-                            rec.resource_line_ids.create({
-                                'task_resource_id': rec.id,
-                                'account_id': resource.account_id.id,
-                                'product_id': resource.product_id.id,
-                                'description': resource.description,
-                                'resource_type': resource.resource_type,
-                                'uom_id': resource.uom_id.id,
-                                'qty': rec.qty * resource.qty,
-                                'real_qty': rec.qty * resource.qty,
-                                'subtotal': (
-                                    rec.qty * resource.qty * (
-                                        resource.product_id.lst_price))
-                            })
+                    if resource.product_id.id not in list_item:
+                        rec.resource_line_ids.create({
+                            'task_resource_id': rec.id,
+                            'project_id': rec.project_id.id,
+                            'account_id': resource.account_id.id,
+                            'product_id': resource.product_id.id,
+                            'description': resource.description,
+                            'resource_type_id': resource.resource_type_id.id,
+                            'uom_id': resource.uom_id.id,
+                            'qty': rec.qty * resource.qty,
+                            'real_qty': rec.qty * resource.qty,
+                            'subtotal': (
+                                rec.qty * resource.qty * (
+                                    resource.product_id.lst_price))
+                        })
         return res
 
     @api.multi

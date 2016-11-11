@@ -17,6 +17,7 @@
                             <field name="description"/>
                             <field name="uom_id"/>
                             <field name="qty"/>
+                            <field name="requested_qty"/>
                             <field name="qty_to_request"/>
                         </tree>
                     </field>
