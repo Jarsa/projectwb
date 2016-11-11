@@ -14,7 +14,6 @@ class TaskResource(models.Model):
         string="Billing Request",
         compute="_compute_nrb_billing")
     remaining_quantity = fields.Float(default=0.0)
-    quantity_invoice = fields.Float()
     currency_id = fields.Many2one(
         'res.currency',
         string='Currency',
