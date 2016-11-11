@@ -12,9 +12,13 @@ class AnalyticResourcePlanLine(models.Model):
     task_resource_id = fields.Many2one(
         'project.task',
     )
+    project_id = fields.Many2one(
+        'project.project',
+        string='Project',
+        readonly=True,)
     product_id = fields.Many2one(
         'product.product',
-        string="Product")
+        string='Product')
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account')
@@ -35,10 +39,25 @@ class AnalyticResourcePlanLine(models.Model):
         string='Resources types')
 
     real_qty = fields.Float(string="Quantity Real")
-    requested_qty = fields.Float(string="Requestes Quantity")
+    requested_qty = fields.Float(
+        string="Requested Quantity",
+        compute='_compute_requested_qty')
 
     @api.onchange('product_id')
     def onchange_product(self):
         self.description = self.product_id.description
         self.uom_id = self.product_id.uom_id
         self.account_id = self.task_resource_id.analytic_account_id
+
+    @api.multi
+    def _compute_requested_qty(self):
+        for rec in self:
+            requests = self.env['purchase.request'].search(
+                [('state', '!=', 'rejected')])
+            for request in requests:
+                for line in request.line_ids:
+                    if (rec.product_id.id == line.product_id.id and
+                            rec.account_id.id == line.analytic_account_id.id):
+                        rec.requested_qty += line.product_qty
+                    else:
+                        rec.requested_qty = 0.0

@@ -6,15 +6,28 @@
             <field name="model">analytic.resource.plan.line</field>
             <field name="arch" type="xml">
                 <tree editable="top" string="Total task resource">
+                    <field name="project_id" readonly="1"/>
                     <field name="account_id" readonly="1"/>
                     <field name="product_id" readonly="1"/>
                     <field name="description" readonly="1"/>
+                    <field name="requested_qty" readonly="1"/>
                     <field name="resource_type_id" readonly="1" widget="selection"/>
                     <field name="qty" sum="Total qty" readonly="1"/>
                     <field name="real_qty" sum="Total real_qty"/>
-                    <field name="uom_id" required="1" readonly="1"/>
+                    <field name="uom_id" readonly="1" required="1"/>
                     <field name="subtotal" readonly="1"/>
                 </tree>
+            </field>
+        </record>
+        <record id="view_task_resource_filter" model="ir.ui.view">
+            <field name="name">analytic.resource.plan.line.view.search</field>
+            <field name="model">analytic.resource.plan.line</field>
+            <field name="arch" type="xml">
+                <search string="Groups">
+                    <separator/>
+                    <filter name="project_group_by" context="{'group_by':'project_id'}" string="Project"/>
+                    <filter name="analytic_account_group_by" context="{'group_by':'account_id'}" string=" Analytic Account"/>
+                </search>
             </field>
         </record>
         <record id="action_total_task_resource" model="ir.actions.act_window">
@@ -22,7 +35,8 @@
             <field name="res_model">analytic.resource.plan.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
+            <field name="context">{'search_default_project_group_by': 1, 'search_default_analytic_account_group_by': 1}</field>
         </record>
-        <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="project.menu_project_management"/>
+        <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="base.menu_main_pm"/>
     </data>
 </odoo>
