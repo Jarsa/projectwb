@@ -4,3 +4,4 @@
 
 from . import resource_control
 from . import project_project
+from . import project_task

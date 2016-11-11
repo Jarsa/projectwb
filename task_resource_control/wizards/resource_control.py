@@ -2,7 +2,8 @@
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
+from openerp import _, api, fields, models
+from openerp.exceptions import ValidationError
 
 
 class ResourceControl(models.TransientModel):
@@ -31,6 +32,7 @@ class ResourceControl(models.TransientModel):
                 'line_id': line.id,
                 'analytic_account_id': line.account_id.id,
                 'product_id': line.product_id.id,
+                'qty': line.qty,
                 'description': line.description or line.product_id.name,
                 'uom_id': line.uom_id.id
             }
@@ -58,6 +60,29 @@ class ResourceControl(models.TransientModel):
         for rec in self:
             for item in rec.item_ids:
                 if not item.task_id:
+                    project_id = item.line_id.task_resource_id.project_id.id
+                    qty_planned = item.line_id.qty
+                    analytic_account = item.line_id.account_id.id
                     item.line_id.write({'real_qty': item.new_qty})
                 else:
+                    project_id = item.task_id.project_id.id
+                    qty_planned = item.task_id.qty
+                    analytic_account = item.task_id.analytic_account_id.id
                     item.task_id.write({'qty': item.new_qty})
+                if qty_planned > item.new_qty:
+                    item.type = 'deductive'
+                elif qty_planned < item.new_qty:
+                    item.type = 'additive'
+                else:
+                    raise ValidationError(
+                        _("The new quantity must be greather or "
+                          "smaller than the planned quantity"))
+
+                self.env['resource.control'].create({
+                    'project_id': project_id,
+                    'insume_explotion_id': item.line_id.id,
+                    'task_id': item.task_id.id,
+                    'type': item.type,
+                    'analytic_account_id': analytic_account,
+                    'new_qty': item.new_qty,
+                    })

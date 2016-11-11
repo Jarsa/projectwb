@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# Copyright 2015 Eficent Business and IT Consulting Services S.L.
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
+from openerp import fields, models
+
+
+class ProjectProject(models.Model):
+    _inherit = "analytic.resource.plan.line"
+    _name = "analytic.resource.plan.line"
+
+    real_qty = fields.Float(string="Quantity Real", readonly=True)
