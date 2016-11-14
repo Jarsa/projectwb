@@ -17,4 +17,4 @@ class ProjectProject(models.Model):
         string='Picking Out',)
     picking_in_id = fields.Many2one(
         comodel_name='stock.picking.type',
-        string='Picking Out',)
+        string='Picking In',)
