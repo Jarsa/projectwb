@@ -9,6 +9,9 @@ class ProjectProject(models.Model):
     _name = 'project.project'
     _inherit = 'project.project'
 
+    location_id = fields.Many2one(
+        comodel_name='stock.location',
+        string='Project Location',)
     picking_out_id = fields.Many2one(
         comodel_name='stock.picking.type',
         string='Picking Out',)

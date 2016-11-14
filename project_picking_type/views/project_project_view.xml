@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <group name="misc" position="inside">
                     <group>
+                        <field name="location_id"/>
                         <field name="picking_in_id"/>
                         <field name="picking_out_id"/>
                     </group>
