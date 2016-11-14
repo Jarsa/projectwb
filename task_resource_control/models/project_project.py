@@ -11,10 +11,10 @@ class ProjectProject(models.Model):
     resource_sequence_id = fields.Many2one(
         'ir.sequence',
         string='Resource Control Sequence')
-    resource_control_id = fields.One2many(
+    resource_control_ids = fields.One2many(
         'resource.control',
         'project_id',
-        string="Resource controls")
+        string="Resources Control")
 
     @api.model
     def create(self, values):

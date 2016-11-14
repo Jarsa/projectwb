@@ -13,6 +13,7 @@ class AnalyticResourcePlanLine(models.Model):
         string='Name')
     task_resource_id = fields.Many2one(
         'project.task',
+        string='Concept',
     )
     project_id = fields.Many2one(
         'project.project',

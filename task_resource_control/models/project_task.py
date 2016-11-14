@@ -8,7 +8,7 @@ class ProjectTask(models.Model):
     _inherit = "project.task"
     _name = "project.task"
 
-    resource_control_id = fields.One2many(
+    resource_control_ids = fields.One2many(
         'resource.control',
         'task_id',
         string='Resource change history')

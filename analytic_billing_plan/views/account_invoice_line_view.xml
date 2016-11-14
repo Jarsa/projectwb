@@ -24,7 +24,7 @@
                         </tree>
                         <kanban class="o_kanban_mobile">
                             <field name="concept_id" attrs="{'invisible':[('concept_id','=',False)]}"/>
-                            <field name="product_id" attrs="{'invisible':[('product_id','=',False)]}"/>
+                            <field name="product_id" attrs="{'invisible':[('product_id','=',False)]}" invisible="1"/>
                             <field name="price_subtotal"/>
                             <field name="quantity"/>
                             <field groups="product.group_uom" name="uom_id"/>
@@ -68,7 +68,7 @@
             <field name="arch" type="xml">
                 <field name="product_id" position="replace">
                     <field name="concept_id" attrs="{'invisible':[('concept_id','=',False)]}" />
-                    <field name="product_id" attrs="{'invisible':[('product_id','=',False)]}"/>
+                    <field name="product_id" attrs="{'invisible':[('product_id','=',False)]}" invisible="1"/>
                 </field>
                 </field>
         </record>

@@ -24,11 +24,11 @@ class ResourceControl(models.TransientModel):
                 'qty': line.qty,
                 'unit_price': line.unit_price,
                 'subtotal': line.subtotal,
-                'description': line.description,
                 'analytic_account_id': line.analytic_account_id.id
             }
         else:
             dic = {
+                'task_id': line.task_resource_id.id,
                 'line_id': line.id,
                 'analytic_account_id': line.account_id.id,
                 'product_id': line.product_id.id,
@@ -69,6 +69,8 @@ class ResourceControl(models.TransientModel):
                     qty_planned = item.task_id.qty
                     analytic_account = item.task_id.analytic_account_id.id
                     item.task_id.write({'qty': item.new_qty})
+                    item.task_id._update_real_qty()
+
                 if qty_planned > item.new_qty:
                     item.type = 'deductive'
                 elif qty_planned < item.new_qty:
@@ -78,11 +80,22 @@ class ResourceControl(models.TransientModel):
                         _("The new quantity must be greather or "
                           "smaller than the planned quantity"))
 
-                self.env['resource.control'].create({
+                change_id = self.env['resource.control'].create({
                     'project_id': project_id,
                     'insume_explotion_id': item.line_id.id,
                     'task_id': item.task_id.id,
+                    'product_id': item.product_id.id,
                     'type': item.type,
                     'analytic_account_id': analytic_account,
                     'new_qty': item.new_qty,
+                    'reason': item.reason,
                     })
+        return {
+            'name': 'Resource Control',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'resource.control',
+            'res_id': change_id.id,
+            'target': 'current',
+            'type': 'ir.actions.act_window',
+            }

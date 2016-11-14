@@ -20,8 +20,6 @@ class ProjectProject(models.Model):
     indirects_analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Indirects Analytic Account')
-    indirects = fields.Float(default=10)
-    utility = fields.Float(default=10)
 
     @api.depends('wbs_element_ids')
     def _compute_count_wbs_elements(self):
