@@ -11,14 +11,15 @@ class PurchaseOrderLine(models.Model):
     def _create_stock_moves(self, picking):
         moves = super(PurchaseOrderLine, self)._create_stock_moves(picking)
         for rec in self:
-            for move in moves:
-                move.account_analytic_id = rec.account_analytic_id.id
-                move.project_id = rec.env['project.task'].search(
-                    [(
-                        'analytic_account_id', '=',
-                        rec.account_analytic_id.id)]).project_id.id
-                move.task_id = rec.env['project.task'].search(
-                    [(
-                        'analytic_account_id', '=',
-                        rec.account_analytic_id.id)]).id
+            if rec.account_analytic_id:
+                for move in moves:
+                    move.account_analytic_id = rec.account_analytic_id.id
+                    move.project_id = rec.env['project.task'].search(
+                        [(
+                            'analytic_account_id', '=',
+                            rec.account_analytic_id.id)]).project_id.id
+                    move.task_id = rec.env['project.task'].search(
+                        [(
+                            'analytic_account_id', '=',
+                            rec.account_analytic_id.id)]).id
         return moves
