@@ -19,6 +19,7 @@
         ],
     'data': [
         'views/project_project_view.xml',
+        'views/stock_picking_type_view.xml',
     ],
     'installable': True,
 }
