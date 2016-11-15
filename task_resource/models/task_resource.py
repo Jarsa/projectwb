@@ -14,7 +14,7 @@ class TaskResource(models.Model):
     )
     product_id = fields.Many2one(
         comodel_name='product.product',
-        string='product',
+        string='Product',
     )
     uom_id = fields.Many2one(
         comodel_name='product.uom',

@@ -24,7 +24,6 @@ class PurchaseRequest(models.TransientModel):
             'line_id': line.id,
             'analytic_account_id': line.account_id.id,
             'product_id': line.product_id.id,
-            'description': line.description,
             'uom_id': line.uom_id.id,
             'qty': line.qty,
             'real_qty': line.real_qty,
@@ -88,7 +87,7 @@ class PurchaseRequest(models.TransientModel):
                         _(
                             'You cannot request more products than you planned'
                             '.or null quantities.'
-                            '\n \n <strong>Resource:</strong> %s'
+                            '\n \n Resource: %s'
                             '\n Concept: %s') % (
                             item.product_id.name,
                             item.line_id.task_resource_id.name))

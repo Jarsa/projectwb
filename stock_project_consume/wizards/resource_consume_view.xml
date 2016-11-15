@@ -13,9 +13,7 @@
                          <tree create="0" delete="0" editable="top">
                             <field name="analytic_account_id"/>
                             <field name="product_id"/>
-                            <field name="description"/>
                             <field name="uom_id"/>
-                            <field name="qty"/>
                             <field name="real_qty"/>
                             <field name="qty_on_hand"/>
                             <field name="qty_consumed"/>
