@@ -29,7 +29,8 @@ class ResourceControl(models.Model):
         ('additive', "Additive")])
     reason = fields.Text()
     new_qty = fields.Float(
-        string="New quantity changed")
+        string="New quantity changed",
+        digits=(14, 5),)
 
     @api.model
     def create(self, values):
