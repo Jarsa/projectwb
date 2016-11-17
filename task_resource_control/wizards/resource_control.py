@@ -58,8 +58,9 @@ class ResourceControl(models.TransientModel):
     @api.multi
     def make_control(self):
         for rec in self:
+            active_model = self.env.context['active_model']
             for item in rec.item_ids:
-                if not item.task_id:
+                if active_model == 'analytic.resource.plan.line':
                     project_id = item.line_id.task_resource_id.project_id.id
                     qty_planned = item.line_id.qty
                     analytic_account = item.line_id.account_id.id
