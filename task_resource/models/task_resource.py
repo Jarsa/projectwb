@@ -23,6 +23,7 @@ class TaskResource(models.Model):
     qty = fields.Float(
         string='Quantity',
         default=1,
+        digits=(14, 5),
     )
     account_id = fields.Many2one(
         'account.analytic.account',

@@ -95,7 +95,7 @@ class PurchaseRequest(models.TransientModel):
         for item in self.item_ids:
             line = (0, 0, {
                 'product_id': item.product_id.id,
-                'name': item.description,
+                'name': item.line_id.description,
                 'product_qty': item.qty_to_request,
                 'date_required': today,
                 'analytic_account_id': item.analytic_account_id.id,

@@ -57,11 +57,6 @@ class AnalyticBillingPlan(models.Model):
         'project.project',
         string='Project')
 
-    @api.onchange('account_id')
-    def _onchange_account(self):
-        if self.account_id:
-            self.customer_id = self.account_id.partner_id
-
     @api.multi
     def action_button_confirm(self):
         for rec in self:

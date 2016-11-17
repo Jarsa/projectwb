@@ -26,7 +26,9 @@ class AnalyticResourcePlanLine(models.Model):
         'account.analytic.account',
         string='Analytic Account')
     date = fields.Date(default=fields.Date.today)
-    qty = fields.Float(string="Quantity")
+    qty = fields.Float(
+        string="Quantity",
+        digits=(14, 5),)
     subtotal = fields.Float()
     unit_price = fields.Float()
     description = fields.Char(string='Description')
@@ -41,10 +43,13 @@ class AnalyticResourcePlanLine(models.Model):
         'resource.type',
         string='Resources types')
 
-    real_qty = fields.Float(string="Quantity Real")
+    real_qty = fields.Float(
+        string="Quantity Real",
+        digits=(14, 5),)
     requested_qty = fields.Float(
         string="Requested Quantity",
-        compute='_compute_requested_qty')
+        compute='_compute_requested_qty',
+        digits=(14, 5),)
 
     @api.onchange('product_id')
     def onchange_product(self):

@@ -10,13 +10,17 @@ class AnalyticResourcePlanLine(models.Model):
     _description = "Resource Plan"
     _inherit = "analytic.resource.plan.line"
 
-    qty = fields.Float(string="Quantity Planned")
+    qty = fields.Float(
+        string="Quantity Planned",
+        digits=(14, 5),)
     qty_on_hand = fields.Float(
         string="Quantity on Hand",
+        digits=(14, 5),
         compute="_compute_qty_on_hand",
         )
     qty_consumed = fields.Float(
         string="Quantity Consumed",
+        digits=(14, 5),
         compute="_compute_qty_consumed")
 
     @api.multi
