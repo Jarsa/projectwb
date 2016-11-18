@@ -103,9 +103,6 @@ class WizardBillingPlan(models.TransientModel):
                     else:
                         raise exceptions.ValidationError(
                             _('The quantity to invoice is zero.'))
-                        quantity = 0.0
-                        res.update({'qty': quantity})
-                        return res
             return res
         else:
             return super(WizardBillingPlan, self).default_get(field)
