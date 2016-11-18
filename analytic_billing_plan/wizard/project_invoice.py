@@ -100,7 +100,7 @@ class ProjectInvoice(models.TransientModel):
             'currency_id': invoice.currency_id.id,
             'account_id': (
                 invoice.customer_id.property_account_receivable_id.id),
-            'type': 'out_invoice',
+            'type': 'in_invoice',
             'invoice_line_ids': [line for line in lines],
         })
         for invoice_create in active_ids:
