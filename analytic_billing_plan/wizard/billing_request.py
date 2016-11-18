@@ -94,16 +94,15 @@ class WizardBillingPlan(models.TransientModel):
                 res.update({'qty': quantity})
             else:
                 for billing in lines:
-                    if billing.has_active_order is True:
+                    if billing.has_active_order:
                         if plan.remaining_quantity > 0:
                             quantity = plan.remaining_quantity
                         else:
                             quantity = plan.qty
                         res.update({'qty': quantity})
                     else:
-                        quantity = 0.0
-                        res.update({'qty': quantity})
-                        return res
+                        raise exceptions.ValidationError(
+                            _('The quantity to invoice is zero.'))
             return res
         else:
             return super(WizardBillingPlan, self).default_get(field)

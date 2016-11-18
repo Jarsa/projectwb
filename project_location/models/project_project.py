@@ -13,6 +13,10 @@ class ProjectProject(models.Model):
         comodel_name='stock.location',
         string='Project Location'
     )
+    parent_location_id = fields.Many2one(
+        comodel_name='stock.location',
+        string='Parent Location',
+        domain=[('usage', '=', 'view')],)
     code = fields.Char()
 
     @api.model
@@ -20,6 +24,7 @@ class ProjectProject(models.Model):
         project = super(ProjectProject, self).create(vals)
         location = project.location_id.create({
             'name': project.name,
+            'location_id': project.parent_location_id.id,
             'active': True,
             'partner_id': project.partner_id.id
         })

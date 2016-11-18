@@ -29,16 +29,20 @@ class ResourceConsumeLine(models.TransientModel):
     uom_id = fields.Many2one('product.uom', string='UoM')
     real_qty = fields.Float(
         string="Real Quantity",
-        readonly=True,)
+        readonly=True,
+        digits=(14, 5),)
     qty_on_hand = fields.Float(
         string='Quantity On Hand',
-        readonly=True)
+        readonly=True,
+        digits=(14, 5),)
     qty_consumed = fields.Float(
         string='Quantity Consumed',
-        readonly=True,)
+        readonly=True,
+        digits=(14, 5))
     qty_to_consume = fields.Float(
         string="Quantity To Consume",
-        default="1.0")
+        default="1.0",
+        digits=(14, 5),)
 
     @api.onchange('product_id', 'uom_id')
     def onchange_product_id(self):
