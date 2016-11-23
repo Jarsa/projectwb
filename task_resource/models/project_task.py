@@ -63,12 +63,6 @@ class ProjectTask(models.Model):
             rec2.subtotal = rec2.qty * rec2.unit_price
 
     @api.multi
-    def _update_real_qty(self):
-        for rec in self:
-            for resource in rec.resource_line_ids:
-                resource.real_qty = rec.qty * resource.qty
-
-    @api.multi
     def write(self, values):
         for rec in self:
             res = super(ProjectTask, self).write(values)

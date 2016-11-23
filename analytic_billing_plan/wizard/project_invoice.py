@@ -56,9 +56,13 @@ class ProjectInvoice(models.TransientModel):
                             'name': invoice.task_id.name,
                             'invoice_line_tax_ids': [(
                                 6, 0,
-                                [x.id for x in invoice.task_id.tax_ids]
+                                [
+                                    x.id for x in invoice.task_id.
+                                    product_id.taxes_id]
                                 )],
-                            'account_id': invoice.task_id.account_id.id,
+                            'account_id': (
+                                invoice.task_id.product_id.
+                                property_account_income_id.id),
                             'account_analytic_id': (
                                 invoice.account_analytic_id.id)
                         }))
@@ -100,7 +104,7 @@ class ProjectInvoice(models.TransientModel):
             'currency_id': invoice.currency_id.id,
             'account_id': (
                 invoice.customer_id.property_account_receivable_id.id),
-            'type': 'in_invoice',
+            'type': 'out_invoice',
             'invoice_line_ids': [line for line in lines],
         })
         for invoice_create in active_ids:

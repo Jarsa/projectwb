@@ -33,9 +33,6 @@ class AnalyticBillingPlan(models.Model):
               'and the price given in the Product\'s '
               'cost price. Always expressed in the '
               'company main currency.'))
-    amount_currency = fields.Float(
-        string='Amount Currency',
-        help="The amount expressed in an optional other currency.")
     currency_id = fields.Many2one(
         'res.currency',
         string='Currency',

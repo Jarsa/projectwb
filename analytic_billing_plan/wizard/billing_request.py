@@ -55,7 +55,8 @@ class WizardBillingPlan(models.TransientModel):
                 {'remaining_quantity': rec.remaining_quantity})
             billing.create({
                 "account_id": (
-                    rec.project_task.account_id.id),
+                    rec.project_task.product_id.
+                    property_account_income_id.id),
                 "customer_id": rec.project_task.project_id.partner_id.id,
                 "date": fields.Date.today(),
                 "name": rec.project_task.name,

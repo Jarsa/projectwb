@@ -23,16 +23,15 @@
                             <group col="4" colspan="2" string="Customer Information">
                                 <field name="customer_id"/>
                             </group>
-                            <group col="4" colspan="2" string="Product Information">
-                                <field name="amount_currency" required="1"/>
-                                <field name="currency_id" required="1"/>
-                                <field name="price_unit" required="1"/>
+                            <group string="Product Information">
                                 <field name="quantity" required="1"/>
+                                <field name="price_unit" required="1"/>
+                                <field name="currency_id" required="1"/>
+                                <field name="amount"/>
                             </group>
-                            <group col="4" colspan="2" groups="analytic.group_analytic_accounting" string="Analytic     Information">
+                            <group col="4" colspan="2" groups="analytic.group_analytic_accounting" string="Analytic Information">
                                 <field name="ref"/>
                                 <field groups="base.group_multi_company" name="company_id"/>
-                                <field colspan="4" name="amount"/>
                             </group>
                         </group>
                     </sheet>

@@ -13,6 +13,7 @@
 
     "depends": [
         "project",
+        "project_wbs_element",
         "web_gantt8",
     ],
     "external_dependencies": {"python": [], "bin": []},

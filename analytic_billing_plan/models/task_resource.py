@@ -18,11 +18,13 @@ class TaskResource(models.Model):
         'res.currency',
         string='Currency',
         default=lambda self: self.env.user.company_id.currency_id)
-    tax_ids = fields.Many2many('account.tax', string="Taxes")
     billing_task_total = fields.Float(
         string='Billing Total',
         compute='_compute_billing_total')
-    account_id = fields.Many2one('account.account', 'Account')
+    product_id = fields.Many2one(
+        'product.product',
+        string='Product',
+        domain=[('sale_ok', '=', True)])
 
     @api.multi
     def _compute_billing_total(self):

@@ -40,6 +40,9 @@ class ResourceControlLine(models.TransientModel):
     qty = fields.Float(
         string='Quantity Planned',
         readonly=True)
+    real_qty = fields.Float(
+        string='Quantity Real',
+        readonly=True)
     new_qty = fields.Float(
         string='New Quantity')
     unit_price = fields.Float(
