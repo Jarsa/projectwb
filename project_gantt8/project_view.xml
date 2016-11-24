@@ -44,7 +44,7 @@
                 </xpath>
             </field>
         </record>
-        <record id="view_project_project_gantt" model="ir.ui.view">
+        <record id="view_project_wbs_element_gantt" model="ir.ui.view">
             <field name="name">project.project.gantt</field>
             <field name="model">project.wbs_element</field>
             <field name="type">gantt8</field>

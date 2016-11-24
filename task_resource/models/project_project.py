@@ -11,6 +11,21 @@ class ProjectProject(models.Model):
 
     total_project_expenses = fields.Float(
         'Billing Total', compute='_compute_total_project_expenses')
+    total_charge = fields.Float(
+        compute="_compute_total_charges",
+        string='Total Charge')
+
+    @api.multi
+    def _compute_total_charges(self):
+        for rec in self:
+            wbs_elements = self.env['project.wbs_element'].search([
+                ('project_id', '=', rec.id)])
+            if wbs_elements:
+                for wbs_element in wbs_elements:
+                    rec.total_charge += (
+                        wbs_element.total_charge)
+            else:
+                rec.total_project_expenses = 0.0
 
     @api.multi
     def _compute_total_project_expenses(self):

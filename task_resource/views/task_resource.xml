@@ -110,6 +110,9 @@
                     <field name="subtotal" sum="subtotal"/>
                     <field name="total_expense"/>
                 </field>
+                <field name="stage_id" position="replace">
+                    <field name="stage_id" invisible="1"/>
+                </field>
             </field>
         </record>
     </data>

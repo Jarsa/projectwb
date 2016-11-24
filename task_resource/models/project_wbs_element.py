@@ -12,6 +12,9 @@ class ProjectWbsElement(models.Model):
     total_concept_expense = fields.Float(
         string='Billing Total',
         compute='_compute_total_concept_expense')
+    total_charge = fields.Float(
+        compute="_compute_total_charges",
+        string='Total Charge')
 
     @api.multi
     def _compute_total_concept_expense(self):
@@ -23,3 +26,9 @@ class ProjectWbsElement(models.Model):
                     rec.total_concept_expense += task.total_expense
             else:
                 rec.total_concept_expense = 0.0
+
+    @api.multi
+    def _compute_total_charges(self):
+        for rec in self:
+            for child in rec.task_ids:
+                rec.total_charge = rec.total_charge + child.subtotal

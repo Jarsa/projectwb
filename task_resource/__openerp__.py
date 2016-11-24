@@ -17,6 +17,7 @@
         'product',
         'project_wbs_element',
         'purchase_request_to_rfq',
+        'purchase_confirmed_sequence',
     ],
 
     'data': [
@@ -26,6 +27,7 @@
         'views/task_resource.xml',
         'views/project_wbs_element.xml',
         'views/project_project_view.xml',
+        'views/purchase_request_view.xml',
         'views/resource_type_view.xml',
     ],
     'installable': True,

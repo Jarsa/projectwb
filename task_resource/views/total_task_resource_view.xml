@@ -24,6 +24,9 @@
             <field name="model">analytic.resource.plan.line</field>
             <field name="arch" type="xml">
                 <search string="Groups">
+                    <field name="project_id"/>
+                    <field name="account_id"/>
+                    <field name="product_id"/>
                     <separator/>
                     <filter name="product_group_by" context="{'group_by':'product_id'}" string="Product"/>
                     <filter name="project_group_by" context="{'group_by':'project_id'}" string="Project"/>

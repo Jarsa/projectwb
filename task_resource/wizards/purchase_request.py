@@ -105,6 +105,7 @@ class PurchaseRequest(models.TransientModel):
             'company_id': self.env.user.company_id.id,
             'picking_type_id': self.project_id.picking_in_id.id,
             'requested_by': self.env.user.id,
+            'project_id': self.project_id.id,
             'name': self.env['purchase.request']._get_default_name(),
             'line_ids': lines,
             })

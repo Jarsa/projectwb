@@ -17,7 +17,7 @@
         'account',
     ],
     'data': [
-        # 'views/account_invoice_line_view.xml',
+        'views/account_invoice_line_view.xml',
         'security/ir.model.access.csv',
         'wizard/billing_request_view.xml',
         'wizard/project_invoice.xml',
