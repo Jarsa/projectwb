@@ -5,8 +5,8 @@
 from openerp import fields, models
 
 
-class ProjectProject(models.Model):
+class AnalyticResourcePlanLine(models.Model):
     _inherit = "analytic.resource.plan.line"
     _name = "analytic.resource.plan.line"
 
-    real_qty = fields.Float(string="Quantity Real", readonly=True)
+    real_qty = fields.Float(string="Quantity Real")

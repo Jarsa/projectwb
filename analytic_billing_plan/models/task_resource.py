@@ -23,8 +23,9 @@ class TaskResource(models.Model):
         compute='_compute_billing_total')
     product_id = fields.Many2one(
         'product.product',
-        string='Product',
-        domain=[('sale_ok', '=', True)])
+        string='Product to Billing',
+        domain=[('sale_ok', '=', True),
+                ('type', '=', 'service')],)
 
     @api.multi
     def _compute_billing_total(self):

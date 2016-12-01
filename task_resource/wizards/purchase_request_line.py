@@ -30,19 +30,19 @@ class PurchaseRequestLine(models.TransientModel):
     qty = fields.Float(
         string='Quantity Planned',
         readonly=True,
-        digits=(14, 5),)
+        )
     real_qty = fields.Float(
         string="Real Quantity",
         readonly=True,
-        digits=(14, 5))
+        )
     qty_on_hand = fields.Float(
         string='Quantity On Hand',
         readonly=True,
-        digits=(14, 5))
+        )
     qty_to_request = fields.Float(
         string="Quantity To Request",
         default="1.0",
-        digits=(14, 5))
+        )
     requested_qty = fields.Float(
         readonly=True,
-        digits=(14, 5))
+        )

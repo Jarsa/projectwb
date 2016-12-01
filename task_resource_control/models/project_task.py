@@ -14,13 +14,22 @@ class ProjectTask(models.Model):
         string='Resource change history')
     real_qty = fields.Float(
         string='Real Quantity',
-        readonly=True, )
+        readonly=True,
+        )
     real_subtotal = fields.Float(
         string='Real Subtotal',
         compute='_compute_real_subtotal',)
     qty = fields.Float(string='Planned Quantity',)
 
-    @api.depends('real_qty')
+    @api.model
+    def create(self, vals):
+        res = super(ProjectTask, self).create(vals)
+        if (res.real_qty and res.real_subtotal) == 0:
+            res.real_qty = res.qty
+            res.real_subtotal = res.subtotal
+        return res
+
+    @api.depends('qty')
     @api.multi
     def _compute_real_subtotal(self):
         for rec in self:

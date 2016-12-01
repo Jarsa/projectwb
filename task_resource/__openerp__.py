@@ -23,6 +23,7 @@
     'data': [
         'security/ir.model.access.csv',
         'wizards/purchase_request.xml',
+        'wizards/purchase_request_line_make_purchase_order_view.xml',
         'views/total_task_resource_view.xml',
         'views/task_resource.xml',
         'views/project_wbs_element.xml',

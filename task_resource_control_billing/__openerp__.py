@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Resource control Billing',
+    'name': 'Resource Control Billing',
     'summary': 'Resource control Billing',
     'version': '9.0.1.0.0',
     'category': 'Generic Modules',

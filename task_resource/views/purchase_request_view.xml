@@ -9,6 +9,9 @@
                 <field name="date_start" position="after">
                     <field name="project_id"/>
                 </field>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_qty']" position="replace">
+                    <field name="product_qty"/>
+                </xpath>
             </field>
         </record>
         <record id="purchase_request_tree_view" model="ir.ui.view">
@@ -21,7 +24,7 @@
                 </field>
             </field>
         </record>
-         <record id="purchase_request_search_view" model="ir.ui.view">
+        <record id="purchase_request_search_view" model="ir.ui.view">
             <field name="name">purchase.request.search</field>
             <field name="model">purchase.request</field>
             <field name="inherit_id" ref="purchase_request.view_purchase_request_search"/>
@@ -30,7 +33,7 @@
                     <field name="project_id"/>
                 </field>
                 <group position="inside">
-                    <filter string="Project" name="project_id" context="{'group_by':'project_id'}"/>
+                    <filter context="{'group_by':'project_id'}" name="project_id" string="Project"/>
                 </group>
             </field>
         </record>

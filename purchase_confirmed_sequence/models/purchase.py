@@ -9,12 +9,22 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     @api.multi
-    def button_confirm(self):
-        super(PurchaseOrder, self).button_confirm()
+    def button_approve(self):
+        res = super(PurchaseOrder, self).button_approve()
         rfq = self.name
         self.write({
             'origin': rfq,
             'name': self.env['ir.sequence'].next_by_code(
                 'purchase.confirmed')
         })
-        return True
+        return res
+
+    @api.multi
+    def button_cancel(self):
+        res = super(PurchaseOrder, self).button_cancel()
+        self.write({
+            'name': self.env['ir.sequence'].next_by_code(
+                'purchase.order'),
+            'origin': False,
+        })
+        return res
