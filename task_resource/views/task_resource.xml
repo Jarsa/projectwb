@@ -15,11 +15,12 @@
         <record id="view_task_form2" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="inherit_id" ref="task_code.view_task_form2"/>
             <field name="arch" type="xml">
                 <header>
-                    <button class="oe_highlight" name="action_button_draft" states="confirm" string="Draft" type="object"/>
-                    <button class="oe_highlight" confirm="Are you sure you want to confirm the current task?" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
+                    <button class="oe_highlight" name="action_button_draft" states="confirm" icon="fa-reply" string="Reset to Draft" type="object"/>
+                    <button class="oe_highlight" name="action_open" states="draft" string="Open" icon="fa-thumbs-up" type="object"/>
+                    <button class="oe_highlight" confirm="Are you sure you want to confirm the current task?" name="action_button_confirm" icon="fa-thumbs-up" states="open" string="Confirm" type="object"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <div class="oe_button_box" name="button_box">
@@ -28,13 +29,31 @@
                 <xpath expr="//notebook" position="before">
                     <group>
                         <group class="oe_subtotal_footer oe_right" style="margin-right:10%;">
-                            <field class="oe_left" name="uom_id" required="1"/>
-                            <field class="oe_left" name="unit_price" required="1"/>
-                            <field class="oe_left" name="qty" sum="Total qty"/>
-                            <field class="oe_left" name="subtotal"/>
+                            <field class="oe_left" name="uom_id" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                            <field class="oe_left" name="unit_price" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                            <field class="oe_left" name="qty" sum="Total qty" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                            <field class="oe_left" name="subtotal" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                         </group>
                     </group>
                 </xpath>
+                <field name="tag_ids" position="replace">
+                    <field name="tag_ids" attrs="{'readonly':[('state', '=', 'confirm')]}" widget="many2many_tags"/>
+                </field>
+                <field name="code" position="replace">
+                    <field name="code" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                </field>
+                <field name="name" position="replace">
+                    <field name="name" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                </field>
+                <field name="sequence" position="replace">
+                    <field name="sequence" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                </field>
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                </field>
+                <field name="displayed_image_id" position="replace">
+                    <field name="displayed_image_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                </field>
                 <field name="user_id" position="replace">
                     <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="user_id"/>
                 </field>
@@ -46,7 +65,7 @@
                 </field>
                 <notebook position="inside">
                     <page attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="Resources" string="Resources">
-                        <field attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="resource_ids" nolabel="1">
+                        <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="resource_ids" nolabel="1">
                             <tree default_order="sequence" editable="bottom" string="Resources">
                                 <field editable="0" name="account_id"/>
                                 <field name="product_id" domain="[('type', '=', 'product'),('purchase_ok', '=', True)]" required="1"/>

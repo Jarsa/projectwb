@@ -2,7 +2,7 @@
 # Copyright 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import api, fields, models
+from openerp import _, api, exceptions, fields, models
 
 
 class TaskResource(models.Model):
@@ -25,7 +25,9 @@ class TaskResource(models.Model):
         'product.product',
         string='Product to Billing',
         domain=[('sale_ok', '=', True),
-                ('type', '=', 'service')],)
+                ('type', '=', 'service')],
+        default=lambda self: self.env.ref(
+            'analytic_billing_plan.product_concept'),)
 
     @api.multi
     def _compute_billing_total(self):
@@ -47,6 +49,15 @@ class TaskResource(models.Model):
         for record in self:
             record.nbr_billing = len(record.line_billing_ids.search(
                 [('task_id', '=', record.id)]))
+
+    @api.multi
+    def action_button_draft(self):
+        for rec in self:
+            if rec.nbr_billing > 0.0:
+                raise exceptions.ValidationError(
+                    _("You can't reset the concept because"
+                        " it already has a billing request."))
+        return super(TaskResource, self).action_button_draft()
 
     @api.multi
     def request_billing_request(self):

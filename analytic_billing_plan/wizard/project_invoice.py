@@ -30,42 +30,21 @@ class ProjectInvoice(models.TransientModel):
         for invoice in active_ids:
             if len(invoice.invoice_id) > 0:
                 raise exceptions.ValidationError(
-                    _('The invoice already has an invoice'))
+                    _('The billing request already has an invoice'))
+            if (invoice.state in ('confirm')):
+                partner = invoice.customer_id.id
+                partner_ids.append(partner)
+                project = invoice.project_id
+                task = invoice.task_id
+                project_ids.append(project)
+                currency = invoice.currency_id
+                total += currency.compute(
+                    invoice.amount, self.env.user.currency_id)
+                invoice_names += ' ' + invoice.name + ', '
             else:
-                if (invoice.state in ('confirm')):
-                    partner = invoice.customer_id.id
-                    partner_ids.append(partner)
-                    project = invoice.project_id.id
-                    project_ids.append(project)
-                    currency = invoice.currency_id
-                    total += currency.compute(
-                        invoice.amount, self.env.user.currency_id)
-                    invoice_names += ' ' + invoice.name + ', '
-                else:
-                    raise exceptions.ValidationError(
-                        _('The invoices must be in confirmed / closed state'
-                          ' and unpaid.'))
-                if total > 0.0:
-                    lines.append(
-                        (0, 0, {
-                            'concept_id': invoice.task_id.id,
-                            'wbs_element_id': (
-                                invoice.task_id.wbs_element_id.id),
-                            'quantity': invoice.quantity,
-                            'price_unit': invoice.price_unit,
-                            'name': invoice.task_id.name,
-                            'invoice_line_tax_ids': [(
-                                6, 0,
-                                [
-                                    x.id for x in invoice.task_id.
-                                    product_id.taxes_id]
-                                )],
-                            'account_id': (
-                                invoice.task_id.product_id.
-                                property_account_income_id.id),
-                            'account_analytic_id': (
-                                invoice.account_analytic_id.id)
-                        }))
+                raise exceptions.ValidationError(
+                    _('The invoices must be in confirmed / closed state'
+                      ' and unpaid.'))
 
         for partner_id in partner_ids:
             if control == 0:
@@ -83,30 +62,72 @@ class ProjectInvoice(models.TransientModel):
 
         for project_id in project_ids:
             if control_project == 0:
-                old_project = project_id
-                current_project = project_id
+                old_project = project_id.id
+                current_project = project_id.id
                 control_project = 1
             else:
-                current_project = project_id
+                current_project = project_id.id
             if old_project != current_project:
                 raise exceptions.ValidationError(
                     _('The invoices must be of the same project. '
                       'Please check it.'))
             else:
-                old_project = partner_id
+                old_project = project_id.id
+
+        if total > 0.0:
+            lines.append(
+                (0, 0, {
+                    'product_id': task.product_id.id,
+                    'quantity': 1.0,
+                    'price_unit': total,
+                    'name': project.name + _(' Payment'),
+                    'invoice_line_tax_ids': [(6, 0, [
+                        x.id for x in task.product_id.taxes_id])],
+                    'account_id': (
+                        self.env.user.company_id.bridge_account_id.id),
+                }))
+
+            if project.project_amortization > 0:
+                product_amortization = self.env.ref(
+                    'product.amortization_product_template')
+                if len(product_amortization) == 0:
+                    raise exceptions.ValidationError(
+                        _('You must have a product for project '
+                            'amortizations.'))
+                product_account = (
+                    product_amortization.property_account_expense_id
+                    if product_amortization.property_account_expense_id
+                    else product_amortization.categ_id.
+                    property_account_expense_categ_id
+                    if product_amortization.categ_id.
+                    property_account_expense_categ_id
+                    else False)
+                if not product_account:
+                    raise exceptions.ValidationError(
+                        _('You must have an account for the product'))
+                percentage_rate = float(project.project_amortization) / 100
+                lines.append(
+                    (0, 0, {
+                        'product_id': product_amortization.id,
+                        'quantity': 1.0,
+                        'price_unit': (total * percentage_rate) * -1.0,
+                        'name': project.name + _(' Amortization'),
+                        'account_id': product_account.id,
+                    }))
 
         invoice_id_create = self.env['account.invoice'].create({
-            'project_id': invoice.project_id.id,
-            'partner_id': invoice.customer_id.id,
+            'project_id': project.id,
+            'partner_id': project.partner_id.id,
             'fiscal_position_id': (
-                invoice.customer_id.property_account_position_id.id),
+                project.partner_id.property_account_position_id.id),
             'reference': invoice.ref,
             'currency_id': invoice.currency_id.id,
             'account_id': (
-                invoice.customer_id.property_account_receivable_id.id),
+                project.partner_id.property_account_receivable_id.id),
             'type': 'out_invoice',
             'invoice_line_ids': [line for line in lines],
         })
+
         for invoice_create in active_ids:
             invoice_create.invoice_id = invoice_id_create.id
 

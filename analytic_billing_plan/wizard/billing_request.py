@@ -38,6 +38,9 @@ class WizardBillingPlan(models.TransientModel):
                 raise exceptions.ValidationError(
                     _('The quantity to invoice must be less than'
                         'the remaining quantity'))
+            if rec.project_task.state != 'confirm':
+                raise exceptions.ValidationError(
+                    _('The concept must be confirmed.'))
             billing = self.env['analytic.billing.plan']
             if rec.qty == rec.quantity_invoice:
                 ref = _(
@@ -56,13 +59,16 @@ class WizardBillingPlan(models.TransientModel):
             billing.create({
                 "account_id": (
                     rec.project_task.product_id.
-                    property_account_income_id.id),
+                    property_account_income_id.id
+                    if rec.project_task.product_id.
+                    property_account_income_id.id
+                    else
+                    rec.project_task.product_id.
+                    categ_id.property_account_income_categ_id.id),
                 "customer_id": rec.project_task.project_id.partner_id.id,
                 "date": fields.Date.today(),
                 "name": rec.project_task.name,
                 "price_unit": rec.unit_price,
-                "amount_currency": -(
-                    rec.unit_price * rec.quantity_invoice),
                 "product_uom_id": rec.project_task.uom_id.id,
                 "currency_id": self.env.user.company_id.currency_id.id,
                 "quantity": rec.quantity_invoice,

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from openerp import api, fields, models
+from openerp import _, api, exceptions, fields, models
 
 
 class ProjectTask(models.Model):
@@ -16,8 +16,10 @@ class ProjectTask(models.Model):
         store=True)
     state = fields.Selection(
         [('draft', 'Draft'),
-         ('confirm', 'Confirmed')], string='Status',
-        required=True, readonly=True,
+         ('open', 'Open'),
+         ('confirm', 'Confirmed')],
+        string='Status',
+        readonly=True,
         default='draft')
     resource_line_ids = fields.One2many(
         comodel_name='analytic.resource.plan.line',
@@ -129,6 +131,11 @@ class ProjectTask(models.Model):
             'type': 'ir.actions.act_window'}
 
     @api.multi
+    def action_open(self):
+        for rec in self:
+            rec.state = 'open'
+
+    @api.multi
     def action_button_confirm(self):
         for rec in self:
             rec.state = 'confirm'
@@ -136,4 +143,8 @@ class ProjectTask(models.Model):
     @api.multi
     def action_button_draft(self):
         for rec in self:
+            if rec.resource_line_ids:
+                raise exceptions.ValidationError(
+                    _("You can't reset the concept because it already"
+                        " has resources"))
             rec.state = 'draft'

@@ -13,27 +13,41 @@
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet string="Resource Plan Lines">
+                         <h1>
+                            <label class="oe_inline" style="font-size:30px;" string="Billing Request - " attrs="{'invisible':[('name','=', False)]}"/>
+                            <field class="oe_inline" name="name" readonly="1"/>
+                        </h1>
                         <group>
                             <group col="4" colspan="3">
-                                <field name="account_id"/>
-                                <field name="name"/>
-                                <field name="date"/>
-                                <field name="invoice_id" string="Invoice"/>
+                                <field name="account_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                <field name="date" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                             </group>
-                            <group col="4" colspan="2" string="Customer Information">
-                                <field name="customer_id"/>
+                            <group col="2" colspan="2" string="Customer Information">
+                                <field name="customer_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                             </group>
                             <group string="Product Information">
-                                <field name="quantity" required="1"/>
-                                <field name="price_unit" required="1"/>
-                                <field name="currency_id" required="1"/>
-                                <field name="amount"/>
+                                <field name="quantity" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                <field name="price_unit" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                <field name="currency_id" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                <field name="amount" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                             </group>
                             <group col="4" colspan="2" groups="analytic.group_analytic_accounting" string="Analytic Information">
-                                <field name="ref"/>
-                                <field groups="base.group_multi_company" name="company_id"/>
+                                <field name="ref" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Log Info" attrs="{'invisible':[('move_id', '=', False),('invoice_id', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="move_id" attrs="{'invisible':[('move_id', '=', False)]}" readonly="1"/>
+                                    </group>
+                                    <group>
+                                         <field name="invoice_id" string="Invoice" attrs="{'invisible':[('invoice_id', '=', False)]}" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -43,19 +57,19 @@
             <field name="model">analytic.billing.plan</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="Analytic billing plan line">
+                <tree colors="gray:state=='draft';green:state=='confirm';">
+                    <field name="name"/>
                     <field name='account_analytic_id'/>
                     <field name="account_id"/>
                     <field name="task_id"/>
                     <field name="customer_id"/>
                     <field name="date"/>
-                    <field name="name"/>
-                    <field name="currency_id" required="1"/>
+                    <field name="currency_id"/>
                     <field name="quantity"/>
                     <field name="amount"/>
                     <field name="company_id"/>
                     <field name="ref"/>
-                    <field name="has_active_order"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>

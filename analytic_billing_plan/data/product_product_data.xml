@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="product_amortization" model="product.product">
+            <field name="name">Amortization</field>
+            <field name="type">service</field>
+            <field eval="False" name="purchase_ok"/>
+            <field eval="True" name="sale_ok"/>
+        </record>
+         <record id="product_concept" model="product.product">
+            <field name="name">Concept</field>
+            <field name="type">service</field>
+            <field eval="False" name="purchase_ok"/>
+            <field eval="True" name="sale_ok"/>
+        </record>
+    </data>
+</odoo>

@@ -49,7 +49,7 @@
             <field name="model">project.wbs_element</field>
             <field name="type">gantt8</field>
             <field name="arch" type="xml">
-                <gantt8 date_start="date_start" date_stop="date_end" string="WBS Elements" default_group_by="project_id"/>
+                <gantt8 date_start="date_start" date_stop="date_end" string="WBS Elements" default_group_by="parent_id"/>
             </field>
         </record>
         <record id="project_wbs_element.act_project_project_2_project_wbs_element_all" model="ir.actions.act_window">

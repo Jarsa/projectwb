@@ -19,15 +19,28 @@
                 </xpath>
             </field>
         </record>
-
-        <record model='ir.ui.view' id='billing_project_project_tree_view'>
-            <field name='name'>project.project.tree</field>
-            <field name='model'>project.project</field>
+        <record id="billing_project_project_tree_view" model="ir.ui.view">
+            <field name="name">project.project.tree</field>
+            <field name="model">project.project</field>
             <field name="inherit_id" ref="task_resource.project_project_tree_view"/>
-            <field name='arch' type='xml'>
-                <field name='total_project_expenses' position='after'>
-                    <field name="billing_project_total" string='Total Billing'/>
+            <field name="arch" type="xml">
+                <field name="total_project_expenses" position="after">
+                    <field name="billing_project_total" string="Total Billing"/>
                 </field>
+            </field>
+        </record>
+        <record id="project_billing_plan_form_view" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <group name="misc" position="before">
+                    <group string="Billing Amortization">
+                        <group>
+                            <field name="project_amortization" class="text_box_small"/>
+                        </group>
+                    </group>
+                </group>
             </field>
         </record>
     </data>

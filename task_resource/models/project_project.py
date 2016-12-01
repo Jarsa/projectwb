@@ -10,10 +10,18 @@ class ProjectProject(models.Model):
     _inherit = 'project.project'
 
     total_project_expenses = fields.Float(
-        'Billing Total', compute='_compute_total_project_expenses')
+        'Billing Total', compute='_compute_total_project_expenses',)
     total_charge = fields.Float(
         compute="_compute_total_charges",
-        string='Total Charge')
+        string='Total Charge',)
+    state = fields.Selection(
+        [('draft', 'Draft'),
+         ('open', 'In Progress'),
+         ('closed', 'Closed'),
+         ('cancel', 'Canceled')],
+        string='Status',
+        readonly=True,
+        default='draft',)
 
     @api.multi
     def _compute_total_charges(self):
@@ -38,3 +46,11 @@ class ProjectProject(models.Model):
                         wbs_element.total_concept_expense)
             else:
                 rec.total_project_expenses = 0.0
+
+    @api.multi
+    def action_open(self):
+        for rec in self:
+            for wbs_element in rec.wbs_element_ids:
+                for task in wbs_element.task_ids:
+                    task.action_open()
+            rec.state = 'open'
