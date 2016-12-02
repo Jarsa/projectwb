@@ -18,13 +18,3 @@ class PurchaseOrder(models.Model):
                 'purchase.confirmed')
         })
         return res
-
-    @api.multi
-    def button_cancel(self):
-        res = super(PurchaseOrder, self).button_cancel()
-        self.write({
-            'name': self.env['ir.sequence'].next_by_code(
-                'purchase.order'),
-            'origin': False,
-        })
-        return res

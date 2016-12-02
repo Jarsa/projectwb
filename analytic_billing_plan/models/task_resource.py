@@ -26,8 +26,7 @@ class TaskResource(models.Model):
         string='Product to Billing',
         domain=[('sale_ok', '=', True),
                 ('type', '=', 'service')],
-        default=lambda self: self.env.ref(
-            'analytic_billing_plan.product_concept'),)
+        )
 
     @api.multi
     def _compute_billing_total(self):
