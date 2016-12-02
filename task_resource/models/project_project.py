@@ -54,3 +54,18 @@ class ProjectProject(models.Model):
                 for task in wbs_element.task_ids:
                     task.action_open()
             rec.state = 'open'
+
+    @api.multi
+    def action_close(self):
+        for rec in self:
+            rec.state = 'closed'
+
+    @api.multi
+    def action_open_draft(self):
+        for rec in self:
+            rec.state = 'draft'
+
+    @api.multi
+    def action_cancel_draft(self):
+        for rec in self:
+            rec.state = 'draft'

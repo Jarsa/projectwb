@@ -2,7 +2,7 @@
 # © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import _, api, exceptions, models
+from openerp import _, api, exceptions, fields, models
 
 
 class ProjectInvoice(models.TransientModel):
@@ -89,7 +89,8 @@ class ProjectInvoice(models.TransientModel):
 
             if project.project_amortization > 0:
                 product_amortization = self.env.ref(
-                    'product.amortization_product_template')
+                    'analytic_billing_plan.'
+                    'product_amortization_product_template')
                 if len(product_amortization) == 0:
                     raise exceptions.ValidationError(
                         _('You must have a product for project '
@@ -112,16 +113,20 @@ class ProjectInvoice(models.TransientModel):
                         'quantity': 1.0,
                         'price_unit': (total * percentage_rate) * -1.0,
                         'name': project.name + _(' Amortization'),
+                        'invoice_line_tax_ids': [(6, 0, [
+                            x.id for x in task.product_id.taxes_id])],
                         'account_id': product_account.id,
                     }))
 
         invoice_id_create = self.env['account.invoice'].create({
             'project_id': project.id,
             'partner_id': project.partner_id.id,
+            'date_invoice': fields.Date.today(),
             'fiscal_position_id': (
                 project.partner_id.property_account_position_id.id),
             'reference': invoice.ref,
             'currency_id': invoice.currency_id.id,
+            'payment_term_id': project.partner_id.property_payment_term_id.id,
             'account_id': (
                 project.partner_id.property_account_receivable_id.id),
             'type': 'out_invoice',

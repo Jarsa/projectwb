@@ -8,8 +8,8 @@
             <field name="arch" type="xml">
                 <form string="Analytic Billing Plan" version="9.0">
                     <header>
-                        <button class="oe_highlight" name="action_button_draft" states="confirm" string="Draft" type="object"/>
-                        <button class="oe_highlight" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
+                        <button class="oe_highlight" name="action_button_draft" icon="fa-reply" states="confirm" string="Draft" type="object"/>
+                        <button class="oe_highlight" name="action_button_confirm" states="draft" icon="fa-thumbs-up" string="Confirm" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet string="Resource Plan Lines">
@@ -70,6 +70,8 @@
                     <field name="company_id"/>
                     <field name="ref"/>
                     <field name="state"/>
+                    <button class="oe_highlight" name="action_button_draft" states="confirmed" icon="gtk-goto-last" string="Confirm" type="object"/>
+                    <button class="oe_highlight" name="action_button_confirm" icon="gtk-go-forward" states="draft" string="Confirm" type="object"/>
                 </tree>
             </field>
         </record>

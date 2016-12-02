@@ -32,8 +32,11 @@
         <record id="project_billing_plan_form_view" model="ir.ui.view">
             <field name="name">project.project.form</field>
             <field name="model">project.project</field>
-            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="inherit_id" ref="task_resource.project_project_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_close']" position='inside'>
+                    <button class="oe_highlight" confirm="Are you sure you want to create an advance invoice?" name="make_advance_invoice" string="Make Advance Invoice" icon="fa-money" states="open" type="object"/> 
+                </xpath>
                 <group name="misc" position="before">
                     <group string="Billing Amortization">
                         <group>

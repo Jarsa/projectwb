@@ -27,7 +27,7 @@
                             <field name="product_id" attrs="{'invisible':[('product_id','=',False)]}" invisible="1"/>
                             <field name="price_subtotal"/>
                             <field name="quantity"/>
-                            <field groups="product.group_uom" name="uom_id"/>
+                            <field groups="product.group_uom" name="uom_id" attrs="{'invisible':[('uom_id','=',False)]}"/>
                             <templates>
                                 <t t-name="kanban-box">
                                     <div t-attf-class="oe_kanban_card oe_kanban_global_click">
