@@ -6,7 +6,6 @@ from openerp import _, api, exceptions, fields, models
 
 
 class ProjectProject(models.Model):
-    _name = 'project.project'
     _inherit = 'project.project'
 
     billing_project_total = fields.Float(
@@ -48,6 +47,10 @@ class ProjectProject(models.Model):
     def make_advance_invoice(self):
         for rec in self:
             total_invoice = 0.0
+            if rec.advance_invoice_id:
+                raise exceptions.ValidationError(
+                    _('You can not create the invoice because '
+                        'the project already has an invoice.'))
             if rec.project_amortization > 0:
                 for wbs_element in rec.wbs_element_ids:
                     for task in wbs_element.task_ids:

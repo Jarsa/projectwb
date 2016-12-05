@@ -6,7 +6,6 @@ from openerp import api, fields, models
 
 
 class ProjectWbsElement(models.Model):
-    _name = "project.wbs_element"
     _inherit = "project.wbs_element"
 
     billing_concept_total = fields.Float(

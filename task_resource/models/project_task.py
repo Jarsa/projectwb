@@ -6,7 +6,6 @@ from openerp import _, api, exceptions, fields, models
 
 class ProjectTask(models.Model):
     _inherit = "project.task"
-    _name = "project.task"
 
     resource_ids = fields.One2many(
         comodel_name='task.resource',
@@ -43,6 +42,16 @@ class ProjectTask(models.Model):
     unit_price = fields.Float()
     total_expense = fields.Float(
         'Total Expenses', compute="_compute_total_expense")
+
+    @api.multi
+    @api.constrains('project_id')
+    def _check_project_state(self):
+        for rec in self:
+            if rec.project_id.state == 'open' and rec.project_id.order_change:
+                raise exceptions.ValidationError(
+                    _('A task can not be created when the '
+                      'project is in open state. For create it'
+                      ' you must go to the project and make an order change.'))
 
     @api.multi
     def _compute_total_expense(self):

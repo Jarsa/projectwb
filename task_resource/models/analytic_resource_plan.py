@@ -77,6 +77,12 @@ class AnalyticResourcePlanLine(models.Model):
                         if (rec.product_id.id == line.product_id.id and
                                 rec.account_id.id == line.
                                 analytic_account_id.id):
-                            rec.requested_qty += line.product_qty
+                            product_uom_qty = (
+                                self.env['product.uom']._compute_qty(
+                                    line.product_uom_id.id,
+                                    line.product_qty,
+                                    rec.product_id.uom_id.id,
+                                    round=False))
+                            rec.requested_qty += product_uom_qty
             else:
                 rec.requested_qty = 0.0

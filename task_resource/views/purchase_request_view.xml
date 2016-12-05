@@ -10,7 +10,8 @@
                     <field name="project_id"/>
                 </field>
                 <xpath expr="//field[@name='line_ids']/tree/field[@name='product_qty']" position="replace">
-                    <field name="product_qty"/>
+                    <field name="product_qty" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
+                    <field name="is_project_insume"/>
                 </xpath>
             </field>
         </record>

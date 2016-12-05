@@ -44,9 +44,10 @@ class ResourceControlLine(models.TransientModel):
         string='Quantity Real',
         readonly=True)
     new_qty = fields.Float(
-        string='New Quantity')
+        string='New Quantity',
+        required=True,)
     unit_price = fields.Float(
         string='Unit price')
     subtotal = fields.Float(string='Subtotal')
     type = fields.Char(string='Control type')
-    reason = fields.Text()
+    reason = fields.Text(required=True,)

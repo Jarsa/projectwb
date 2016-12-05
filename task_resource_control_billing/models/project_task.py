@@ -6,6 +6,5 @@ from openerp import fields, models
 
 class ProjectTask(models.Model):
     _inherit = "project.task"
-    _name = "project.task"
 
     remaining_quantity = fields.Float(default=0.0)

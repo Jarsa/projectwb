@@ -26,7 +26,10 @@ class ResourceConsumeLine(models.TransientModel):
         'product.product',
         string='Product',
         readonly=True)
-    uom_id = fields.Many2one('product.uom', string='UoM')
+    uom_id = fields.Many2one(
+        'product.uom',
+        string='UoM',
+        readonly=True,)
     real_qty = fields.Float(
         string="Real Quantity",
         readonly=True,

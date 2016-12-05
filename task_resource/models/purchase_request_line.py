@@ -6,10 +6,10 @@ from openerp import fields, models
 
 
 class PurchaseRequestLine(models.Model):
-
-    _description = 'Purchase Request'
     _inherit = 'purchase.request.line'
 
     product_qty = fields.Float(
         digits=(14, 5),
         string='Quantity',)
+    is_project_insume = fields.Boolean(
+        string='Is Project Insume?',)

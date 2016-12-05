@@ -6,7 +6,6 @@ from openerp import _, api, exceptions, fields, models
 
 
 class TaskResource(models.Model):
-    _description = "Task Resource"
     _inherit = 'project.task'
 
     line_billing_ids = fields.One2many('analytic.billing.plan', 'task_id')

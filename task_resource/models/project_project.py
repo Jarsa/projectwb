@@ -2,11 +2,10 @@
 # © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import api, fields, models
+from openerp import _, api, fields, models
 
 
 class ProjectProject(models.Model):
-    _name = 'project.project'
     _inherit = 'project.project'
 
     total_project_expenses = fields.Float(
@@ -22,6 +21,7 @@ class ProjectProject(models.Model):
         string='Status',
         readonly=True,
         default='draft',)
+    order_change = fields.Boolean()
 
     @api.multi
     def _compute_total_charges(self):
@@ -54,6 +54,7 @@ class ProjectProject(models.Model):
                 for task in wbs_element.task_ids:
                     task.action_open()
             rec.state = 'open'
+            rec.order_change = False
 
     @api.multi
     def action_close(self):
@@ -69,3 +70,20 @@ class ProjectProject(models.Model):
     def action_cancel_draft(self):
         for rec in self:
             rec.state = 'draft'
+
+    @api.multi
+    def make_order_change(self):
+        for rec in self:
+            rec.state = 'draft'
+
+            return {
+                'name': _('WBS Element'),
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'project.wbs_element',
+                'context': {
+                    'default_project_id': rec.id,
+                },
+                'target': 'current',
+                'type': 'ir.actions.act_window',
+                }

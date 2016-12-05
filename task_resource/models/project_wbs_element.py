@@ -2,11 +2,10 @@
 # Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
+from openerp import _, api, exceptions, fields, models
 
 
 class ProjectWbsElement(models.Model):
-    _name = "project.wbs_element"
     _inherit = "project.wbs_element"
 
     total_concept_expense = fields.Float(
@@ -32,3 +31,13 @@ class ProjectWbsElement(models.Model):
         for rec in self:
             for child in rec.task_ids:
                 rec.total_charge = rec.total_charge + child.subtotal
+
+    @api.multi
+    @api.constrains('project_id')
+    def _check_project_state(self):
+        for rec in self:
+            if rec.project_id.state == 'open' and rec.project_id.order_change:
+                raise exceptions.ValidationError(
+                    _('A task can not be created when the '
+                      'project is in open state. For create it'
+                      ' you must go to the project and make an order change.'))

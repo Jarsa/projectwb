@@ -11,7 +11,26 @@
                     <button icon="fa-times" name="action_cancel" states="draft,open" string="Cancel" type="object"/>
                     <button class="oe_highlight" icon="fa-thumbs-up" name="action_open" states="draft" string="Open" type="object"/>
                     <button class="oe_highlight" icon="fa-thumbs-up" name="action_close" states="open" string="Close" type="object"/>
+                    <button class="oe_highlight" confirm="Are you sure make an change order? The project state return to draft, don't forget change the project sate again to open." name="make_order_change" string="Make Order Change" icon="fa-history" states="open" type="object"/> 
                     <field name="state" statusbar_visible="draft,open,cancel,closed" widget="statusbar"/>
+                </field>
+                 <field name="use_tasks" position="replace">
+                    <field name="use_tasks" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                </field>
+                <field name="label_tasks" position="replace">
+                    <field name="label_tasks" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                </field>
+                 <field name="privacy_visibility" position="replace">
+                    <field name="privacy_visibility" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                </field>
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                </field>
+                <field name="user_id" position="replace">
+                    <field name="user_id" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                </field>
+                <field name="sequence" position="replace">
+                    <field name="sequence" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
                 </field>
             </field>
         </record>

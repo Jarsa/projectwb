@@ -5,8 +5,6 @@ from openerp import fields, models
 
 
 class ProjectWbsElement(models.Model):
-    _name = "project.wbs_element"
-    _description = "Project WBS Element"
     _inherit = "project.wbs_element"
 
     date_start = fields.Date(

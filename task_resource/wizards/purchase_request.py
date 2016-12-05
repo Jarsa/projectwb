@@ -109,6 +109,7 @@ class PurchaseRequest(models.TransientModel):
                 'product_qty': product_uom_qty,
                 'date_required': today,
                 'analytic_account_id': item.analytic_account_id.id,
+                'is_project_insume': True,
                 })
             lines.append(line)
         order = ({

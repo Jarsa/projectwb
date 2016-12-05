@@ -6,9 +6,6 @@ from openerp import fields, models
 
 
 class PurchaseRequest(models.Model):
-
-    _name = 'purchase.request'
-    _description = 'Purchase Request'
     _inherit = 'purchase.request'
 
     project_id = fields.Many2one(

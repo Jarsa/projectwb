@@ -7,6 +7,5 @@ from openerp import fields, models
 
 class AnalyticResourcePlanLine(models.Model):
     _inherit = "analytic.resource.plan.line"
-    _name = "analytic.resource.plan.line"
 
     real_qty = fields.Float(string="Quantity Real")

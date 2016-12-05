@@ -8,7 +8,14 @@
             <field name="inherit_id" ref="purchase_request_to_rfq.view_purchase_request_line_make_purchase_order"/>
             <field name="arch" type="xml">
                 <field name="product_qty" position="replace">
-                    <field name="product_qty"/>
+                    <field name="is_project_insume" invisible="1"/>
+                    <field name="product_qty" attrs="{'readonly': [('is_project_insume','=',True)]}"/>
+                </field>
+                <field name='product_id' position='replace'>
+                    <field name="product_id" readonly="1"/>
+                </field>
+                <field name='product_uom_id' position='replace'>
+                    <field name="product_uom_id" readonly="1"/>
                 </field>
             </field>
         </record>

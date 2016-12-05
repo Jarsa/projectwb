@@ -6,8 +6,6 @@ from openerp import api, fields, models
 
 
 class ProjectTask(models.Model):
-    _name = "project.task"
-    _description = "Project Task"
     _inherit = "project.task"
 
     direct_cost = fields.Float(

@@ -6,7 +6,6 @@ from openerp import fields, models
 
 
 class AccountInvoiceLine(models.Model):
-    _description = "account"
     _inherit = 'account.invoice.line'
 
     wbs_element_id = fields.Many2one(

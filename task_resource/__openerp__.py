@@ -28,6 +28,7 @@
         'views/task_resource.xml',
         'views/project_wbs_element.xml',
         'views/project_project_view.xml',
+        'views/purchase_order_view.xml',
         'views/purchase_request_view.xml',
         'views/resource_type_view.xml',
     ],
