@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from openerp import api, fields, models
+from openerp import _, api, exceptions, fields, models
 
 
 class ProjectTask(models.Model):
     _inherit = "project.task"
-    _name = "project.task"
 
     resource_ids = fields.One2many(
         comodel_name='task.resource',
@@ -16,8 +15,10 @@ class ProjectTask(models.Model):
         store=True)
     state = fields.Selection(
         [('draft', 'Draft'),
-         ('confirm', 'Confirmed')], string='Status',
-        required=True, readonly=True,
+         ('open', 'Open'),
+         ('confirm', 'Confirmed')],
+        string='Status',
+        readonly=True,
         default='draft')
     resource_line_ids = fields.One2many(
         comodel_name='analytic.resource.plan.line',
@@ -43,6 +44,16 @@ class ProjectTask(models.Model):
         'Total Expenses', compute="_compute_total_expense")
 
     @api.multi
+    @api.constrains('project_id')
+    def _check_project_state(self):
+        for rec in self:
+            if rec.project_id.state == 'open' and rec.project_id.order_change:
+                raise exceptions.ValidationError(
+                    _('A task can not be created when the '
+                      'project is in open state. For create it'
+                      ' you must go to the project and make an order change.'))
+
+    @api.multi
     def _compute_total_expense(self):
         for rec in self:
             invoice_lines = self.env['account.invoice.line'].search([
@@ -61,12 +72,6 @@ class ProjectTask(models.Model):
     def _compute_value_subtotal(self):
         for rec2 in self:
             rec2.subtotal = rec2.qty * rec2.unit_price
-
-    @api.multi
-    def _update_real_qty(self):
-        for rec in self:
-            for resource in rec.resource_line_ids:
-                resource.real_qty = rec.qty * resource.qty
 
     @api.multi
     def write(self, values):
@@ -135,6 +140,11 @@ class ProjectTask(models.Model):
             'type': 'ir.actions.act_window'}
 
     @api.multi
+    def action_open(self):
+        for rec in self:
+            rec.state = 'open'
+
+    @api.multi
     def action_button_confirm(self):
         for rec in self:
             rec.state = 'confirm'
@@ -142,4 +152,8 @@ class ProjectTask(models.Model):
     @api.multi
     def action_button_draft(self):
         for rec in self:
+            if rec.resource_line_ids:
+                raise exceptions.ValidationError(
+                    _("You can't reset the concept because it already"
+                        " has resources"))
             rec.state = 'draft'

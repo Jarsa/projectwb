@@ -17,11 +17,14 @@
         'account',
     ],
     'data': [
+        'data/data.xml',
+        'data/product_product_data.xml',
         'views/account_invoice_line_view.xml',
         'security/ir.model.access.csv',
         'wizard/billing_request_view.xml',
         'wizard/project_invoice.xml',
         'views/analytic_billing_view.xml',
+        'views/res_company_view.xml',
         'views/task_resource.xml',
         'views/project_wbs_element.xml',
         'views/project_project_view.xml'

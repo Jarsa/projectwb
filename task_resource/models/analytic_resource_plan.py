@@ -71,10 +71,18 @@ class AnalyticResourcePlanLine(models.Model):
         for rec in self:
             requests = self.env['purchase.request'].search(
                 [('state', '!=', 'rejected')])
-            for request in requests:
-                for line in request.line_ids:
-                    if (rec.product_id.id == line.product_id.id and
-                            rec.account_id.id == line.analytic_account_id.id):
-                        rec.requested_qty += line.product_qty
-                    else:
-                        rec.requested_qty = 0.0
+            if requests:
+                for request in requests:
+                    for line in request.line_ids:
+                        if (rec.product_id.id == line.product_id.id and
+                                rec.account_id.id == line.
+                                analytic_account_id.id):
+                            product_uom_qty = (
+                                self.env['product.uom']._compute_qty(
+                                    line.product_uom_id.id,
+                                    line.product_qty,
+                                    rec.product_id.uom_id.id,
+                                    round=False))
+                            rec.requested_qty += product_uom_qty
+            else:
+                rec.requested_qty = 0.0

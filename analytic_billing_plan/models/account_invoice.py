@@ -6,7 +6,6 @@ from openerp import fields, models
 
 
 class AccountInvoice(models.Model):
-    _description = "account"
     _inherit = 'account.invoice'
 
     project_id = fields.Many2one(

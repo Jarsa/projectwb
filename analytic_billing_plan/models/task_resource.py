@@ -2,11 +2,10 @@
 # Copyright 2015 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import api, fields, models
+from openerp import _, api, exceptions, fields, models
 
 
 class TaskResource(models.Model):
-    _description = "Task Resource"
     _inherit = 'project.task'
 
     line_billing_ids = fields.One2many('analytic.billing.plan', 'task_id')
@@ -18,11 +17,15 @@ class TaskResource(models.Model):
         'res.currency',
         string='Currency',
         default=lambda self: self.env.user.company_id.currency_id)
-    tax_ids = fields.Many2many('account.tax', string="Taxes")
     billing_task_total = fields.Float(
         string='Billing Total',
         compute='_compute_billing_total')
-    account_id = fields.Many2one('account.account', 'Account')
+    product_id = fields.Many2one(
+        'product.product',
+        string='Product to Billing',
+        domain=[('sale_ok', '=', True),
+                ('type', '=', 'service')],
+        )
 
     @api.multi
     def _compute_billing_total(self):
@@ -44,6 +47,15 @@ class TaskResource(models.Model):
         for record in self:
             record.nbr_billing = len(record.line_billing_ids.search(
                 [('task_id', '=', record.id)]))
+
+    @api.multi
+    def action_button_draft(self):
+        for rec in self:
+            if rec.nbr_billing > 0.0:
+                raise exceptions.ValidationError(
+                    _("You can't reset the concept because"
+                        " it already has a billing request."))
+        return super(TaskResource, self).action_button_draft()
 
     @api.multi
     def request_billing_request(self):

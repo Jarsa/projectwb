@@ -22,6 +22,7 @@ class ResourceControl(models.TransientModel):
                 'task_id': line.id,
                 'uom_id': line.uom_id.id,
                 'qty': line.qty,
+                'real_qty': line.real_qty,
                 'unit_price': line.unit_price,
                 'subtotal': line.subtotal,
                 'analytic_account_id': line.analytic_account_id.id
@@ -62,24 +63,28 @@ class ResourceControl(models.TransientModel):
             for item in rec.item_ids:
                 if active_model == 'analytic.resource.plan.line':
                     project_id = item.line_id.task_resource_id.project_id.id
-                    qty_planned = item.line_id.qty
+                    qty_real = item.line_id.real_qty
                     analytic_account = item.line_id.account_id.id
+                    if item.line_id.qty_consumed > item.new_qty:
+                        raise ValidationError(
+                            _("The new quantity must be greather "
+                                "than the quantity consumed."))
                     item.line_id.write({'real_qty': item.new_qty})
                 else:
                     project_id = item.task_id.project_id.id
-                    qty_planned = item.task_id.qty
+                    qty_real = item.task_id.real_qty
                     analytic_account = item.task_id.analytic_account_id.id
-                    item.task_id.write({'qty': item.new_qty})
+                    item.task_id.write({'real_qty': item.new_qty})
                     item.task_id._update_real_qty()
 
-                if qty_planned > item.new_qty:
+                if qty_real > item.new_qty:
                     item.type = 'deductive'
-                elif qty_planned < item.new_qty:
+                elif qty_real < item.new_qty:
                     item.type = 'additive'
                 else:
                     raise ValidationError(
                         _("The new quantity must be greather or "
-                          "smaller than the planned quantity"))
+                          "smaller than the real quantity"))
 
                 change_id = self.env['resource.control'].create({
                     'project_id': project_id,

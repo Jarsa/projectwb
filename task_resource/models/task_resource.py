@@ -6,7 +6,6 @@ from openerp import api, fields, models
 
 class TaskResource(models.Model):
     _name = "task.resource"
-    _description = "Task Resource"
 
     task_id = fields.Many2one(
         comodel_name='project.task',

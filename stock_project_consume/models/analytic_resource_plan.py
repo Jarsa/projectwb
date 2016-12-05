@@ -6,8 +6,6 @@ from openerp import api, fields, models
 
 
 class AnalyticResourcePlanLine(models.Model):
-    _name = "analytic.resource.plan.line"
-    _description = "Resource Plan"
     _inherit = "analytic.resource.plan.line"
 
     qty = fields.Float(

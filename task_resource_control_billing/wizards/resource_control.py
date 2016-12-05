@@ -27,6 +27,6 @@ class ResourceControl(models.TransientModel):
 
         res_control.task_id.remaining_quantity = 0.0
         res_control.task_id.write({'remaining_quantity': (
-            res_control.task_id.qty - qty_requested)})
+            res_control.task_id.real_qty - qty_requested)})
 
         return res

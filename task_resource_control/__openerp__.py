@@ -25,6 +25,7 @@
         'wizards/resource_control.xml',
         'views/resource_control_view.xml',
         'views/task_resource.xml',
+        'views/total_task_resource_view.xml',
     ],
     'installable': True,
 }

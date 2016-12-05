@@ -2,13 +2,12 @@
 # Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import api, fields, models, _
+from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
 
 
 class ProjectWbsElement(models.Model):
     _name = "project.wbs_element"
-    _description = "Project WBS Element"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     code = fields.Char(compute='_compute_wbs_code')
@@ -54,7 +53,6 @@ class ProjectWbsElement(models.Model):
     parent_analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Parent nalytic account')
-    total_charge = fields.Float(compute="_compute_total_charges")
 
     @api.depends('task_ids')
     def _compute_count_tasks(self):
@@ -227,9 +225,3 @@ class ProjectWbsElement(models.Model):
                         ' / '+str(rec.name.encode("utf-8")))
                 rec.analytic_account_id.name = name
             return res
-
-    @api.depends('child_ids')
-    def _compute_total_charges(self):
-        for rec in self:
-            for child in rec.task_ids:
-                rec.total_charge = rec.total_charge + child.subtotal

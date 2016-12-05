@@ -16,8 +16,8 @@
 					<field name="location_id" invisible="1"/>
 				</field>
 				<field name="partner_id" position="after">
-					<field name="parent_location_id" required="1"/>
-					<field name="code" required="1"/>
+					<field name="parent_location_id" required="1" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+					<field name="code" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}" required="1"/>
 				</field>
 			</field>
 		</record>

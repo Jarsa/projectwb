@@ -93,18 +93,30 @@ class PurchaseRequest(models.TransientModel):
                             item.line_id.task_resource_id.name))
         today = datetime.strptime(fields.Datetime.now(), "%Y-%m-%d %H:%M:%S")
         for item in self.item_ids:
+            product_uom_id = item.product_id.uom_po_id.id
+            if item.uom_id.id != item.product_id.uom_po_id.id:
+                product_uom_qty = self.env['product.uom']._compute_qty(
+                    item.uom_id.id,
+                    item.qty_to_request,
+                    item.product_id.uom_po_id.id,
+                    round=False)
+            else:
+                product_uom_qty = item.qty_to_request
             line = (0, 0, {
                 'product_id': item.product_id.id,
                 'name': item.line_id.description,
-                'product_qty': item.qty_to_request,
+                'product_uom_id': product_uom_id,
+                'product_qty': product_uom_qty,
                 'date_required': today,
                 'analytic_account_id': item.analytic_account_id.id,
+                'is_project_insume': True,
                 })
             lines.append(line)
         order = ({
             'company_id': self.env.user.company_id.id,
             'picking_type_id': self.project_id.picking_in_id.id,
             'requested_by': self.env.user.id,
+            'project_id': self.project_id.id,
             'name': self.env['purchase.request']._get_default_name(),
             'line_ids': lines,
             })
