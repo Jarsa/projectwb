@@ -11,7 +11,7 @@
                         <separator string="Purchase Request"/>
                     </header>
                     <field name="item_ids">
-                         <tree create="False" editable="bottom">
+                         <tree create="0" editable="bottom">
                             <field name="analytic_account_id"/>
                             <field name="product_id"/>
                             <field name="uom_id"/>
