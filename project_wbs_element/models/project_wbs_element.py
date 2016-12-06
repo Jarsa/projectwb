@@ -52,7 +52,7 @@ class ProjectWbsElement(models.Model):
         string='Analytic account')
     parent_analytic_account_id = fields.Many2one(
         'account.analytic.account',
-        string='Parent nalytic account')
+        string='Parent analytic account')
 
     @api.depends('task_ids')
     def _compute_count_tasks(self):
@@ -183,6 +183,13 @@ class ProjectWbsElement(models.Model):
             name = ('['+str(wbs_element.code)+'] ' +
                     str(wbs_element.project_id.name.encode("utf-8")) +
                     ' / '+str(wbs_element.name))
+            wbs_element.analytic_account_id = (
+                wbs_element.analytic_account_id.create({
+                    'company_id': self.env.user.company_id.id,
+                    'name': name,
+                    'account_type': 'normal',
+                    'parent_id': wbs_element.project_id.analytic_account_id.id,
+                    }))
         else:
             name = ('['+str(wbs_element.parent_id.code) +
                     ' / '+str(wbs_element.code)+'] ' +
@@ -190,11 +197,13 @@ class ProjectWbsElement(models.Model):
                     ' ' +
                     str(wbs_element.parent_id.name.encode("utf-8")) +
                     ' / '+str(wbs_element.name.encode("utf-8")))
-        wbs_element.analytic_account_id = (
-            wbs_element.analytic_account_id.create({
-                'company_id': self.env.user.company_id.id,
-                'name': name,
-                'account_type': 'normal'}))
+            wbs_element.analytic_account_id = (
+                wbs_element.analytic_account_id.create({
+                    'company_id': self.env.user.company_id.id,
+                    'name': name,
+                    'account_type': 'normal',
+                    'parent_id': wbs_element.parent_id.analytic_account_id.id
+                    }))
         return wbs_element
 
     @api.multi
