@@ -60,7 +60,7 @@ class ProjectProject(models.Model):
                                     'create the invoice.'))
                         total_invoice += task.real_subtotal
             advance_product = self.env.ref(
-                'analytic_billing_plan.product_amortization_product_template')
+                'analytic_billing_plan.product_amortization')
             if len(advance_product) == 0:
                 raise exceptions.ValidationError(
                     _('Amortization product not found, please contact your'
@@ -85,6 +85,7 @@ class ProjectProject(models.Model):
             lines.append(
                 (0, 0, {
                     'product_id': advance_product.id,
+                    'uom_id': self.env.ref('product.product_uom_unit').id,
                     'quantity': 1.0,
                     'price_unit': total,
                     'name': rec.name + _(' Advance Amortization'),

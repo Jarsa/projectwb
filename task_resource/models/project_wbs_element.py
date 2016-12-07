@@ -29,8 +29,12 @@ class ProjectWbsElement(models.Model):
     @api.multi
     def _compute_total_charges(self):
         for rec in self:
-            for child in rec.task_ids:
-                rec.total_charge = rec.total_charge + child.subtotal
+            if rec.child_ids:
+                for child in rec.child_ids:
+                    rec.total_charge = rec.total_charge + child.total_charge
+            else:
+                for child in rec.task_ids:
+                    rec.total_charge = rec.total_charge + child.subtotal
 
     @api.multi
     @api.constrains('project_id')
