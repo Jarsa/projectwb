@@ -77,7 +77,8 @@ class ProjectInvoice(models.TransientModel):
         if total > 0.0:
             lines.append(
                 (0, 0, {
-                    'product_id': task.product_id.id,
+                    'product_id': self.env.ref(
+                        'analytic_billing_plan.product_concept').id,
                     'quantity': 1.0,
                     'price_unit': total,
                     'uom_id': self.env.ref('product.product_uom_unit').id,
