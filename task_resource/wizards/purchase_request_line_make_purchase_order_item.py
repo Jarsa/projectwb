@@ -37,5 +37,5 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             super(PurchaseRequestLineMakePurchaseOrder, self).
             _prepare_purchase_order_line(po, item))
         res['is_project_insume'] = item.is_project_insume
-        res['taxes_id'] = [(6, 0, item.product_id.taxes_id.ids)]
+        res['taxes_id'] = [(6, 0, item.product_id.supplier_taxes_id.ids)]
         return res

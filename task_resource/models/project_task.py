@@ -93,7 +93,7 @@ class ProjectTask(models.Model):
                         'real_qty': rec.qty * resource.qty,
                         'subtotal': (
                             rec.qty * resource.qty * (
-                                resource.product_id.lst_price))
+                                resource.unit_price))
                     })
             else:
                 list_item = []
