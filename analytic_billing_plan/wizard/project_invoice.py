@@ -80,6 +80,7 @@ class ProjectInvoice(models.TransientModel):
                     'product_id': task.product_id.id,
                     'quantity': 1.0,
                     'price_unit': total,
+                    'uom_id': self.env.ref('product.product_uom_unit').id,
                     'name': project.name + _(' Payment'),
                     'invoice_line_tax_ids': [(6, 0, [
                         x.id for x in task.product_id.taxes_id])],
@@ -90,7 +91,7 @@ class ProjectInvoice(models.TransientModel):
             if project.project_amortization > 0:
                 product_amortization = self.env.ref(
                     'analytic_billing_plan.'
-                    'product_amortization_product_template')
+                    'product_amortization')
                 if len(product_amortization) == 0:
                     raise exceptions.ValidationError(
                         _('You must have a product for project '

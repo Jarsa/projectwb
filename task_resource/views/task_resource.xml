@@ -72,6 +72,7 @@
                                 <field name="resource_type_id" required="1" widget="selection"/>
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" required="1" sum="Total qty"/>
+                                <field name="unit_price"/>
                             </tree>
                         </field>
                     </page>
