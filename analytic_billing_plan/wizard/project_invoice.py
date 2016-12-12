@@ -115,6 +115,7 @@ class ProjectInvoice(models.TransientModel):
                         'quantity': 1.0,
                         'price_unit': (total * percentage_rate) * -1.0,
                         'name': project.name + _(' Amortization'),
+                        'uom_id': self.env.ref('product.product_uom_unit').id,
                         'invoice_line_tax_ids': [(6, 0, [
                             x.id for x in task.product_id.taxes_id])],
                         'account_id': product_account.id,

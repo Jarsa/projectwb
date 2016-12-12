@@ -30,8 +30,9 @@ class ProjectProject(models.Model):
                 ('project_id', '=', rec.id)])
             if wbs_elements:
                 for wbs_element in wbs_elements:
-                    rec.total_charge += (
-                        wbs_element.total_charge)
+                    if not wbs_element.parent_id:
+                        rec.total_charge += (
+                            wbs_element.total_charge)
             else:
                 rec.total_project_expenses = 0.0
 
@@ -42,8 +43,9 @@ class ProjectProject(models.Model):
                 ('project_id', '=', rec.id)])
             if wbs_elements:
                 for wbs_element in wbs_elements:
-                    rec.total_project_expenses += (
-                        wbs_element.total_concept_expense)
+                    if not wbs_element.parent_id:
+                        rec.total_project_expenses += (
+                            wbs_element.total_concept_expense)
             else:
                 rec.total_project_expenses = 0.0
 
@@ -70,6 +72,11 @@ class ProjectProject(models.Model):
     def action_cancel_draft(self):
         for rec in self:
             rec.state = 'draft'
+
+    @api.multi
+    def action_cancel(self):
+        for rec in self:
+            rec.state = 'cancel'
 
     @api.multi
     def make_order_change(self):

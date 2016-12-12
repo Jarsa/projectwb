@@ -76,7 +76,9 @@ class AnalyticBillingPlan(models.Model):
                     'narration': rec.ref,
                     'debit': (total if name == 'debit' else 0.0),
                     'credit': (total if name == 'credit' else 0.0),
-                    'journal_id': 1,
+                    'journal_id': (
+                        self.env.user.company_id.
+                        billing_request_journal_id.id),
                     'analytic_account_id': rec.account_analytic_id.id,
                     'project_id': rec.project_id.id,
                     'task_id': rec.task_id.id,
