@@ -8,8 +8,6 @@ Task Resource
 
 This application allows you to manage a insume explotion in the build of your project.
 
-Transport Requirement => Waybill => Freight => Delivery
-
 Managing:
 =========
 * Resources
