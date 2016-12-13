@@ -30,5 +30,4 @@
         'views/task_resource.xml',
     ],
     'installable': True,
-    'active': True,
 }

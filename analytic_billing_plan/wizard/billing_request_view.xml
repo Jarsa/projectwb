@@ -10,22 +10,23 @@
                     <header class="text-center">
                         <separator string="Billing Request"/>
                     </header>
-                            <field name="item_ids" nolabel="1">
-                                <tree create="0" delete="0" editable="top">
-                                    <field name="project_task"/>
-                                    <field name="unit_price"/>
-                                    <field name="qty"/>
-                                    <field name="quantity_invoice"/>
-                                    <field name="remaining_quantity"/>
-                                    <field name="total_invoice"/>
-                                </tree>
-                            </field>
+                    <field name="item_ids" nolabel="1">
+                        <tree create="0" editable="top">
+                            <field name="project_task"/>
+                            <field name="quantity_invoice"/>
+                            <field name="qty"/>
+                            <field name="remaining_quantity"/>
+                            <field name="unit_price"/>
+                            <field name="total_invoice"/>
+                        </tree>
+                    </field>
                     <footer>
                         <button class="oe_highlight" name="create_billing" string="Create Billing Plan" type="object"/>
-                        <button class="oe_link" special="cancel" string="Cancel"/></footer>
-                    </form>
-                </field>
-            </record>
-            <act_window id="action_view_billing_request" key2="client_action_multi" name="Create Billing Request" res_model="wizard.billing.plan" src_model="project.task" target="new" view_mode="form"/>
-        </data>
-    </odoo>
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_view_billing_request" key2="client_action_multi" name="Create Billing Request" res_model="wizard.billing.plan" src_model="project.task" target="new" view_mode="form"/>
+    </data>
+</odoo>

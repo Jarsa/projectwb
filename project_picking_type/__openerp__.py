@@ -9,7 +9,7 @@
     'project created in Odoo',
     'category': 'Generic Modules',
     'author': (
-        'Jarsa Sistemas S.A. de C.V.'),
+        'Jarsa Sistemas S.A. de C.V., Odoo Community Association (OCA)'),
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [

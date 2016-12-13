@@ -17,10 +17,10 @@ class WizardBillingPlan(models.TransientModel):
     @api.model
     def _prepare_item(self, line):
         return {
-            'project_task': line['project_task'],
-            'remaining_quantity': line['remaining_quantity'],
-            'unit_price': line['unit_price'],
-            'qty': line['qty'],
+            'project_task': line.id,
+            'remaining_quantity': line.remaining_quantity,
+            'unit_price': line.unit_price,
+            'qty': line.qty,
         }
 
     @api.model
@@ -52,27 +52,7 @@ class WizardBillingPlan(models.TransientModel):
                 state_validator = True
             else:
                 old_project = line.project_id.id
-                lines = line.line_billing_ids.search(
-                    [('task_id', '=', line.id)])
                 res = super(WizardBillingPlan, self).default_get(fields)
-                if len(lines) == 0:
-                    quantity = line.qty
-                else:
-                    for billing in lines:
-                        if billing.has_active_order:
-                            if line.remaining_quantity > 0:
-                                quantity = line.remaining_quantity
-                            else:
-                                quantity = line.qty
-                        else:
-                            raise exceptions.ValidationError(
-                                _('The quantity to invoice is zero.'))
-                line = {
-                    'unit_price': line.unit_price,
-                    'remaining_quantity': line.remaining_quantity,
-                    'project_task': line.id,
-                    'qty': quantity,
-                }
                 items.append([0, 0, self._prepare_item(line)])
 
         if project_validator:
@@ -115,12 +95,12 @@ class WizardBillingPlan(models.TransientModel):
                     {'remaining_quantity': item.remaining_quantity})
                 billing.create({
                     "account_id": (
-                        item.project_task.product_id.
+                        self.env.user.company_id.product_id.
                         property_account_income_id.id
-                        if item.project_task.product_id.
+                        if self.env.user.company_id.product_id.
                         property_account_income_id.id
                         else
-                        item.project_task.product_id.
+                        self.env.user.company_id.product_id.
                         categ_id.property_account_income_categ_id.id),
                     "customer_id": item.project_task.project_id.partner_id.id,
                     "date": fields.Date.today(),

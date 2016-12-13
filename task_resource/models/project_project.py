@@ -52,9 +52,6 @@ class ProjectProject(models.Model):
     @api.multi
     def action_open(self):
         for rec in self:
-            for wbs_element in rec.wbs_element_ids:
-                for task in wbs_element.task_ids:
-                    task.action_open()
             rec.state = 'open'
             rec.order_change = False
 
