@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from openerp import fields, models
+from openerp import api, fields, models
 
 
 class PurchaseRequestLine(models.TransientModel):
@@ -16,33 +16,37 @@ class PurchaseRequestLine(models.TransientModel):
         'analytic.resource.plan.line',
         string='Resource Line',
         required=True,
-        readonly=True)
+        readonly=True,)
     analytic_account_id = fields.Many2one(
         'account.analytic.account',
         related='line_id.account_id',
         string='Analytic Account',
-        readonly=True)
+        readonly=True,)
     product_id = fields.Many2one(
         'product.product',
         string='Product',
-        readonly=True)
-    uom_id = fields.Many2one('product.uom', string='UoM', readonly=True)
+        readonly=True,)
+    uom_id = fields.Many2one('product.uom', string='UoM', readonly=True,)
     qty = fields.Float(
         string='Quantity Planned',
         readonly=True,
+        digits=(14, 4),
         )
     real_qty = fields.Float(
         string="Real Quantity",
         readonly=True,
+        digits=(14, 4),
         )
     qty_on_hand = fields.Float(
         string='Quantity On Hand',
         readonly=True,
+        digits=(14, 4),
         )
     qty_to_request = fields.Float(
         string="Quantity To Request",
-        default="1.0",
+        digits=(14, 4),
         )
     requested_qty = fields.Float(
         readonly=True,
+        digits=(14, 4),
         )

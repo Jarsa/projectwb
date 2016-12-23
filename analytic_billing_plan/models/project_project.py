@@ -11,15 +11,17 @@ class ProjectProject(models.Model):
     billing_project_total = fields.Float(
         'Billing Total',
         compute='_compute_billing_project_total',)
-    project_amortization = fields.Integer(
-        string='Project Amortization',)
+    project_amortization = fields.Float(
+        string='Project Amortization',
+        digits=(14, 7),)
     advance_invoice_id = fields.Many2one(
         comodel_name='account.invoice',
         string='Advance Invoice',
         readonly=True,
         )
-    project_retention = fields.Integer(
-        string='Project Retention',)
+    project_retention = fields.Float(
+        string='Project Retention',
+        digits=(14, 4),)
     retention_invoice_id = fields.Many2one(
         comodel_name='account.invoice',
         string='Retention Invoice',

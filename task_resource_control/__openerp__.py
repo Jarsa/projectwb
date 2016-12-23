@@ -23,6 +23,8 @@
     'data': [
         'security/ir.model.access.csv',
         'wizards/resource_control.xml',
+        'views/project_project_view.xml',
+        'views/project_wbs_element.xml',
         'views/resource_control_view.xml',
         'views/task_resource.xml',
         'views/total_task_resource_view.xml',

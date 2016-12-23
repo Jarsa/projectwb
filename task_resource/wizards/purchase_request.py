@@ -27,7 +27,8 @@ class PurchaseRequest(models.TransientModel):
             'uom_id': line.uom_id.id,
             'qty': line.qty,
             'real_qty': line.real_qty,
-            'requested_qty': line.requested_qty
+            'requested_qty': line.requested_qty,
+            'qty_to_request': line._get_available_qty()
         }
 
     @api.model

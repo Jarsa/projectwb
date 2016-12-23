@@ -14,6 +14,20 @@ class ProjectProject(models.Model):
         'resource.control',
         'project_id',
         string="Resources Control")
+    total_real_charge = fields.Float(
+        compute='_compute_total_real_charge',
+        string='Total Real',)
+
+    @api.multi
+    def _compute_total_real_charge(self):
+        for rec in self:
+            wbs_elements = self.env['project.wbs_element'].search([
+                ('project_id', '=', rec.id)])
+            if wbs_elements:
+                for wbs_element in wbs_elements:
+                    if not wbs_element.parent_id:
+                        rec.total_real_charge += (
+                            wbs_element.total_real_charge)
 
     @api.model
     def create(self, values):

@@ -8,11 +8,14 @@ from openerp import _, api, exceptions, fields, models
 class TaskResource(models.Model):
     _inherit = 'project.task'
 
-    line_billing_ids = fields.One2many('analytic.billing.plan', 'task_id')
+    line_billing_ids = fields.One2many('analytic.billing.plan.line', 'task_id')
     nbr_billing = fields.Float(
         string="Billing Request",
         compute="_compute_nrb_billing")
-    remaining_quantity = fields.Float(default=0.0)
+    remaining_quantity = fields.Float(
+        default=0.0,
+        compute="_compute_remaining_quantity",
+        store=True,)
     currency_id = fields.Many2one(
         'res.currency',
         string='Currency',
@@ -43,6 +46,15 @@ class TaskResource(models.Model):
                 [('task_id', '=', record.id)]))
 
     @api.multi
+    @api.depends('line_billing_ids')
+    def _compute_remaining_quantity(self):
+        for rec in self:
+            billing_request_total = 0.0
+            for line in rec.line_billing_ids:
+                billing_request_total += line.quantity
+            rec.remaining_quantity = rec.qty - billing_request_total
+
+    @api.multi
     def action_button_draft(self):
         for rec in self:
             if rec.nbr_billing > 0.0:
@@ -56,9 +68,13 @@ class TaskResource(models.Model):
         return {
             'name': 'Billing Request',
             'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'analytic.billing.plan',
+            'view_mode': 'tree',
+            'view_id':  self.env.ref(
+                    'analytic_billing_plan.'
+                    'analytic_billing_plan_line_tree_view').id,
+            'res_model': 'analytic.billing.plan.line',
             'domain': [(
                 'account_analytic_id', '=', self.analytic_account_id.id)],
+            'context': {'search_default_analytic_billing_plan_group_by': 1},
             'type': 'ir.actions.act_window',
         }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!--  Make Payment-->
-        <record id="tms_view_advance_payment" model="ir.ui.view">
+        <record id="purchase_request_wizard_view" model="ir.ui.view">
             <field name="name">Wizard request quotations</field>
             <field name="model">purchase.request.wizard</field>
             <field name="arch" type="xml">
@@ -28,7 +27,15 @@
                 </form>
             </field>
         </record>
-
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript">
+                    $("span[data-fieldname='qty_to_request']").on('click', function (){
+                        $(this).select();
+                    });
+                </script>
+            </xpath>
+        </template>
         <act_window id="launch_session_wizard"
                     name="Add a Purchase Request"
                     src_model="analytic.resource.plan.line"

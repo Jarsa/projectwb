@@ -8,6 +8,7 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     is_project_insume = fields.Boolean()
+    specifications = fields.Char()
 
     @api.multi
     def _create_stock_moves(self, picking):

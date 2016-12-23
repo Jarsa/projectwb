@@ -51,6 +51,11 @@ class AnalyticResourcePlanLine(models.Model):
         compute='_compute_requested_qty',
         digits=(14, 5),)
 
+    @api.model
+    def _get_available_qty(self):
+        if self.requested_qty > 0:
+            return self.real_qty - self.requested_qty
+
     @api.onchange('product_id')
     def onchange_product(self):
         self.description = self.product_id.description

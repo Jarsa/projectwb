@@ -5,7 +5,7 @@
             <field name="name">analytic.resource.plan.line.view.tree</field>
             <field name="model">analytic.resource.plan.line</field>
             <field name="arch" type="xml">
-                <tree editable="top" string="Total task resource">
+                <tree string="Total task resource" create="false" delete="false">
                     <field name="project_id" readonly="1"/>
                     <field name="account_id" readonly="1"/>
                     <field name="product_id" readonly="1"/>

@@ -37,9 +37,9 @@
                 <group name="misc" position="before">
                     <group string="Billing Amortization">
                         <group>
-                            <field class="text_box_small" name="project_amortization"/>
+                            <field class="text_box_small" name="project_amortization" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                             <field class="text_box_small" name="advance_invoice_id" attrs="{'invisible': [('advance_invoice_id', '=', False)]}"/>
-                            <field class="text_box_small" name="project_retention"/>
+                            <field class="text_box_small" name="project_retention" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                             <field class="text_box_small" name="retention_invoice_id" attrs="{'invisible': [('retention_invoice_id', '=', False)]}"/>
                         </group>
                     </group>
