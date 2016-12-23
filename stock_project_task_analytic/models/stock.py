@@ -30,7 +30,7 @@ class StockQuant(models.Model):
                         context=context
                         )
 
-        # Add project in debit line
+        # Add project task in debit line
         if move.account_analytic_id:
             res[0][2].update({
                 'task_id': move.task_id.id,

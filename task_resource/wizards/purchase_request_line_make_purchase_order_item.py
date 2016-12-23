@@ -6,7 +6,6 @@ from openerp import _, api, exceptions, fields, models
 
 
 class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
-    _name = "purchase.request.line.make.purchase.order.item"
     _inherit = "purchase.request.line.make.purchase.order.item"
 
     product_qty = fields.Float(string='Quantity to purchase',
@@ -31,17 +30,18 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
         res = super(
             PurchaseRequestLineMakePurchaseOrder, self)._prepare_item(line)
         res['is_project_insume'] = True
+        res['product_qty'] = line.remaining_qty
         return res
 
     @api.model
     def _check_valid_request_line(self, request_line_ids):
         for line in self.env['purchase.request.line'].browse(request_line_ids):
-
             if line.request_id.state != 'approved':
                 raise exceptions.Warning(
                     _('Purchase Request %s is not approved') %
                     line.request_id.name)
-            if line.purchase_state in ['purchase', 'done']:
+            if (line.purchase_state in ['purchase', 'done'] and
+                    line.remaining_qty == line.product_qty):
                 raise exceptions.ValidationError(
                     _('The purchase has already been completed \n \n'
                       'Line: %s \n Product: %s.') %
@@ -55,6 +55,12 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
         res = (
             super(PurchaseRequestLineMakePurchaseOrder, self).
             _prepare_purchase_order_line(po, item))
+        if item.product_qty > item.line_id.remaining_qty:
+            raise exceptions.ValidationError(
+                _('The quantity must be lower than the product'
+                    ' remaining quantity. \n \n'
+                  'Line: %s \n Product: %s.') %
+                (item.request_id.name, item.product_id.name))
         res['is_project_insume'] = item.is_project_insume
         res['taxes_id'] = [(6, 0, item.product_id.supplier_taxes_id.ids)]
         res['specifications'] = item.line_id.specifications

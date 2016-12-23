@@ -61,7 +61,7 @@ class PurchaseRequest(models.TransientModel):
                 state_validator = True
             else:
                 old_project = line.task_resource_id.project_id.id
-                items.append([0, 0, self._prepare_item(line)])
+                items.append((0, 0, self._prepare_item(line)))
 
         if project_validator:
             raise exceptions.ValidationError(

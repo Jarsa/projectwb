@@ -1,14 +1,32 @@
 # -*- coding: utf-8 -*-
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import api, fields, models
+from openerp import _, api, exceptions, fields, models
 
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    is_project_insume = fields.Boolean()
+    is_project_insume = fields.Boolean(
+        string='Is Project Insume',
+        readonly=True, )
     specifications = fields.Char()
+
+    @api.multi
+    @api.constrains('product_qty')
+    def _check_pr_qty(self):
+        for rec in self:
+            for line in rec.purchase_request_lines:
+                if rec.product_qty > line.product_qty:
+                    raise exceptions.ValidationError(
+                        _('The quantity must be lower than the quantity of'
+                            ' the purchase request line. \n\n'
+                            'Product: %s') % rec.product_id.name)
+                if rec.product_qty > line.remaining_qty:
+                    raise exceptions.ValidationError(
+                        _('The quantity must be lower than the remaining '
+                            'quantity of the purchase request line. \n\n'
+                            'Product: %s') % rec.product_id.name)
 
     @api.multi
     def _create_stock_moves(self, picking):

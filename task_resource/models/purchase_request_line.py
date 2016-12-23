@@ -18,6 +18,30 @@ class PurchaseRequestLine(models.Model):
     )
     is_project_insume = fields.Boolean(
         string='Is Project Insume?',)
+    purchase_lines = fields.Many2many(
+        'purchase.order.line', 'purchase_request_purchase_order_line_rel',
+        'purchase_request_line_id',
+        'purchase_order_line_id', 'Purchase Order Lines',
+        readonly=True, copy=False)
+    purchase_state = fields.Selection(
+        store=True,
+    )
+    remaining_qty = fields.Float(
+        string="Remaining Quantity",
+        digits=(14, 5),
+        compute="_compute_remaining_qty",
+        store=True,
+        default=0.0,
+    )
+    purchased_qty = fields.Float(
+        digits=(14, 5),
+    )
+
+    @api.depends('purchased_qty')
+    def _compute_remaining_qty(self):
+        for rec in self:
+            if rec.remaining_qty > 0.0:
+                rec.remaining_qty = rec.product_qty - rec.purchased_qty
 
     @api.multi
     def _compute_qty_on_hand(self):

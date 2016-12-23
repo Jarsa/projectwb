@@ -9,9 +9,7 @@
                 <xpath expr='//field[@name="order_line"]/tree' position='inside'>
                     <field name="is_project_insume" invisible="1"/>
                 </xpath>
-                <xpath expr='//field[@name="order_line"]/tree/field[@name="product_qty"]' position='replace'>
-                    <field name="product_qty" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
-                </xpath>
+            
                 <xpath expr='//field[@name="order_line"]/tree/field[@name="name"]' position='after'>
                     <field name="specifications" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
                 </xpath>

@@ -7,27 +7,66 @@
             <field name="inherit_id" ref="purchase_request_to_rfq.purchase_request_line_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="replace">
-                    <tree string="Purchase Request Lines" create="false" colors="gray:purchase_state=='draft';green:purchase_state=='purchase';blue:request_state=='approved'">
+                    <tree colors="gray:purchase_state=='draft';green:purchase_state=='purchase';blue:request_state=='approved'" create="false" string="Purchase Request Lines">
                         <field name="request_id"/>
                         <field name="request_state"/>
                         <field name="requested_by"/>
                         <field name="assigned_to"/>
                         <field name="date_required"/>
                         <field name="purchased_qty"/>
+                        <field name="qty_on_hand"/>
+                        <field name="remaining_qty"/>
                         <field name="purchase_state"/>
                         <field name="product_id"/>
                         <field name="name"/>
                         <field name="specifications"/>
                         <field name="product_qty"/>
-                        <field name="qty_on_hand"/>
-                        <field name="product_uom_id" groups="product.group_uom"/>
-                        <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                        <field groups="product.group_uom" name="product_uom_id"/>
+                        <field groups="analytic.group_analytic_accounting" name="analytic_account_id"/>
                         <field name="supplier_id"/>
                     </tree>
                 </xpath>
             </field>
         </record>
-         
+        <record id="view_task_resource_purchase_request_line_search" model="ir.ui.view">
+            <field name="name">task.resource.purchase.request.line.search</field>
+            <field name="model">purchase.request.line</field>
+            <field name="inherit_id" ref="purchase_request_to_rfq.purchase_request_line_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="replace">
+                    <search string="Search Purchase Request">
+                        <field name="request_id"/>
+                        <field name="product_id"/>
+                        <field name="requested_by"/>
+                        <field name="assigned_to"/>
+                        <field name="date_start"/>
+                        <field name="date_required"/>
+                        <field name="analytic_account_id"/>
+                        <field name="procurement_id"/>
+                        <field name="purchase_state"/>
+                        <filter domain="[('request_state','=','draft')]" help="Request is to be approved" name="request_state_draft" string="Draft"/>
+                        <filter domain="[('request_state','=','to_approve')]" help="Request is to be approved" name="request_state_to_approve" string="To Approve"/>
+                        <filter domain="[('request_state','=','approved')]" help="Request is approved" name="request_state_approved" string="Approved"/>
+                        <filter domain="[('request_state','=','rejected')]" help="Request is rejected" name="request_state_rejected" string="Rejected"/>
+                        <filter domain="[('assigned_to','=', uid)]" help="Assigned to me"/>
+                        <filter domain="[('requested_by','=', uid)]" help="My requests"/>
+                        <filter domain="[('purchase_state','=','none')]" help="No RFQ or Purchase has been created" name="purchase_state_none" string="Purchasing not started"/>
+                        <filter domain="[('purchase_state','=','draft')]" help="At least a Draft PO has been created" name="purchase_state_draft" string="Requested for Quotation"/>
+                        <filter domain="[('purchase_state','=','confirmed')]" help="At least a PO has been confirmed" name="purchase_state_confirmed" string="Purchase Confirmed"/>
+                        <filter domain="[('purchase_state','=','done')]" help="At least a PO has been completed" name="purchase_state_done" string="Purchase Done"/>
+                        <group expand="0" string="Group By...">
+                            <filter context="{'group_by' : 'product_id'}" domain="[]" string="Product"/>
+                            <filter context="{'group_by':'requested_by'}" domain="[]" string="Requested by"/>
+                            <filter context="{'group_by':'assigned_to'}" domain="[]" string="Assigned to"/>
+                            <filter context="{'group_by':'request_state'}" domain="[]" string="Request status"/>
+                            <filter context="{'group_by':'analytic_account_id'}" domain="[]" string="Analytic Account"/>
+                            <filter context="{'group_by':'purchase_state'}" domain="[]" string="Purchase Status"/>
+                            <filter context="{'group_by':'request_id'}" domain="[]" string="Request"/>
+                        </group>
+                    </search>
+                </xpath>
+            </field>
+        </record>
         <record id="purchase_request_form_view" model="ir.ui.view">
             <field name="name">purchase.request.form</field>
             <field name="model">purchase.request</field>
@@ -40,6 +79,7 @@
                     <field invisible="1" name="is_project_insume"/>
                     <field name="product_qty"/>
                     <field name="qty_on_hand"/>
+                    <field name="remaining_qty"/>
                 </xpath>
             </field>
         </record>
