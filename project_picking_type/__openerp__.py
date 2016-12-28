@@ -5,8 +5,6 @@
     'name': 'Project Picking Type',
     'summary': 'Picking Type OUT/IN',
     'version': '9.0.1.0.0',
-    'description': 'This module allows the creation of ubication for each'
-    'project created in Odoo',
     'category': 'Generic Modules',
     'author': (
         'Jarsa Sistemas S.A. de C.V., Odoo Community Association (OCA)'),

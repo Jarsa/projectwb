@@ -9,7 +9,6 @@
     "author": "Eficent Business and IT Consulting Services S.L.,"
     "Odoo Community Association (OCA)",
     "website": "https://www.odoo-community.org",
-    "description": "Module to add the project to the account move line",
     "category": "Warehouse Management",
     "license": "AGPL-3",
     "depends": [

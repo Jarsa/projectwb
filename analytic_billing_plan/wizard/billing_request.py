@@ -80,13 +80,15 @@ class WizardBillingPlan(models.TransientModel):
                     raise exceptions.ValidationError(
                         _('The concept must be confirmed.'))
                 billing = self.env['analytic.billing.plan']
+                ref = False
+                active_order = False
                 if item.qty == item.quantity_invoice:
                     ref = _(
                         "Total Billing of: Concept: %s - Quantity: %s" % (
                             item.project_task.description,
                             item.quantity_invoice,))
                     active_order = False
-                if item.quantity_invoice < item.qty:
+                elif item.quantity_invoice < item.qty:
                     ref = _(
                         "Partial Billing of: Concept: %s - Quantity: %s" % (
                             item.project_task.description,

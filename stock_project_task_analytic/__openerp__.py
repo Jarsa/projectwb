@@ -8,7 +8,6 @@
     "version": "9.0.1.0.0",
     "author": "Eficent Business and IT Consulting Services S.L.,"
     "Odoo Community Association (OCA)",
-    "description": "Module to add the task to the account move line",
     "website": "https://www.odoo-community.org",
     "category": "Warehouse Management",
     "license": "AGPL-3",

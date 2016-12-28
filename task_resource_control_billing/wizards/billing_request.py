@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from openerp import _, api, exceptions, fields, models
+from openerp import _, api, fields, models
 
 
 class WizardBillingPlan(models.TransientModel):
@@ -21,17 +21,21 @@ class WizardBillingPlan(models.TransientModel):
     @api.multi
     def create_billing(self):
         for rec in self:
-            for item in rec.item_ids:
-                if item.real_qty == item.quantity_invoice:
-                    ref = _(
-                        "Total Billing of: %s %s" % (
-                            item.quantity_invoice,
-                            item.project_task.uom_id.name))
-                    active_order = False
-                if item.quantity_invoice < item.real_qty:
-                    ref = _(
-                        "Partial Billing of: %s %s" % (
-                            item.quantity_invoice,
-                            item.project_task.uom_id.name))
-                    active_order = True
-            return super(WizardBillingPlan, self).create_billing()
+            res = super(WizardBillingPlan, self).create_billing()
+            billing_request = self.env['analytic.billing.plan'].browse(
+                res['res_id'])
+            if billing_request:
+                for line in billing_request.analytic_billing_plan_line_ids:
+                    if line.task_id.real_qty == line.quantity:
+                        line.ref = _(
+                            "Total Billing of: Concept: %s - Quantity: %s" %
+                            (line.task_id.description,
+                                line.quantity,))
+                        line.active_order = False
+                    if line.quantity < line.task_id.real_qty:
+                        line.ref = _(
+                            "Partial Billing of: Concept: %s - Quantity: %s" %
+                            (line.task_id.description,
+                                line.quantity,))
+                        line.active_order = True
+            return res
