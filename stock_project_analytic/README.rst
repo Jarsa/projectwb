@@ -2,11 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
+======================
 Stock Project Analytic
-==============
+======================
 
-Adds an analytic account in stock move to be able to get project information
+Adds the project in stock move to be able to get analytic information
 when generating the journal items.
 
 Bug Tracker
