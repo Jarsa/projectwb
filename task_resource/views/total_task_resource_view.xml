@@ -5,20 +5,53 @@
             <field name="name">analytic.resource.plan.line.view.tree</field>
             <field name="model">analytic.resource.plan.line</field>
             <field name="arch" type="xml">
-                <tree string="Total task resource" create="false" delete="false">
-                    <field name="project_id" readonly="1"/>
-                    <field name="account_id" readonly="1"/>
-                    <field name="product_id" readonly="1"/>
-                    <field name="description" readonly="1"/>
-                    <field name="requested_qty" readonly="1"/>
-                    <field name="resource_type_id" readonly="1" widget="selection"/>
-                    <field name="qty" sum="Total qty" readonly="1"/>
-                    <field name="uom_id" readonly="1" required="1"/>
-                    <field name="subtotal" readonly="1" sum="subtotal"/>
+                <tree create="false" delete="false" string="Total task resource">
+                    <field name="project_id"/>
+                    <field name="account_id"/>
+                    <field name="product_id"/>
+                    <field name="description"/>
+                    <field name="resource_type_id" widget="selection"/>
+                    <field name="qty" sum="Total qty"/>
+                    <field name="requested_qty"/>
+                    <field name="uom_id"/>
+                    <field name="subtotal" sum="subtotal"/>
                 </tree>
             </field>
         </record>
-        <record id="view_task_resource_filter" model="ir.ui.view">
+        <record id="view_total_task_resource_form" model="ir.ui.view">
+            <field name="name">view_total_task_resource.form</field>
+            <field name="model">analytic.resource.plan.line</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" delete="false" string="description">
+                    <header/>
+                    <sheet>
+                        <h1>
+                            <label attrs="{'invisible':[('product_id','=', False)]}" class="oe_inline" string="Product - " style="font-size:30px;"/>
+                            <field class="oe_inline" name="product_id" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group string="Product Details">
+                                <field name="description" readonly="1"/>
+                                <field name="resource_type_id" readonly="1" string="Resource Type"/>
+                                <field name="qty" sum="Total qty"/>
+                                <field name="requested_qty" readonly="1"/>
+                                <field name="uom_id" readonly="1"/>
+                                <field name="subtotal"/>
+                            </group>
+                            <group string="Project Details">
+                                <field name="account_id" readonly="1"/>
+                                <field name="project_id" readonly="1"/>
+                                <field name="task_resource_id" readonly="1"/>
+                            </group>
+                            <group colspan="4" string="Purchase Request Lines" invisible="1">
+                                <field name="purchase_request_ids" nolabel="1" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_total_task_resource_filter" model="ir.ui.view">
             <field name="name">analytic.resource.plan.line.view.search</field>
             <field name="model">analytic.resource.plan.line</field>
             <field name="arch" type="xml">
@@ -27,9 +60,9 @@
                     <field name="account_id"/>
                     <field name="product_id"/>
                     <separator/>
-                    <filter name="product_group_by" context="{'group_by':'product_id'}" string="Product"/>
-                    <filter name="project_group_by" context="{'group_by':'project_id'}" string="Project"/>
-                    <filter name="analytic_account_group_by" context="{'group_by':'account_id'}" string=" Analytic Account"/>
+                    <filter context="{'group_by':'product_id'}" name="product_group_by" string="Product"/>
+                    <filter context="{'group_by':'project_id'}" name="project_group_by" string="Project"/>
+                    <filter context="{'group_by':'account_id'}" name="analytic_account_group_by" string=" Analytic Account"/>
                 </search>
             </field>
         </record>

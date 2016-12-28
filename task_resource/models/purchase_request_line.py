@@ -9,11 +9,11 @@ class PurchaseRequestLine(models.Model):
     _inherit = 'purchase.request.line'
 
     product_qty = fields.Float(
-        digits=(14, 5),
+        digits=(14, 4),
         string='Quantity',)
     qty_on_hand = fields.Float(
         string="Quantity on Hand",
-        digits=(14, 5),
+        digits=(14, 4),
         compute="_compute_qty_on_hand",
     )
     is_project_insume = fields.Boolean(
@@ -28,20 +28,22 @@ class PurchaseRequestLine(models.Model):
     )
     remaining_qty = fields.Float(
         string="Remaining Quantity",
-        digits=(14, 5),
+        digits=(14, 4),
         compute="_compute_remaining_qty",
-        store=True,
         default=0.0,
     )
     purchased_qty = fields.Float(
-        digits=(14, 5),
+        digits=(14, 4),
     )
 
+    @api.multi
     @api.depends('purchased_qty')
     def _compute_remaining_qty(self):
         for rec in self:
-            if rec.remaining_qty > 0.0:
+            if rec.purchased_qty > 0.0:
                 rec.remaining_qty = rec.product_qty - rec.purchased_qty
+            else:
+                rec.remaining_qty = rec.product_qty
 
     @api.multi
     def _compute_qty_on_hand(self):

@@ -17,7 +17,7 @@
                             <field name="qty"/>
                             <field name="real_qty"/>
                             <field name="requested_qty"/>
-                            <field name="qty_to_request"/>
+                            <field name="qty_to_request" id="qty_to_request"/>
                         </tree>
                     </field>
                     <footer>
@@ -29,11 +29,7 @@
         </record>
         <template id="assets_backend" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <script type="text/javascript">
-                    $("span[data-fieldname='qty_to_request']").on('click', function (){
-                        $(this).select();
-                    });
-                </script>
+                <script type="text/javascript" src="/task_resource/static/js/inputs_behavior.js"></script>
             </xpath>
         </template>
         <act_window id="launch_session_wizard"

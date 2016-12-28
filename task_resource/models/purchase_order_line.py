@@ -22,7 +22,7 @@ class PurchaseOrderLine(models.Model):
                         _('The quantity must be lower than the quantity of'
                             ' the purchase request line. \n\n'
                             'Product: %s') % rec.product_id.name)
-                if rec.product_qty > line.remaining_qty:
+                if line.remaining_qty < 0.0:
                     raise exceptions.ValidationError(
                         _('The quantity must be lower than the remaining '
                             'quantity of the purchase request line. \n\n'

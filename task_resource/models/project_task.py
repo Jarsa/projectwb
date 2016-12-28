@@ -15,7 +15,6 @@ class ProjectTask(models.Model):
         store=True)
     state = fields.Selection(
         [('draft', 'Draft'),
-         ('open', 'Open'),
          ('confirm', 'Confirmed')],
         string='Status',
         readonly=True,
@@ -146,15 +145,10 @@ class ProjectTask(models.Model):
         return {
             'name': 'Insume Explotion',
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'tree',
             'res_model': 'analytic.resource.plan.line',
             'domain': [('account_id', '=', self.analytic_account_id.id)],
             'type': 'ir.actions.act_window'}
-
-    @api.multi
-    def action_open(self):
-        for rec in self:
-            rec.state = 'open'
 
     @api.multi
     def action_button_confirm(self):

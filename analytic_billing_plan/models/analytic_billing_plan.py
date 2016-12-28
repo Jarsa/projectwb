@@ -31,7 +31,9 @@ class AnalyticBillingPlan(models.Model):
         'analytic_billing_plan_id',
         string="Analytic Billing Plan Lines",
         readonly=True, )
-    invoice_id = fields.Many2one('account.invoice')
+    invoice_id = fields.Many2one(
+        'account.invoice',
+        string="Invoice",)
 
     @api.multi
     def action_button_confirm(self):

@@ -15,8 +15,12 @@ class AnalyticBillingPlanLine(models.Model):
         help="Indicates that this billing plan line "
         "contains at least one non-cancelled billing request.",
         default=True)
-    quantity = fields.Float()
-    price_unit = fields.Float("Price Unit", readonly=True, )
+    quantity = fields.Float(
+        digits=(15, 4),)
+    price_unit = fields.Float(
+        "Price Unit",
+        readonly=True,
+    )
     amount = fields.Float(
         string='Amount',
         help=('Calculated by multiplying the quantity '
@@ -37,3 +41,8 @@ class AnalyticBillingPlanLine(models.Model):
         'analytic.billing.plan',
         string="Analytic_billing_Plan",
         readonly=True,)
+    invoice_id = fields.Many2one(
+        'account.invoice',
+        string="Invoice",
+        related="analytic_billing_plan_id.invoice_id",
+        readonly=True, )
