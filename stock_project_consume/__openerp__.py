@@ -6,11 +6,10 @@
     'name': 'Stock Project Consume',
     'summary': 'Stock Project Consume',
     'version': '9.0.1.0.0',
-    'description': 'This module allows the stock administration and'
-                   'the consume of the products',
     'category': 'Generic Modules',
     'author': (
-        'Jarsa Sistemas S.A. de C.V.'),
+        'Jarsa Sistemas S.A. de C.V.',
+        'Odoo Community Association (OCA)'),
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [

@@ -8,45 +8,48 @@ from openerp import _, api, exceptions, fields, models
 class TaskResource(models.Model):
     _inherit = 'project.task'
 
-    line_billing_ids = fields.One2many('analytic.billing.plan', 'task_id')
+    line_billing_ids = fields.One2many('analytic.billing.plan.line', 'task_id')
     nbr_billing = fields.Float(
         string="Billing Request",
-        compute="_compute_nrb_billing")
-    remaining_quantity = fields.Float(default=0.0)
+        compute="_compute_nbr_billing")
+    remaining_quantity = fields.Float(
+        default=0.0,
+        compute="_compute_remaining_quantity",
+        store=True,)
     currency_id = fields.Many2one(
         'res.currency',
         string='Currency',
-        default=lambda self: self.env.user.company_id.currency_id)
+        default=lambda self: self.env.user.company_id.currency_id,)
     billing_task_total = fields.Float(
         string='Billing Total',
-        compute='_compute_billing_total')
-    product_id = fields.Many2one(
-        'product.product',
-        string='Product to Billing',
-        domain=[('sale_ok', '=', True),
-                ('type', '=', 'service')],
-        )
+        compute='_compute_billing_task_total',)
 
     @api.multi
-    def _compute_billing_total(self):
+    def _compute_billing_task_total(self):
         for rec in self:
-            invoices = self.env['account.invoice'].search([
-                ('project_id', '=', rec.project_id.id),
-                ('state', '=', 'paid'),
-                ('type', '=', 'out_invoice')])
-            if invoices:
-                for invoice in invoices:
-                    for line in invoice.invoice_line_ids:
-                        if line.concept_id.id == rec.id:
-                            rec.billing_task_total += line.price_subtotal
+            if rec.line_billing_ids:
+                for line in rec.line_billing_ids:
+                    if (line.analytic_billing_plan_id.state == 'confirm' and
+                            line.analytic_billing_plan_id.
+                            invoice_id.state in ['open', 'paid']):
+                        rec.billing_task_total += line.amount
             else:
                 rec.billing_task_total = 0.0
 
     @api.depends('line_billing_ids')
-    def _compute_nrb_billing(self):
+    def _compute_nbr_billing(self):
         for record in self:
             record.nbr_billing = len(record.line_billing_ids.search(
                 [('task_id', '=', record.id)]))
+
+    @api.multi
+    @api.depends('line_billing_ids')
+    def _compute_remaining_quantity(self):
+        for rec in self:
+            billing_request_total = 0.0
+            for line in rec.line_billing_ids:
+                billing_request_total += line.quantity
+            rec.remaining_quantity = rec.qty - billing_request_total
 
     @api.multi
     def action_button_draft(self):
@@ -62,9 +65,13 @@ class TaskResource(models.Model):
         return {
             'name': 'Billing Request',
             'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'analytic.billing.plan',
+            'view_mode': 'tree',
+            'view_id':  self.env.ref(
+                    'analytic_billing_plan.'
+                    'analytic_billing_plan_line_tree_view').id,
+            'res_model': 'analytic.billing.plan.line',
             'domain': [(
                 'account_analytic_id', '=', self.analytic_account_id.id)],
+            'context': {'search_default_analytic_billing_plan_group_by': 1},
             'type': 'ir.actions.act_window',
         }

@@ -15,12 +15,11 @@
         <record id="view_task_form2" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="task_code.view_task_form2"/>
+            <field name="inherit_id" ref="project_wbs_element.view_task_form2"/>
             <field name="arch" type="xml">
                 <header>
                     <button class="oe_highlight" name="action_button_draft" states="confirm" icon="fa-reply" string="Reset to Draft" type="object"/>
-                    <button class="oe_highlight" name="action_open" states="draft" string="Open" icon="fa-thumbs-up" type="object"/>
-                    <button class="oe_highlight" confirm="Are you sure you want to confirm the current task?" name="action_button_confirm" icon="fa-thumbs-up" states="open" string="Confirm" type="object"/>
+                    <button class="oe_highlight" confirm="Are you sure you want to confirm the current task?" name="action_button_confirm" icon="fa-thumbs-up" states="draft" string="Confirm" type="object"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <div class="oe_button_box" name="button_box">
@@ -39,17 +38,11 @@
                 <field name="tag_ids" position="replace">
                     <field name="tag_ids" attrs="{'readonly':[('state', '=', 'confirm')]}" widget="many2many_tags"/>
                 </field>
-                <field name="code" position="replace">
-                    <field name="code" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
-                </field>
                 <field name="name" position="replace">
-                    <field name="name" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    <field name="name" string="Code" placeholder="Code" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                 </field>
                 <field name="sequence" position="replace">
                     <field name="sequence" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
-                </field>
-                <field name="partner_id" position="replace">
-                    <field name="partner_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                 </field>
                 <field name="displayed_image_id" position="replace">
                     <field name="displayed_image_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
@@ -68,11 +61,12 @@
                         <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="resource_ids" nolabel="1">
                             <tree default_order="sequence" editable="bottom" string="Resources">
                                 <field editable="0" name="account_id"/>
-                                <field name="product_id" domain="[('type', '=', 'product'),('purchase_ok', '=', True)]" required="1"/>
+                                <field name="product_id" domain="[('purchase_ok', '=', True)]" required="1"/>
                                 <field name="description" required="1"/>
                                 <field name="resource_type_id" required="1" widget="selection"/>
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" required="1" sum="Total qty"/>
+                                <field name="unit_price"/>
                             </tree>
                         </field>
                     </page>
@@ -117,9 +111,6 @@
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_tree2"/>
             <field name="arch" type="xml">
-                <field name="name" position="before">
-                    <field name="code"/>
-                </field>
                 <field name="project_id" position="after">
                     <field name ="uom_id"/>
                     <field name="qty" sum="Total Qty"/>
@@ -127,6 +118,9 @@
                     <field name="unit_price"/>
                     <field name="subtotal" sum="subtotal"/>
                     <field name="total_expense"/>
+                </field>
+                <field name="stage_id" position="before">
+                    <field name="state"/>
                 </field>
                 <field name="stage_id" position="replace">
                     <field name="stage_id" invisible="1"/>

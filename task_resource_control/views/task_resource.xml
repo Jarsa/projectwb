@@ -20,5 +20,18 @@
                 </field>
             </field>
         </record>
+        <record id="view_resource_control_task_kanban" model="ir.ui.view">
+            <field name="name">project.resource.control.task.kanban</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="task_resource.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <div>
+                        <label>Total Real: $</label>
+                        <field name="real_subtotal"/>
+                    </div>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>

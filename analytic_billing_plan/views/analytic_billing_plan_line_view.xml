@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='analytic_billing_plan_line_tree_view'>
+            <field name='name'>analytic.billing.plan.line.tree.view</field>
+            <field name='model'>analytic.billing.plan.line</field>
+            <field name='arch' type='xml'>
+                <tree create="false">
+                    <field name='name'/>
+                    <field name='analytic_billing_plan_id' string="Billing Request"/>
+                    <field name='account_analytic_id'/>
+                    <field name='task_id'/>
+                    <field name='quantity'/>
+                    <field name='price_unit'/>
+                    <field name='amount'/>
+                    <field name='move_id'/>
+                    <field name='invoice_id'/>
+                    <field name='ref'/>
+                </tree>
+            </field>
+        </record>
+        <record model='ir.ui.view' id='analytic_billing_plan_line_form_view'>
+            <field name='name'>analytic.billing.plan.line.form.view</field>
+            <field name='model'>analytic.billing.plan.line</field>
+            <field name='arch' type='xml'>
+                <form string='description'>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='name'/>
+                                <field name='analytic_billing_plan_id' string="Billing Request"/>
+                                <field name='account_analytic_id'/>
+                                <field name='task_id'/>
+                                <field name='quantity'/>
+                                <field name='price_unit'/>
+                                <field name='amount'/>
+                            </group>
+                            <group>
+                                <field name='ref'/>
+                                <field name='move_id'/>
+                                <field name='invoice_id'/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+          <record id="view_analytic_billing_plan_line_filter" model="ir.ui.view">
+            <field name="name">analytic.billing.plan.line.filter</field>
+            <field name="model">analytic.billing.plan.line</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search billing plan lines">
+                    <group col="6" colspan="5">
+                        <field name="account_analytic_id"/>
+                        <field name="task_id"/>
+                        <field name="analytic_billing_plan_id"/>
+                        <separator/>
+                        <filter context="{'group_by':'analytic_billing_plan_id'}" name="analytic_billing_plan_group_by" string="Billing Request"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_analytic_billing_plan_line_open_form" model="ir.actions.act_window">
+            <field name="name">Billing plan Line</field>
+            <field name="res_model">analytic.billing.plan.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_analytic_billing_plan_line_filter"/>
+             <field name="context">{'search_default_analytic_billing_plan_group_by': 1}</field>
+        </record>
+        <menuitem action="action_analytic_billing_plan_line_open_form" id="analytic_billing_plan_line_entries" parent="analytic_billing_plan.analytic_billing_plan_menu" sequence="1"/>
+    </data>
+</odoo>

@@ -37,13 +37,17 @@
                 <group name="misc" position="before">
                     <group string="Billing Amortization">
                         <group>
-                            <field class="text_box_small" name="project_amortization"/>
-                            <field class="text_box_small" name="advance_invoice_id"/>
+                            <field class="text_box_small" name="project_amortization" attrs="{'readonly': [('state', '=', 'closed')]}"/>
+                            <field class="text_box_small" name="advance_invoice_id" attrs="{'invisible': [('advance_invoice_id', '=', False)]}"/>
+                            <field class="text_box_small" name="project_retention" attrs="{'readonly': [('state', '=', 'closed')]}"/>
+                            <field class="text_box_small" name="retention_invoice_id" attrs="{'invisible': [('retention_invoice_id', '=', False)]}"/>
                         </group>
                     </group>
                 </group>
                 <xpath expr="//header/button[@name='action_close']" position="inside">
                     <button attrs="{'invisible': ['|',('state', '!=', 'open'),('advance_invoice_id', '!=', False)]}" class="oe_highlight" confirm="Are you sure you want to create an advance invoice?" icon="fa-money" name="make_advance_invoice" string="Make Advance Invoice" type="object"/>
+
+                    <button attrs="{'invisible': ['|',('state', '!=', 'open'),('retention_invoice_id', '!=', False)]}" class="oe_highlight" confirm="Are you sure you want to create the retention invoice?" icon="fa-money" name="make_retention_invoice" string="Make Retention Invoice" type="object"/>
                 </xpath>
             </field>
         </record>

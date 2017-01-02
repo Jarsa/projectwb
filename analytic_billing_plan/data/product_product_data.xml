@@ -13,5 +13,11 @@
             <field eval="False" name="purchase_ok"/>
             <field eval="True" name="sale_ok"/>
         </record>
+         <record id="product_retention" model="product.product">
+            <field name="name">Retention</field>
+            <field name="type">service</field>
+            <field eval="False" name="purchase_ok"/>
+            <field eval="True" name="sale_ok"/>
+        </record>
     </data>
 </odoo>

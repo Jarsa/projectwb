@@ -27,7 +27,8 @@ class PurchaseRequest(models.TransientModel):
             'uom_id': line.uom_id.id,
             'qty': line.qty,
             'real_qty': line.real_qty,
-            'requested_qty': line.requested_qty
+            'requested_qty': line.requested_qty,
+            'qty_to_request': line._get_available_qty()
         }
 
     @api.model
@@ -60,7 +61,7 @@ class PurchaseRequest(models.TransientModel):
                 state_validator = True
             else:
                 old_project = line.task_resource_id.project_id.id
-                items.append([0, 0, self._prepare_item(line)])
+                items.append((0, 0, self._prepare_item(line)))
 
         if project_validator:
             raise exceptions.ValidationError(

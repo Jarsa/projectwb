@@ -31,7 +31,6 @@ class StockQuant(models.Model):
                         debit_account_id,
                         context=context
                         )
-
         # Add analytic account in debit line
         if move.account_analytic_id:
             res[0][2].update({

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!--  Make Payment-->
-        <record id="tms_view_advance_payment" model="ir.ui.view">
+        <record id="purchase_request_wizard_view" model="ir.ui.view">
             <field name="name">Wizard request quotations</field>
             <field name="model">purchase.request.wizard</field>
             <field name="arch" type="xml">
@@ -11,14 +10,14 @@
                         <separator string="Purchase Request"/>
                     </header>
                     <field name="item_ids">
-                         <tree create="0" delete="0" editable="top">
+                         <tree create="0" editable="bottom">
                             <field name="analytic_account_id"/>
                             <field name="product_id"/>
                             <field name="uom_id"/>
                             <field name="qty"/>
                             <field name="real_qty"/>
                             <field name="requested_qty"/>
-                            <field name="qty_to_request"/>
+                            <field name="qty_to_request" id="qty_to_request"/>
                         </tree>
                     </field>
                     <footer>
@@ -28,7 +27,11 @@
                 </form>
             </field>
         </record>
-
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/task_resource/static/js/inputs_behavior.js"></script>
+            </xpath>
+        </template>
         <act_window id="launch_session_wizard"
                     name="Add a Purchase Request"
                     src_model="analytic.resource.plan.line"

@@ -15,7 +15,6 @@ class ProjectTask(models.Model):
         store=True)
     state = fields.Selection(
         [('draft', 'Draft'),
-         ('open', 'Open'),
          ('confirm', 'Confirmed')],
         string='Status',
         readonly=True,
@@ -42,6 +41,18 @@ class ProjectTask(models.Model):
     unit_price = fields.Float()
     total_expense = fields.Float(
         'Total Expenses', compute="_compute_total_expense")
+    partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='Customer',
+        compute='_compute_partner_id',
+        store=True,
+        readonly=True, )
+
+    @api.depends('project_id')
+    def _compute_partner_id(self):
+        for rec in self:
+            if rec.project_id:
+                rec.partner_id = rec.project_id.partner_id.id
 
     @api.multi
     @api.constrains('project_id')
@@ -93,7 +104,7 @@ class ProjectTask(models.Model):
                         'real_qty': rec.qty * resource.qty,
                         'subtotal': (
                             rec.qty * resource.qty * (
-                                resource.product_id.lst_price))
+                                resource.unit_price))
                     })
             else:
                 list_item = []
@@ -134,15 +145,10 @@ class ProjectTask(models.Model):
         return {
             'name': 'Insume Explotion',
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'tree',
             'res_model': 'analytic.resource.plan.line',
             'domain': [('account_id', '=', self.analytic_account_id.id)],
             'type': 'ir.actions.act_window'}
-
-    @api.multi
-    def action_open(self):
-        for rec in self:
-            rec.state = 'open'
 
     @api.multi
     def action_button_confirm(self):

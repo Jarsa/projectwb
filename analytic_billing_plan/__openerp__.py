@@ -7,7 +7,6 @@
     'version': '9.0.1.0.0',
     'author': (
         'Jarsa Sistemas, S.A de C.V., Odoo Community Association (OCA)'),
-    'description': 'This module is to analytic billing plan',
     'website': 'https://www.jarsa.com.mx',
     'category': 'Warehouse Management',
     'license': 'AGPL-3',
@@ -19,16 +18,15 @@
     'data': [
         'data/data.xml',
         'data/product_product_data.xml',
-        'views/account_invoice_line_view.xml',
-        'security/ir.model.access.csv',
         'wizard/billing_request_view.xml',
-        'wizard/project_invoice.xml',
+        'security/ir.model.access.csv',
+        'views/account_invoice_line_view.xml',
         'views/analytic_billing_view.xml',
+        'views/analytic_billing_plan_line_view.xml',
+        'views/project_wbs_element.xml',
+        'views/project_project_view.xml',
         'views/res_company_view.xml',
         'views/task_resource.xml',
-        'views/project_wbs_element.xml',
-        'views/project_project_view.xml'
     ],
     'installable': True,
-    'active': True,
 }

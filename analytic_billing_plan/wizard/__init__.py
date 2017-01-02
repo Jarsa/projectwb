@@ -4,4 +4,3 @@
 
 from . import billing_request_line
 from . import billing_request
-from . import project_invoice

@@ -31,6 +31,8 @@ class TaskResource(models.Model):
     resource_type_id = fields.Many2one(
         'resource.type',
         string='Resource type')
+    unit_price = fields.Float(
+        string='Unit Price',)
 
     @api.onchange('product_id')
     def onchange_product(self):
@@ -45,10 +47,11 @@ class TaskResource(models.Model):
         if product:
             description = product.name_get()[0][1]
             uom_id = product.uom_id.id
-        if product.description_sale:
-            description += '\n' + product.description_sale
+        if product.description_purchase:
+            description += ' - ' + product.description_purchase
         self.description = description
         self.uom_id = uom_id
+        self.unit_price = self.product_id.list_price
 
     @api.model
     def default_get(self, field):

@@ -13,3 +13,12 @@ class ResCompany(models.Model):
         string="Bridge Account",
         help="Account for the account moves generated "
         "by billing request confirmations",)
+    billing_request_journal_id = fields.Many2one(
+        'account.journal',
+        string="Billing Request Journal",)
+    product_id = fields.Many2one(
+        'product.product',
+        string='Product to Billing',
+        domain=[('sale_ok', '=', True),
+                ('type', '=', 'service')],
+        )

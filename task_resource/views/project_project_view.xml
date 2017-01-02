@@ -14,23 +14,26 @@
                     <button class="oe_highlight" confirm="Are you sure make an change order? The project state return to draft, don't forget change the project sate again to open." name="make_order_change" string="Make Order Change" icon="fa-history" states="open" type="object"/> 
                     <field name="state" statusbar_visible="draft,open,cancel,closed" widget="statusbar"/>
                 </field>
+                <field name="name" position="replace">
+                    <field name="name" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
+                </field>
                  <field name="use_tasks" position="replace">
-                    <field name="use_tasks" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                    <field name="use_tasks" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
                 </field>
                 <field name="label_tasks" position="replace">
-                    <field name="label_tasks" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                    <field name="label_tasks" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
                 </field>
                  <field name="privacy_visibility" position="replace">
-                    <field name="privacy_visibility" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                    <field name="privacy_visibility" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
                 </field>
                 <field name="partner_id" position="replace">
-                    <field name="partner_id" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                    <field name="partner_id" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
                 </field>
                 <field name="user_id" position="replace">
-                    <field name="user_id" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                    <field name="user_id" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
                 </field>
                 <field name="sequence" position="replace">
-                    <field name="sequence" attrs="{'readonly': [('state', 'in', ('open', 'close'))]}"/>
+                    <field name="sequence" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
                 </field>
             </field>
         </record>

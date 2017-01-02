@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+         <record id="view_resource_control_billing_plan_tree" model="ir.ui.view">
+            <field name="name">wizard.resource.control.billing.plan.tree</field>
+            <field name="model">wizard.billing.plan</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref='analytic_billing_plan.view_billing_plan_tree'/>
+            <field name="arch" type="xml">
+                <field name="qty" position="after">
+                    <field name="real_qty"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

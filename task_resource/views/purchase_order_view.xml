@@ -2,20 +2,21 @@
 <odoo>
     <data>
         <record model='ir.ui.view' id='insume_purchase_order_form'>
-        	<field name='name'>purchase.order.form</field>
-        	<field name='model'>purchase.order</field>
-        	<field name='inherit_id' ref='purchase.purchase_order_form'/>
-        	<field name='arch' type='xml'>
-        		<xpath expr='//field[@name="order_line"]/tree' position='inside'>
-					<field name="is_project_insume" invisible="1"/>
-        		</xpath>
-        		<xpath expr='//field[@name="order_line"]/tree/field[@name="product_qty"]' position='replace'>
-					<field name="product_qty" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
-        		</xpath>
-        		<xpath expr='//field[@name="order_line"]/tree/field[@name="product_uom"]' position='replace'>
-					<field name="product_uom" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
-        		</xpath>
-        	</field>
+            <field name='name'>purchase.order.form</field>
+            <field name='model'>purchase.order</field>
+            <field name='inherit_id' ref='purchase.purchase_order_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr='//field[@name="order_line"]/tree' position='inside'>
+                    <field name="is_project_insume" invisible="1"/>
+                </xpath>
+            
+                <xpath expr='//field[@name="order_line"]/tree/field[@name="name"]' position='after'>
+                    <field name="specifications" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
+                </xpath>
+                <xpath expr='//field[@name="order_line"]/tree/field[@name="product_uom"]' position='replace'>
+                    <field name="product_uom" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
+                </xpath>
+            </field>
         </record>
     </data>
 </odoo>

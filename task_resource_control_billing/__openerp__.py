@@ -19,6 +19,7 @@
 
     'data': [
         'wizards/resource_control.xml',
+        'wizards/billing_request_view.xml',
     ],
     'installable': True,
 }

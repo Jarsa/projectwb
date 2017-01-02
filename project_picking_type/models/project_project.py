@@ -20,16 +20,16 @@ class ProjectProject(models.Model):
     operations_state = fields.Boolean(
         compute='_compute_operations_state')
 
-    @api.depends('state')
+    @api.multi
+    def action_close(self):
+        self.picking_in_id.active = False
+        self.picking_out_id.active = False
+        return super(ProjectProject, self).action_close()
+
     @api.multi
     def _compute_operations_state(self):
         for rec in self:
             if rec.picking_out_id and rec.picking_in_id:
-                if rec.state in ['close', 'cancelled']:
-                    rec.picking_in_id.active = False
-                    rec.picking_out_id.active = False
+                if (not rec.picking_out_id.active and not
+                        rec.picking_in_id.active):
                     rec.operations_state = False
-                else:
-                    rec.picking_in_id.active = True
-                    rec.picking_out_id.active = True
-                    rec.operations_state = True

@@ -25,12 +25,21 @@ class ProjectWbsElement(models.Model):
                     rec.total_concept_expense += task.total_expense
             else:
                 rec.total_concept_expense = 0.0
+        for record in self:
+            if record.child_ids:
+                for child in record.child_ids:
+                    record.total_concept_expense += child.total_concept_expense
 
     @api.multi
     def _compute_total_charges(self):
+        for record in self:
+            if not record.child_ids:
+                for child in record.task_ids:
+                    record.total_charge = record.total_charge + child.subtotal
         for rec in self:
-            for child in rec.task_ids:
-                rec.total_charge = rec.total_charge + child.subtotal
+            if rec.child_ids:
+                for child in rec.child_ids:
+                    rec.total_charge = rec.total_charge + child.total_charge
 
     @api.multi
     @api.constrains('project_id')

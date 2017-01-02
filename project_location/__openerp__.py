@@ -5,11 +5,9 @@
     'name': 'Project Location',
     'summary': 'Location for each project',
     'version': '9.0.1.0.0',
-    'description': 'This module allows the creation of ubication for each'
-    'project created in Odoo',
     'category': 'Generic Modules',
     'author': (
-        'Jarsa Sistemas S.A. de C.V.'),
+        'Jarsa Sistemas S.A. de C.V., Odoo Community Association (OCA)'),
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [
