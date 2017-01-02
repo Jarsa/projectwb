@@ -1,0 +1,322 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * task_resource_control
+# 
+# Translators:
+# ougc27 <oscar_garzacordova@hotmail.com>, 2016
+# Jarsa Sistemas <info@jarsa.com.mx>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-02 14:10+0000\n"
+"PO-Revision-Date: 2017-01-02 14:10+0000\n"
+"Last-Translator: Jarsa Sistemas <info@jarsa.com.mx>, 2016\n"
+"Language-Team: Spanish (https://www.transifex.com/jarsa/teams/62171/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: task_resource_control
+#: selection:resource.control,type:0
+msgid "Additive"
+msgstr "Aditiva"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_analytic_account_id
+msgid "Analytic Account"
+msgstr "Cuenta Analítica"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_analytic_account_id
+msgid "Analytic account"
+msgstr "Cuenta Analítica"
+
+#. module: task_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.project_view_resource_control
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: task_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.project_view_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.resource_control_form
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: task_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.project_view_resource_control
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: task_resource_control
+#: model:ir.model,name:task_resource_control.model_resource_control
+msgid "Control the quantity of insumes used in a task"
+msgstr "Controlar la cantidad de insumos usados en una tarea"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_type
+msgid "Control type"
+msgstr "Tipo de Control"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_create_uid
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_create_uid
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_create_date
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_create_date
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: task_resource_control
+#: selection:resource.control,type:0
+msgid "Deductive"
+msgstr "Deductiva"
+
+#. module: task_resource_control
+#: model:ir.actions.act_window,name:task_resource_control.action_view_project_task
+#: model:ir.actions.act_window,name:task_resource_control.action_view_resource_control
+msgid "Deductive/Aditive"
+msgstr "Deductiva / Aditiva"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_display_name
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_display_name
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard_display_name
+msgid "Display Name"
+msgstr "Nombre Mostrado"
+
+#. module: task_resource_control
+#: model:ir.model,name:task_resource_control.model_project_wbs_element
+msgid "Email Thread"
+msgstr "Seguimiento Email"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_id
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_id
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard_id
+msgid "ID"
+msgstr "ID"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_insume_explotion_id
+msgid "Insume"
+msgstr "Insumo"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard_item_ids
+msgid "Items"
+msgstr "Elementos"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control___last_update
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line___last_update
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_write_uid
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard_write_uid
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_write_date
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_wizard_write_date
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: task_resource_control
+#: model:ir.model,name:task_resource_control.model_resource_control_wizard
+msgid "Make Product Consumes"
+msgstr "Generar Consumo de Insumos"
+
+#. module: task_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.project_view_resource_control
+msgid "Make an Aditive / Deductive"
+msgstr "Crear una Adictiva / Deductiva"
+
+#. module: task_resource_control
+#: model:ir.model,name:task_resource_control.model_resource_control_line
+msgid "Manage the lines of the Aditive/Deductive"
+msgstr "Administrar los detalles de la Aditiva / Deductiva"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_new_qty
+#: model:ir.ui.view,arch_db:task_resource_control.resource_control_form
+msgid "New Quantity"
+msgstr "Nueva Cantidad"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_new_qty
+msgid "New quantity changed"
+msgstr "Nueva Cantidad Cambiada"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_product_id
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: task_resource_control
+#: model:ir.model,name:task_resource_control.model_project_project
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_project_id
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_task_id
+msgid "Project Task"
+msgstr "Tarea"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_qty
+msgid "Quantity Planned"
+msgstr "Cantidad Planeada"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_real_qty
+msgid "Quantity Real"
+msgstr "Cantidad Real"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_project_task_real_qty
+msgid "Real Quantity"
+msgstr "Cantidad Real"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_project_task_real_subtotal
+msgid "Real Subtotal"
+msgstr "Subtotal Real"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_reason
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_reason
+#: model:ir.ui.view,arch_db:task_resource_control.resource_control_form
+msgid "Reason"
+msgstr "Razón"
+
+#. module: task_resource_control
+#: model:ir.actions.act_window,name:task_resource_control.action_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.resource_control_form
+msgid "Resource Control"
+msgstr "Control de Recursos"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_name
+msgid "Resource Control Name"
+msgstr "Nombre"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_project_project_resource_sequence_id
+msgid "Resource Control Sequence"
+msgstr "Secuencia de Control de Recursos"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_line_id
+msgid "Resource Line"
+msgstr "Línea de Recurso"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_project_task_resource_control_ids
+#: model:ir.ui.view,arch_db:task_resource_control.view_task_form2
+msgid "Resource change history"
+msgstr "Historial de Aditivas / Deductivas"
+
+#. module: task_resource_control
+#: model:ir.ui.menu,name:task_resource_control.menu_task
+#: model:ir.ui.menu,name:task_resource_control.task_menu_id
+#: model:ir.ui.view,arch_db:task_resource_control.project_view_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.resource_control_tree
+msgid "Resource control"
+msgstr "Control de Recursos"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_project_project_resource_control_ids
+msgid "Resources Control"
+msgstr "Control de Recursos"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: task_resource_control
+#: model:ir.model,name:task_resource_control.model_project_task
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_task_id
+msgid "Task"
+msgstr "Tarea"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_name
+msgid "Task name"
+msgstr "Nombre de la tarea/concepto"
+
+#. module: task_resource_control
+#: code:addons/task_resource_control/wizards/resource_control.py:86
+#, python-format
+msgid "The new quantity must be greather or smaller than the real quantity"
+msgstr "La nueva cantidad debe ser mayor o menor que la cantidad real."
+
+#. module: task_resource_control
+#: code:addons/task_resource_control/wizards/resource_control.py:70
+#, python-format
+msgid "The new quantity must be greather than the quantity consumed."
+msgstr "La nueva cantidad debe ser mayor que la cantidad real"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_project_project_total_real_charge
+#: model:ir.model.fields,field_description:task_resource_control.field_project_wbs_element_total_real_charge
+msgid "Total Real"
+msgstr "Total Real"
+
+#. module: task_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.project_project_task_resource_control_kanban_view
+#: model:ir.ui.view,arch_db:task_resource_control.view_resource_control_task_kanban
+#: model:ir.ui.view,arch_db:task_resource_control.view_wbs_element_kanban
+msgid "Total Real: $"
+msgstr "Total Real: $"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_unit_price
+msgid "Unit price"
+msgstr "Precio Unitario"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_uom_id
+msgid "UoM"
+msgstr "Unidad de Medida"
+
+#. module: task_resource_control
+#: model:ir.model.fields,field_description:task_resource_control.field_resource_control_line_wiz_id
+msgid "Wiz id"
+msgstr "Línea del Wizard"
+
+#. module: task_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.total_task_resource_control_tree
+msgid "real_qty"
+msgstr "Cantidad Real"
+
+#. module: task_resource_control
+#: model:ir.ui.view,arch_db:task_resource_control.view_task_task_resource_control_tree2
+msgid "real_subtotal"
+msgstr "real_subtotal"
