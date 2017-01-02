@@ -1,0 +1,89 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * task_resource_control_billing
+# 
+# Translators:
+# ougc27 <oscar_garzacordova@hotmail.com>, 2016
+# Jarsa Sistemas <info@jarsa.com.mx>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-02 14:10+0000\n"
+"PO-Revision-Date: 2017-01-02 14:10+0000\n"
+"Last-Translator: Jarsa Sistemas <info@jarsa.com.mx>, 2016\n"
+"Language-Team: Spanish (https://www.transifex.com/jarsa/teams/62171/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: task_resource_control_billing
+#: model:ir.ui.view,arch_db:task_resource_control_billing.project_view_resource_control
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: task_resource_control_billing
+#: model:ir.ui.view,arch_db:task_resource_control_billing.project_view_resource_control
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: task_resource_control_billing
+#: model:ir.ui.view,arch_db:task_resource_control_billing.project_view_resource_control
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: task_resource_control_billing
+#: model:ir.actions.act_window,name:task_resource_control_billing.action_view_project_task
+#: model:ir.actions.act_window,name:task_resource_control_billing.action_view_resource_control
+msgid "Deductive/Aditive"
+msgstr "Deductiva / Aditiva"
+
+#. module: task_resource_control_billing
+#: model:ir.ui.view,arch_db:task_resource_control_billing.project_view_resource_control
+msgid "Make an Aditive / Deductive"
+msgstr "Crear una Adictiva / Deductiva"
+
+#. module: task_resource_control_billing
+#: code:addons/task_resource_control_billing/wizards/billing_request.py:38
+#, python-format
+msgid "Partial Billing of: Concept: %s - Quantity: %s"
+msgstr "Facturación parcial de: Concepto: %s - Cantidad %s"
+
+#. module: task_resource_control_billing
+#: model:ir.model.fields,field_description:task_resource_control_billing.field_wizard_billing_plan_qty
+msgid "Planned Quantity"
+msgstr "Cantidad Planeada"
+
+#. module: task_resource_control_billing
+#: model:ir.model.fields,field_description:task_resource_control_billing.field_wizard_billing_plan_line_real_qty
+#: model:ir.model.fields,field_description:task_resource_control_billing.field_wizard_billing_plan_real_qty
+msgid "Real Quantity"
+msgstr "Cantidad Real"
+
+#. module: task_resource_control_billing
+#: model:ir.ui.view,arch_db:task_resource_control_billing.project_view_resource_control
+msgid "Resource control"
+msgstr "Control de Recursos"
+
+#. module: task_resource_control_billing
+#: model:ir.model,name:task_resource_control_billing.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: task_resource_control_billing
+#: code:addons/task_resource_control_billing/wizards/billing_request.py:32
+#, python-format
+msgid "Total Billing of: Concept: %s - Quantity: %s"
+msgstr "Facturación parcial de: Concepto: %s - Cantidad %s"
+
+#. module: task_resource_control_billing
+#: model:ir.model,name:task_resource_control_billing.model_wizard_billing_plan
+msgid "wizard.billing.plan"
+msgstr "wizard.billing.plan"
+
+#. module: task_resource_control_billing
+#: model:ir.model,name:task_resource_control_billing.model_wizard_billing_plan_line
+msgid "wizard.billing.plan.line"
+msgstr "wizard.billing.plan.line"

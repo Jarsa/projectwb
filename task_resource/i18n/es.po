@@ -1,0 +1,852 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * task_resource
+# 
+# Translators:
+# Jarsa Sistemas <info@jarsa.com.mx>, 2016
+# ougc27 <oscar_garzacordova@hotmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-02 14:10+0000\n"
+"PO-Revision-Date: 2017-01-02 14:10+0000\n"
+"Last-Translator: ougc27 <oscar_garzacordova@hotmail.com>, 2016\n"
+"Language-Team: Spanish (https://www.transifex.com/jarsa/teams/62171/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: task_resource
+#: code:addons/task_resource/models/project_task.py:63
+#: code:addons/task_resource/models/project_wbs_element.py:50
+#, python-format
+msgid ""
+"A task can not be created when the project is in open state. For create it "
+"you must go to the project and make an order change."
+msgstr ""
+"Una tarea/concepto no puede ser creada cuando el proyecto está en proceso. "
+"Para crearl@ debe ir al proyecto y generar una orden de cambio."
+
+#. module: task_resource
+#: model:ir.actions.act_window,name:task_resource.launch_session_wizard
+msgid "Add a Purchase Request"
+msgstr "Crear una Requisición de Compra"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_account_id
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_analytic_account_id
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_account_id
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_filter
+msgid "Analytic Account"
+msgstr "Cuenta Analítica"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_form
+msgid ""
+"Are you sure make an change order? The project state return to draft, don't "
+"forget change the project sate again to open."
+msgstr ""
+"¿Está seguro de crear una orden de cambio? El proyecto pasará a estado "
+"borrador, no olvide cambiar el proyecto a \"ABIERTO\" luego de generar las "
+"modificaciones."
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_task_confirm_wizard_view
+msgid "Are you sure to confirm the concept(s) selected?"
+msgstr "Está seguro de querer confirmar el concepto(s) seleccionados?"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+msgid "Are you sure you want to confirm the current task?"
+msgstr "¿Está seguro de querer confirmar la tarea actual?"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Assigned to"
+msgstr "Asignada a"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Assigned to me"
+msgstr "Asignado a mi"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "At least a Draft PO has been created"
+msgstr "Al menos una solicitud de cotización ha sido creada."
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "At least a PO has been completed"
+msgstr "Al menos una Orden de Compra ha sido completada."
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "At least a PO has been confirmed"
+msgstr "Al menos una Orden de Compra ha sido confirmada"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_project_total_project_expenses
+#: model:ir.model.fields,field_description:task_resource.field_project_wbs_element_total_concept_expense
+msgid "Billing Total"
+msgstr "Total Facturado"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_form
+#: model:ir.ui.view,arch_db:task_resource.project_task_confirm_wizard_view
+#: model:ir.ui.view,arch_db:task_resource.purchase_request_wizard_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_form
+msgid "Close"
+msgstr "Cerrado"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+msgid "Code"
+msgstr "Código"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_task_resource_id
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_task_confirm_wizard_view
+#: model:ir.ui.view,arch_db:task_resource.purchase_request_wizard_view
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: task_resource
+#: model:ir.actions.act_window,name:task_resource.action_view_project_task_wizard
+msgid "Confirm Concept(s)"
+msgstr "Confirmar Concepto(s)"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_task_confirm_wizard_view
+msgid "Confirm Concepts"
+msgstr "Confirmar Conceptos"
+
+#. module: task_resource
+#: selection:project.task,state:0
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_create_uid
+#: model:ir.model.fields,field_description:task_resource.field_project_task_confirm_wizard_create_uid
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_create_uid
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_create_uid
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_create_uid
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_create_uid
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_create_date
+#: model:ir.model.fields,field_description:task_resource.field_project_task_confirm_wizard_create_date
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_create_date
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_create_date
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_create_date
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_create_date
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_description
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_display_name
+#: model:ir.model.fields,field_description:task_resource.field_project_task_confirm_wizard_display_name
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_display_name
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_display_name
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_display_name
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_display_name
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_display_name
+msgid "Display Name"
+msgstr "Nombre Mostrado"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+#: selection:project.task,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_project_wbs_element
+msgid "Email Thread"
+msgstr "Seguimiento Email"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_project_wbs_element_tree_view
+msgid "Expense Total"
+msgstr "Gastos Totales"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_filter
+msgid "Groups"
+msgstr "Grupos"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_id
+#: model:ir.model.fields,field_description:task_resource.field_project_task_confirm_wizard_id
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_id
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_id
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_id
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_id
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_id
+msgid "ID"
+msgstr "ID"
+
+#. module: task_resource
+#: model:ir.actions.act_window,name:task_resource.action_total_task_resource
+#: model:ir.ui.menu,name:task_resource.task_menu_id
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+msgid "Insume Explotion"
+msgstr "Explosión de Insumos"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_order_line_is_project_insume
+msgid "Is Project Insume"
+msgstr "Es Insumo de Proyecto"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_is_project_insume
+msgid "Is Project Insume?"
+msgstr "¿Es Insumo de Proyecto?"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_make_purchase_order_item_is_project_insume
+msgid "Is project insume"
+msgstr "Es insumo de Proyecto"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_item_ids
+msgid "Items"
+msgstr "Elementos"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line___last_update
+#: model:ir.model.fields,field_description:task_resource.field_project_task_confirm_wizard___last_update
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard___last_update
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard___last_update
+#: model:ir.model.fields,field_description:task_resource.field_resource_type___last_update
+#: model:ir.model.fields,field_description:task_resource.field_task_resource___last_update
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_write_uid
+#: model:ir.model.fields,field_description:task_resource.field_project_task_confirm_wizard_write_uid
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_write_uid
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_write_uid
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_write_uid
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_write_uid
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_write_date
+#: model:ir.model.fields,field_description:task_resource.field_project_task_confirm_wizard_write_date
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_write_date
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_write_date
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_write_date
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_write_date
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_location_id
+msgid "Location id"
+msgstr "Ubicación"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_form
+msgid "Make Order Change"
+msgstr "Crear Orden de Cambio"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_resource_type
+msgid "Make Product Consumes"
+msgstr "Generar Consumo de Insumos"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.purchase_request_wizard_view
+msgid "Make a purchase request"
+msgstr "Generar una Requisición de Compra"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "My requests"
+msgstr "Mis Requisiciones"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_name
+msgid "Name"
+msgstr "Nombres"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "No RFQ or Purchase has been created"
+msgstr "Ninguna RFQ / Orden de Compra ha sido creada"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_form
+msgid "Open"
+msgstr "Abierto"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_project_order_change
+msgid "Order change"
+msgstr "Orden de Cambio"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_task_qty
+msgid "Planned Quantity"
+msgstr "Cantidad Planeada"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_product_id
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_product_id
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_product_id
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_filter
+msgid "Product"
+msgstr "Producto"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_form
+msgid "Product -"
+msgstr "Producto - "
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_form
+msgid "Product Details"
+msgstr "Detalles del Producto"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_project_project
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_project_id
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_project_id
+#: model:ir.ui.view,arch_db:task_resource.purchase_request_search_view
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_filter
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_form
+msgid "Project Details"
+msgstr "Detalles del Proyecto"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_wizard_project_id
+msgid "Project id"
+msgstr "Proyecto"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Purchase Confirmed"
+msgstr "Orden de Compra Confirmada"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Purchase Done"
+msgstr "Orden Culminada"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de Orden de Compra"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_purchase_request
+#: model:ir.ui.view,arch_db:task_resource.purchase_request_wizard_view
+msgid "Purchase Request"
+msgstr "Requisición de Compra"
+
+#. module: task_resource
+#: code:addons/task_resource/wizards/purchase_request_line_make_purchase_order_item.py:41
+#, python-format
+msgid "Purchase Request %s is not approved"
+msgstr "La requisición de compra %s no está aprobada"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_purchase_request_line
+msgid "Purchase Request Line"
+msgstr "Linea de Requisición de Compra"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_purchase_request_line_make_purchase_order
+msgid "Purchase Request Line Make Purchase Order"
+msgstr "Línea de Requisición de Compra Crear Orden de Compra"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_purchase_request_line_make_purchase_order_item
+msgid "Purchase Request Line Make Purchase Order Item"
+msgstr "Linea de Requisición de Compra Crear Orden de Compra Item"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.purchase_request_line_tree
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_form
+msgid "Purchase Request Lines"
+msgstr "Líneas de Requisición de Compra"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_purchase_request_ids
+msgid "Purchase Requests"
+msgstr "Requisiciones de Compra"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Purchase Status"
+msgstr "Estado de la Compra"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Purchasing not started"
+msgstr "Compra no iniciada"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_qty_total
+msgid "Qty total"
+msgstr "Cantidad Total"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_qty
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_qty_on_hand
+msgid "Quantity On Hand"
+msgstr "Cantidad en Mano"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_qty
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_qty
+msgid "Quantity Planned"
+msgstr "Cantidad Planeada"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_real_qty
+msgid "Quantity Real"
+msgstr "Cantidad Real"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_qty_to_request
+msgid "Quantity To Request"
+msgstr "Cantidad a Requisitar"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_qty_on_hand
+msgid "Quantity on Hand"
+msgstr "Cantidad en Mano"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_real_qty
+msgid "Real Quantity"
+msgstr "Cantidad Real"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Rejected"
+msgstr "Rechazada"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_remaining_qty
+msgid "Remaining Quantity"
+msgstr "Cantidad Restante "
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Request"
+msgstr "Requisición"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_purchase_request_wizard
+msgid "Request for quotation wizard"
+msgstr "Asistente para la Creación de Solicitud de Cotización"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Request is approved"
+msgstr "Requisición Aprobada"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Request is rejected"
+msgstr "Requisición Rechazada"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Request is to be approved"
+msgstr "La Requisición está lista para ser aprobada"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Request status"
+msgstr "Estado de la Requisición"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_requested_qty
+msgid "Requested Quantity"
+msgstr "Cantidad Requisitada"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Requested by"
+msgstr "Requisitado por"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Requested for Quotation"
+msgstr "Solicitud de Cotización"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_requested_qty
+msgid "Requested qty"
+msgstr "Cantidad Requisitada"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+msgid "Reset to Draft"
+msgstr "Reniciar a Borrador"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_line_id
+msgid "Resource Line"
+msgstr "Línea de Recurso"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_analytic_resource_plan_line
+msgid "Resource Plan"
+msgstr "Plan de Recursos"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_form
+msgid "Resource Type"
+msgstr "Tipo de Recurso"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_task_resource_line_ids
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_resource_line_ids
+msgid "Resource line ids"
+msgstr "Ids líneas de Recursos"
+
+#. module: task_resource
+#: model:ir.actions.act_window,name:task_resource.action_resource_type
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_name
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_resource_type_id
+#: model:ir.ui.menu,name:task_resource.resource_type_menu_id
+#: model:ir.ui.view,arch_db:task_resource.resource_type_tree
+msgid "Resource type"
+msgstr "Tipo de Recrusos"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+msgid "Resources"
+msgstr "Recursos"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_resource_type_id
+msgid "Resources types"
+msgstr "Tipos de Recurso"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "Search Purchase Request"
+msgstr "Buscar Requisición de Compra"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_form
+msgid "Set to Draft"
+msgstr "Draft"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_order_line_specifications
+msgid "Specifications"
+msgstr "Especificaciones"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_task_state
+msgid "Status"
+msgstr "Estado"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_subtotal
+#: model:ir.model.fields,field_description:task_resource.field_project_task_subtotal
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_make_purchase_order_item_subtotal
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_project_task
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_task_id
+msgid "Task"
+msgstr "Tarea"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_task_resource_ids
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_tree
+msgid "Task Resource"
+msgstr "Tareas"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_resource_type_task_resource_ids
+msgid "Task resource"
+msgstr "Tareas"
+
+#. module: task_resource
+#: code:addons/task_resource/wizards/purchase_request.py:71
+#, python-format
+msgid ""
+"The concept must be confirmed \n"
+" \n"
+"Resource: %s \n"
+" Concept: %s."
+msgstr ""
+"El concepto debe estar confirmado\n"
+"Recurso %s \n"
+"Concepto: %s."
+
+#. module: task_resource
+#: code:addons/task_resource/wizards/purchase_request_line_make_purchase_order_item.py:46
+#, python-format
+msgid ""
+"The purchase has already been completed \n"
+" \n"
+"Line: %s \n"
+" Product: %s."
+msgstr ""
+"La orden de compra ha sido completada\n"
+"\n"
+"Línea %s\n"
+"Producto %s"
+
+#. module: task_resource
+#: code:addons/task_resource/wizards/purchase_request_line_make_purchase_order_item.py:65
+#, python-format
+msgid ""
+"The quantity must be lower than the product remaining quantity. \n"
+" \n"
+"Line: %s \n"
+" Product: %s."
+msgstr ""
+"La cantidad debe ser menor que la cantidad restante\n"
+"\n"
+"Línea: %s \n"
+"Producto: %s"
+
+#. module: task_resource
+#: code:addons/task_resource/models/purchase_order_line.py:22
+#: code:addons/task_resource/wizards/purchase_request_line_make_purchase_order_item.py:60
+#, python-format
+msgid ""
+"The quantity must be lower than the quantity of the purchase request line. \n"
+"\n"
+"Product: %s"
+msgstr ""
+"La cantidad debe ser menor que la cantidad requisitada \n"
+"\n"
+"Producto %s"
+
+#. module: task_resource
+#: code:addons/task_resource/models/purchase_order_line.py:27
+#, python-format
+msgid ""
+"The quantity must be lower than the remaining quantity of the purchase request line. \n"
+"\n"
+"Product: %s"
+msgstr ""
+"La cantidad deber ser menor o igual que la cantidad restante de la línea de la requisición \n"
+"\n"
+"Producto %s"
+
+#. module: task_resource
+#: code:addons/task_resource/wizards/purchase_request.py:68
+#, python-format
+msgid "The resources of the tasks must be in the same project."
+msgstr "Los recursos de las tareas / conceptos deben ser del mismo proyecto"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_purchase_request_line_search
+msgid "To Approve"
+msgstr "Por Aprobar"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+msgid "Total"
+msgstr "Total"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_project_total_charge
+#: model:ir.model.fields,field_description:task_resource.field_project_wbs_element_total_charge
+msgid "Total Charge"
+msgstr "Total"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_kanban
+msgid "Total Expense: $"
+msgstr "Gastos Totales: $"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_project_task_total_expense
+msgid "Total Expenses"
+msgstr "Total Gastos"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_kanban_view
+#: model:ir.ui.view,arch_db:task_resource.view_wbs_element_kanban
+msgid "Total Expenses: $"
+msgstr "Gastos Totales: $"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_tree_view
+msgid "Total Planned"
+msgstr "Total Planeado"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.project_project_kanban_view
+#: model:ir.ui.view,arch_db:task_resource.view_task_kanban
+msgid "Total Planned: $"
+msgstr "Total Planeado $"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_task_tree2
+msgid "Total Qty"
+msgstr "Cantidad Total"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.total_task_resource_tree
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+#: model:ir.ui.view,arch_db:task_resource.view_task_resource_tree
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_form
+msgid "Total qty"
+msgstr "Cantidad Total"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.total_task_resource_tree
+msgid "Total task resource"
+msgstr "Recursos Totales"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_wbs_element_kanban
+msgid "Total: $"
+msgstr "Total $"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_unit_price
+msgid "Unit Price"
+msgstr "Precio Unitario"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_unit_price
+#: model:ir.model.fields,field_description:task_resource.field_project_task_unit_price
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_unit_price
+msgid "Unit price"
+msgstr "Precio Unitario"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_analytic_resource_plan_line_uom_id
+#: model:ir.model.fields,field_description:task_resource.field_project_task_uom_id
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_uom_id
+#: model:ir.model.fields,field_description:task_resource.field_task_resource_uom_id
+#: model:ir.model.fields,field_description:task_resource.field_total_task_resource_uom_id
+msgid "UoM"
+msgstr "Unidad de Medida"
+
+#. module: task_resource
+#: code:addons/task_resource/models/project_project.py:84
+#, python-format
+msgid "WBS Element"
+msgstr "Elemento EDT"
+
+#. module: task_resource
+#: model:ir.model.fields,field_description:task_resource.field_purchase_request_line_wizard_wiz_id
+msgid "Wiz id"
+msgstr "Línea del Wizard"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_purchase_request_line_wizard
+msgid "Wizard of purchase request"
+msgstr "Asistente de Requisiciones de Compra"
+
+#. module: task_resource
+#: code:addons/task_resource/models/project_task.py:163
+#, python-format
+msgid "You can't reset the concept because it already has resources"
+msgstr "No puede reiniciar el concepto porque este ya tiene recursos."
+
+#. module: task_resource
+#: code:addons/task_resource/wizards/purchase_request.py:88
+#, python-format
+msgid ""
+"You cannot request more products than you planned.or null quantities.\n"
+" \n"
+" Resource: %s\n"
+" Concept: %s"
+msgstr ""
+"No puede requisitar más productos de los que se planearon ni tampoco cantidades nulas.\n"
+"\n"
+"Recurso: %s\n"
+"Concepto: %s"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.view_total_task_resource_form
+msgid "description"
+msgstr "Descripción"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_project_task_confirm_wizard
+msgid "project.task.confirm.wizard"
+msgstr "project.task.confirm.wizard"
+
+#. module: task_resource
+#: model:ir.ui.view,arch_db:task_resource.total_task_resource_tree
+#: model:ir.ui.view,arch_db:task_resource.view_task_form2
+#: model:ir.ui.view,arch_db:task_resource.view_task_tree2
+msgid "subtotal"
+msgstr "Subtotal"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_task_resource
+msgid "task.resource"
+msgstr "task.resource"
+
+#. module: task_resource
+#: model:ir.model,name:task_resource.model_total_task_resource
+msgid "total.task.resource"
+msgstr "total.task.resource"
