@@ -68,7 +68,7 @@ class ProjectTask(models.Model):
     def _compute_total_expense(self):
         for rec in self:
             invoice_lines = self.env['account.invoice.line'].search([
-                ('invoice_id.state', '=', 'paid'),
+                ('invoice_id.state', 'in', ['open', 'paid']),
                 ('product_id', 'in', [
                     x.product_id.id for x in rec.resource_line_ids]),
                 ('account_analytic_id', '=', rec.analytic_account_id.id)])

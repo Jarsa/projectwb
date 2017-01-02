@@ -22,4 +22,4 @@ class ProjectWbsElement(models.Model):
         for rec in self:
             if rec.child_ids:
                 for child in rec.child_ids:
-                    rec.total_charge = rec.total_charge + child.total_charge
+                    rec.total_real_charge = rec.total_real_charge + child.total_real_charge
