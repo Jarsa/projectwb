@@ -22,6 +22,7 @@ class WizardBillingPlan(models.TransientModel):
             'unit_price': line.unit_price,
             'qty': line.qty,
             'quantity_invoice': line.remaining_quantity,
+            'total_invoice': line.remaining_quantity * line.unit_price,
         }
 
     @api.model

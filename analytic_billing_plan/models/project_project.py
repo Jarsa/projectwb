@@ -154,6 +154,10 @@ class ProjectProject(models.Model):
                             raise exceptions.ValidationError(
                                 _('All of the concepts must be confirmed to'
                                     ' create the invoice.'))
+                        if task.remaining_quantity > 0.0:
+                            raise exceptions.ValidationError(
+                                _('All the tasks must be invoiced to'
+                                    ' continue with the retention invoice.'))
                         total_invoice += task.real_subtotal
             retention_product = self.env.ref(
                 'analytic_billing_plan.product_retention')
