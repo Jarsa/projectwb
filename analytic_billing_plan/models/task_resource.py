@@ -48,7 +48,8 @@ class TaskResource(models.Model):
         for rec in self:
             billing_request_total = 0.0
             for line in rec.line_billing_ids:
-                billing_request_total += line.quantity
+                if line.analytic_billing_plan_id.state == 'confirm':
+                    billing_request_total += line.quantity
             rec.remaining_quantity = rec.qty - billing_request_total
 
     @api.multi
