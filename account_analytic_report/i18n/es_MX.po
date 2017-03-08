@@ -1,0 +1,121 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_analytic_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-08 18:11+0000\n"
+"PO-Revision-Date: 2017-03-08 18:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_analytic_report
+#: code:addons/account_analytic_report/wizards/account_analytic_chart.py:29
+#, python-format
+msgid " To "
+msgstr " A "
+
+#. module: account_analytic_report
+#: model:ir.model,name:account_analytic_report.model_account_account
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: account_analytic_report
+#: model:ir.model,name:account_analytic_report.model_account_analytic_chart
+msgid "Account Analytic Chart"
+msgstr "Tabla analítica de la cuenta"
+
+#. module: account_analytic_report
+#: model:ir.ui.view,arch_db:account_analytic_report.view_account_analytic_chart
+msgid "Account Analytic Charts"
+msgstr "Arbol de Cuentas Analíticas"
+
+#. module: account_analytic_report
+#: model:ir.model,name:account_analytic_report.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: account_analytic_report
+#: model:ir.model.fields,field_description:account_analytic_report.field_account_analytic_account_analytic_balance
+msgid "Balance"
+msgstr "Saldo pendiente"
+
+#. module: account_analytic_report
+#: model:ir.ui.view,arch_db:account_analytic_report.view_account_analytic_chart
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_analytic_report
+#: model:ir.ui.menu,name:account_analytic_report.menu_mx_reports2
+msgid "Chart of Accounts"
+msgstr "Plan de Cuentas Ext."
+
+#. module: account_analytic_report
+#: model:ir.actions.act_window,name:account_analytic_report.action_analytic_tree
+msgid "Chart of Analytic Accounts"
+msgstr "Plan de Cuentas Analíticas Ext."
+
+#. module: account_analytic_report
+#: model:ir.actions.act_window,name:account_analytic_report.action_analytic_chart
+#: model:ir.ui.menu,name:account_analytic_report.menu_action_analytic_tree2
+#: model:ir.ui.view,arch_db:account_analytic_report.view_analytic_tree
+msgid "Chart of Analytics"
+msgstr "Cuentas Analíticas"
+
+#. module: account_analytic_report
+#: model:ir.model.fields,field_description:account_analytic_report.field_account_analytic_account_child_id
+msgid "Child Accounts"
+msgstr "Cuentas hijas"
+
+#. module: account_analytic_report
+#: model:ir.model.fields,field_description:account_analytic_report.field_account_analytic_account_child_parent_ids
+msgid "Children"
+msgstr "Hijos"
+
+#. module: account_analytic_report
+#: model:ir.model.fields,field_description:account_analytic_report.field_account_analytic_account_analytic_credit
+msgid "Credit"
+msgstr "Haber"
+
+#. module: account_analytic_report
+#: model:ir.model.fields,field_description:account_analytic_report.field_account_analytic_account_analytic_debit
+msgid "Debit"
+msgstr "Debe"
+
+#. module: account_analytic_report
+#: model:ir.model.fields,field_description:account_analytic_report.field_account_analytic_chart_date_from
+msgid "From"
+msgstr "De"
+
+#. module: account_analytic_report
+#: code:addons/account_analytic_report/wizards/account_analytic_chart.py:29
+#, python-format
+msgid "From: "
+msgstr "De: "
+
+#. module: account_analytic_report
+#: model:ir.model,name:account_analytic_report.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_analytic_report
+#: model:ir.ui.view,arch_db:account_analytic_report.view_account_analytic_chart
+msgid "Open Charts"
+msgstr "Abrir Plan"
+
+#. module: account_analytic_report
+#: model:ir.model.fields,field_description:account_analytic_report.field_account_analytic_chart_date_to
+msgid "To"
+msgstr "A"
+
+#. module: account_analytic_report
+#: model:ir.ui.view,arch_db:account_analytic_report.view_account_analytic_chart
+msgid "or"
+msgstr "ó"
+
