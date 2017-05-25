@@ -53,12 +53,12 @@ class ProjectProject(models.Model):
                 for wbs_element in wbs_elements:
                     rec.billing_project_total += (
                         wbs_element.billing_concept_total)
+            else:
+                rec.billing_project_total = 0.0
             if (rec.advance_invoice_id and
                     rec.advance_invoice_id.state == 'open'):
                     rec.billing_project_total += (
                         rec.advance_invoice_id.amount_untaxed)
-            else:
-                rec.billing_project_total = 0.0
 
     @api.multi
     def make_advance_invoice(self):
