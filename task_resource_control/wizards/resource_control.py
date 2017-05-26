@@ -31,6 +31,7 @@ class ResourceControl(models.TransientModel):
             dic = {
                 'task_id': line.task_resource_id.id,
                 'line_id': line.id,
+                'real_qty': line.real_qty,
                 'analytic_account_id': line.account_id.id,
                 'product_id': line.product_id.id,
                 'qty': line.qty,
@@ -64,27 +65,46 @@ class ResourceControl(models.TransientModel):
                 if active_model == 'analytic.resource.plan.line':
                     project_id = item.line_id.task_resource_id.project_id.id
                     qty_real = item.line_id.real_qty
+                    requested_qty = item.line_id.requested_qty
                     analytic_account = item.line_id.account_id.id
                     if item.line_id.qty_consumed > item.new_qty:
                         raise ValidationError(
                             _("The new quantity must be greather "
                                 "than the quantity consumed."))
-                    item.line_id.write({'real_qty': item.new_qty})
+                    resource_line = item.line_id
                 else:
                     project_id = item.task_id.project_id.id
                     qty_real = item.task_id.real_qty
+                    total_resource = {
+                        x.product_id.name: x.requested_qty
+                        for x in item.task_id.resource_line_ids}
+                    for resource in item.task_id.resource_ids:
+                        requested_qty = total_resource[
+                            resource.product_id.name]
+                        new_qty = (item.new_qty * resource.qty)
+                        if new_qty < requested_qty:
+                            raise ValidationError(
+                                _("The new quantity can not be less than "
+                                  "the requested quantity. Product: %s" %
+                                  resource.product_id.name))
                     analytic_account = item.task_id.analytic_account_id.id
-                    item.task_id.write({'real_qty': item.new_qty})
-                    item.task_id._update_real_qty()
+                    resource_line = item.task_id
+                    item.task_id._update_real_qty(item.new_qty)
 
                 if qty_real > item.new_qty:
                     item.type = 'deductive'
                 elif qty_real < item.new_qty:
                     item.type = 'additive'
+                elif item.new_qty < requested_qty:
+                    raise ValidationError(
+                        _("The new quantity can not be less than "
+                          "the requested quantity."))
                 else:
                     raise ValidationError(
                         _("The new quantity must be greather or "
-                          "smaller than the real quantity"))
+                          "smaller than the real quantity."))
+
+                resource_line.write({'real_qty': item.new_qty})
 
                 change_id = self.env['resource.control'].create({
                     'project_id': project_id,

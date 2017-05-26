@@ -18,7 +18,8 @@ class ProjectProject(models.Model):
         comodel_name='stock.picking.type',
         string='Picking In',)
     operations_state = fields.Boolean(
-        compute='_compute_operations_state')
+        compute='_compute_operations_state',
+        default=True)
 
     @api.multi
     def action_close(self):
@@ -33,3 +34,5 @@ class ProjectProject(models.Model):
                 if (not rec.picking_out_id.active and not
                         rec.picking_in_id.active):
                     rec.operations_state = False
+                else:
+                    rec.operations_state = True
