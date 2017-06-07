@@ -16,8 +16,8 @@
         'account',
     ],
     'data': [
-        'data/data.xml',
         'data/product_product_data.xml',
+        'data/data.xml',
         'wizard/billing_request_view.xml',
         'security/ir.model.access.csv',
         'views/account_invoice_line_view.xml',
@@ -26,6 +26,7 @@
         'views/project_wbs_element.xml',
         'views/project_project_view.xml',
         'views/res_company_view.xml',
+        'views/res_config_view.xml',
         'views/task_resource.xml',
     ],
     'installable': True,
