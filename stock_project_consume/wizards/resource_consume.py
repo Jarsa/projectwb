@@ -142,6 +142,8 @@ class ResourceConsume(models.TransientModel):
             'location_id': self.location_id.id,
         }
         picking = stock_picking_obj.create(picking_dict)
+        picking.action_confirm()
+        picking.action_assign()
         return {
             'name': 'Picking',
             'view_type': 'form',
