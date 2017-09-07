@@ -40,7 +40,7 @@ class ProjectProject(models.Model):
                 'name': location.name + _('/Delievery'),
                 'sequence_id': sequence_out_id.id,
                 'warehouse_id': 1,
-                'code': 'incoming',
+                'code': 'internal',
                 'default_location_src_id': location.id,
                 'default_location_dest_id': self.env.ref(
                     'stock.location_production').id
