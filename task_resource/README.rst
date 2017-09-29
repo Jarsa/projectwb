@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===========================
+=============
 Task Resource
-===========================
+=============
 
 This application allows you to manage a insume explotion in the build of your project.
 

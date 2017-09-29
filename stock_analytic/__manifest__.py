@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-# © 2013 Julius Network Solutions
-# © 2015 Clear Corp
-# © 2016 Andhitia Rama <andhitia.r@gmail.com>
+# Copyright 2013 Julius Network Solutions
+# Copyright 2015 Clear Corp
+# Copyright 2016 Andhitia Rama <andhitia.r@gmail.com>
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Analytic",
     "summary": "Adds an analytic account in stock move",
-    "version": "9.0.0.1.0",
+    "version": "11.0.0.1.0",
     "author": "Julius Network Solutions,"
     "ClearCorp, Andhitia Rama, "
-    "Odoo Community Association (OCA)",
+    "Odoo Community Association (OCA), Jarsa Sistemas S.A de C.V.",
     "website": "http://www.julius.fr/",
     "category": "Warehouse Management",
     "license": "AGPL-3",

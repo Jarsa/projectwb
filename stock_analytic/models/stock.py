@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-# © 2013 Julius Network Solutions
-# © 2015 Clear Corp
-# © 2016 Andhitia Rama <andhitia.r@gmail.com>
+# Copyright 2013 Julius Network Solutions
+# Copyright 2015 Clear Corp
+# Copyright 2016 Andhitia Rama <andhitia.r@gmail.com>
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
+from odoo import api, fields, models
+from odoo.tools.translate import _
 
 
 class StockMove(models.Model):

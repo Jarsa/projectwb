@@ -2,14 +2,15 @@
 # Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import _, api, fields, models
-from openerp.exceptions import ValidationError
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class AnalyticBillingPlan(models.Model):
     _name = 'analytic.billing.plan'
     _description = "Analytic Billing Plan"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread']
 
     name = fields.Char()
     customer_id = fields.Many2one(

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# © 2015 Eficent Business and IT Consulting Services S.L.
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
     'name': 'Resource control',
     'summary': 'Resource control',
-    'version': '9.0.1.0.0',
-    'category': 'Generic Modules',
+    'version': '11.0.1.0.0',
+    'category': 'Project',
     'author': (
         'Jarsa sistemas S.A de C.V. ,'
         'Odoo Community Association (OCA)'),

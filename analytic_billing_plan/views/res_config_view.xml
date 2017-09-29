@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-	<data>
-		<record model="ir.ui.view" id="view_project_billing_plan_settings_form">
-			<field name="name">view.project.billing.plan.settings.form</field>
-			<field name="model">project.config.settings</field>
-			<field name="inherit_id" ref="project.view_config_settings"/>
-			<field name="arch" type="xml">
-				<xpath expr="//group[1]" position="after">
-					<group string="Billing Settings">
-						<field name='company_id' invisible="1"/>
-						<div>
-							<div>
-								<label for='bridge_account_id'/>
-								<field name='bridge_account_id' class="oe_inline"/>
-							</div>
-							<div>
-								<label for='billing_request_journal_id'/>
-								<field name='billing_request_journal_id' class="oe_inline"/>
-							</div>
-							<div>
-								<label for='product_id'/>
-								<field name="product_id" class="oe_inline"/>
-							</div>
-						</div>
-					</group>
-				</xpath>
-			</field>
-		</record>
-	</data>
+    <record model="ir.ui.view" id="view_project_billing_plan_settings_form">
+        <field name="name">view.project.billing.plan.settings.form</field>
+        <field name="model">project.config.settings</field>
+        <field name="priority" eval="99"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='project']" position="inside">
+                <group string="Billing Settings">
+                    <field name='company_id' invisible="1"/>
+                    <div>
+                        <div>
+                            <label for='bridge_account_id'/>
+                            <field name='bridge_account_id' class="oe_inline"/>
+                        </div>
+                        <div>
+                            <label for='billing_request_journal_id'/>
+                            <field name='billing_request_journal_id' class="oe_inline"/>
+                        </div>
+                        <div>
+                            <label for='product_id'/>
+                            <field name="product_id" class="oe_inline"/>
+                        </div>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
 </odoo>

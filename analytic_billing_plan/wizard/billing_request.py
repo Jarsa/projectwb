@@ -3,8 +3,9 @@
 # Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-
-from openerp import _, api, exceptions, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class WizardBillingPlan(models.TransientModel):
@@ -47,16 +48,16 @@ class WizardBillingPlan(models.TransientModel):
             else:
                 current_project = line.project_id.id
             if old_project != current_project:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The concepts must be for the same project.'
                         'Concept: %s.') % (line.name))
             elif line.state != 'confirm':
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The concept must be confirmed \n \n'
                         'Concept: %s.') %
                     (line.name))
             elif line.remaining_quantity <= 0:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The concept billing is complete.\n \n'
                         'Concept: %s.') %
                     (line.name))
@@ -74,11 +75,11 @@ class WizardBillingPlan(models.TransientModel):
             projects = []
             for item in rec.item_ids:
                 if item.remaining_quantity < 0.0:
-                    raise exceptions.ValidationError(
+                    raise ValidationError(
                         _('The quantity to invoice must be less than'
                             ' the remaining quantity'))
                 if item.project_task.state != 'confirm':
-                    raise exceptions.ValidationError(
+                    raise ValidationError(
                         _('The concept must be confirmed.'))
                 billing = self.env['analytic.billing.plan']
                 ref = False

@@ -2,7 +2,9 @@
 # Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import _, api, exceptions, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ProjectWbsElement(models.Model):
@@ -46,7 +48,7 @@ class ProjectWbsElement(models.Model):
     def _check_project_state(self):
         for rec in self:
             if rec.project_id.state == 'open' and rec.project_id.order_change:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('A task can not be created when the '
                       'project is in open state. For create it'
                       ' you must go to the project and make an order change.'))

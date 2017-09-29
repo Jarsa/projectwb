@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# © <2016> <Jarsa Sistemas, S.A. de C.V.>
+# Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import _, api, exceptions, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ProjectProject(models.Model):
@@ -32,7 +34,7 @@ class ProjectProject(models.Model):
     def _validate_amortization_percentage(self):
         for rec in self:
             if rec.project_amortization > 100 or rec.project_amortization < 0:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The percentage value must be between 0 and 100.'))
 
     @api.multi
@@ -40,7 +42,7 @@ class ProjectProject(models.Model):
     def _validate_retention_percentage(self):
         for rec in self:
             if rec.project_retention > 100 or rec.project_retention < 0:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The percentage value of the  must be'
                         'between 0 and 100.'))
 
@@ -65,26 +67,26 @@ class ProjectProject(models.Model):
         for rec in self:
             total_invoice = 0.0
             if rec.advance_invoice_id:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('You can not create the invoice because '
                         'the project already has an invoice.'))
             if rec.project_amortization > 0:
                 for wbs_element in rec.wbs_element_ids:
                     for task in wbs_element.task_ids:
                         if task.state != 'confirm':
-                            raise exceptions.ValidationError(
+                            raise ValidationError(
                                 _('All of the concepts must be confirmed to'
                                     'create the invoice.'))
                         total_invoice += task.real_subtotal
             advance_product = self.env.ref(
                 'analytic_billing_plan.product_amortization')
             if len(advance_product) == 0:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('Amortization product not found, please contact your'
                         'system administrator.'))
             client_account = rec.partner_id.property_account_receivable_id.id
             if not client_account:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('You must have the receivable account for the project'
                         'client.'))
             product_account = (
@@ -94,7 +96,7 @@ class ProjectProject(models.Model):
                 if advance_product.categ_id.property_account_expense_categ_id
                 else False)
             if not product_account:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('You must have the expense account for the advance'
                         'product.'))
             lines = []
@@ -144,30 +146,30 @@ class ProjectProject(models.Model):
         for rec in self:
             total_invoice = 0.0
             if rec.retention_invoice_id:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('You can not create the invoice because '
                         'the project already has a retention invoice.'))
             if rec.project_retention > 0:
                 for wbs_element in rec.wbs_element_ids:
                     for task in wbs_element.task_ids:
                         if task.state != 'confirm':
-                            raise exceptions.ValidationError(
+                            raise ValidationError(
                                 _('All of the concepts must be confirmed to'
                                     ' create the invoice.'))
                         if task.remaining_quantity > 0.0:
-                            raise exceptions.ValidationError(
+                            raise ValidationError(
                                 _('All the tasks must be invoiced to'
                                     ' continue with the retention invoice.'))
                         total_invoice += task.real_subtotal
             retention_product = self.env.ref(
                 'analytic_billing_plan.product_retention')
             if len(retention_product) == 0:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('Amortization product not found, please contact your'
                         ' system administrator.'))
             client_account = rec.partner_id.property_account_receivable_id.id
             if not client_account:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('You must have the receivable account for the project'
                         ' client.'))
             product_account = (
@@ -178,7 +180,7 @@ class ProjectProject(models.Model):
                 if retention_product.categ_id.property_account_expense_categ_id
                 else False)
             if not product_account:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('You must have the expense account for the retention'
                         'product.'))
             lines = []

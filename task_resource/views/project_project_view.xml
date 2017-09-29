@@ -1,78 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="project_project_form" model="ir.ui.view">
-            <field name="name">project.project.form</field>
-            <field name="model">project.project</field>
-            <field name="inherit_id" ref="project.edit_project"/>
-            <field name="arch" type="xml">
-                <field name="state" position="replace">
-                    <button icon="fa-reply" name="action_cancel_draft" states="cancel" string="Set to Draft" type="object"/>
-                    <button icon="fa-times" name="action_cancel" states="draft,open" string="Cancel" type="object"/>
-                    <button class="oe_highlight" icon="fa-thumbs-up" name="action_open" states="draft" string="Open" type="object"/>
-                    <button class="oe_highlight" icon="fa-thumbs-up" name="action_close" states="open" string="Close" type="object"/>
-                    <button class="oe_highlight" confirm="Are you sure make an change order? The project state return to draft, don't forget change the project sate again to open." name="make_order_change" string="Make Order Change" icon="fa-history" states="open" type="object"/> 
-                    <field name="state" statusbar_visible="draft,open,cancel,closed" widget="statusbar"/>
-                </field>
-                <field name="name" position="replace">
-                    <field name="name" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                </field>
-                 <field name="use_tasks" position="replace">
-                    <field name="use_tasks" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                </field>
-                <field name="label_tasks" position="replace">
-                    <field name="label_tasks" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                </field>
-                 <field name="privacy_visibility" position="replace">
-                    <field name="privacy_visibility" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                </field>
-                <field name="partner_id" position="replace">
-                    <field name="partner_id" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                </field>
-                <field name="user_id" position="replace">
-                    <field name="user_id" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                </field>
-                <field name="sequence" position="replace">
-                    <field name="sequence" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                </field>
+    <record id="project_project_form" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="before">
+                <button icon="fa-reply" name="action_cancel_draft" states="cancel" string="Set to Draft" type="object"/>
+                <button icon="fa-times" name="action_cancel" states="draft,open" string="Cancel" type="object"/>
+                <button class="oe_highlight" icon="fa-thumbs-up" name="action_open" states="draft" string="Open" type="object"/>
+                <button class="oe_highlight" icon="fa-thumbs-up" name="action_close" states="open" string="Close" type="object"/>
+                <button class="oe_highlight" confirm="Are you sure make an change order? The project state return to draft, don't forget change the project sate again to open." name="make_order_change" string="Make Order Change" icon="fa-history" states="open" type="object"/> 
+                <field name="state" statusbar_visible="draft,open,cancel,closed" widget="statusbar"/>
             </field>
-        </record>
-        <record id="project_project_kanban_view" model="ir.ui.view">
-            <field name="name">project.project.kanban</field>
-            <field name="model">project.project</field>
-            <field name="inherit_id" ref="project.view_project_kanban"/>
-            <field name="arch" type="xml">
-                <field name="doc_count" position="after">
-                    <field name="total_project_expenses"/>
-                    <field name="total_charge"/>
-                </field>
-                <xpath expr="//div[@class='o_kanban_primary_left']" position="after">
-                    <br/>
-                    <t name="total" t-if="record.total_charge.value">
-                        <span>
-                            <label>Total Planned: $</label>
-                            <t t-esc="record.total_charge.value"/>
-                        </span>
-                    </t>
-                    <t name="project_expenses" t-if="record.total_project_expenses.value">
-                        <span>
-                            <label>Total Expenses: $</label>
-                            <t t-esc="record.total_project_expenses.value"/>
-                        </span>
-                    </t>
-                </xpath>
+
+            <field name="name" position="replace">
+                <field name="name" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
             </field>
-        </record>
-        <record id="project_project_tree_view" model="ir.ui.view">
-            <field name="name">project.project.tree</field>
-            <field name="model">project.project</field>
-            <field name="inherit_id" ref="project.view_project"/>
-            <field name="arch" type="xml">
-                <field name="partner_id" position="after">
-                    <field name="total_charge" string="Total Planned"/>
-                    <field name="total_project_expenses"/>
-                </field>
+            <field name="label_tasks" position="replace">
+                <field name="label_tasks" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
             </field>
-        </record>
-    </data>
+             <field name="privacy_visibility" position="replace">
+                <field name="privacy_visibility" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
+            </field>
+            <field name="partner_id" position="replace">
+                <field name="partner_id" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
+            </field>
+            <field name="user_id" position="replace">
+                <field name="user_id" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
+            </field>
+            <field name="sequence" position="replace">
+                <field name="sequence" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="project_project_kanban_view" model="ir.ui.view">
+        <field name="name">project.project.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="total_project_expenses"/>
+                <field name="total_charge"/>
+            </field>
+            <xpath expr="//div[hasclass('o_kanban_primary_left')]" position="after">
+                <br/>
+                <t name="total" t-if="record.total_charge.value">
+                    <span>
+                        <label>Total Planned: $</label>
+                        <t t-esc="record.total_charge.value"/>
+                    </span>
+                </t>
+                <t name="project_expenses" t-if="record.total_project_expenses.value">
+                    <span>
+                        <label>Total Expenses: $</label>
+                        <t t-esc="record.total_project_expenses.value"/>
+                    </span>
+                </t>
+            </xpath>
+        </field>
+    </record>
+    <record id="project_project_tree_view" model="ir.ui.view">
+        <field name="name">project.project.tree</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="total_charge" string="Total Planned"/>
+                <field name="total_project_expenses"/>
+            </field>
+        </field>
+    </record>
 </odoo>

@@ -5,8 +5,8 @@
 from openerp import api, fields, models
 
 
-class ProjectConfigSettings(models.Model):
-    _inherit = 'project.config.settings'
+class ProjectConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
 
     company_id = fields.Many2one(
         comodel_name='res.company',

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015 Eficent Business and IT Consulting Services S.L.
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import _, api, exceptions, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class TaskResource(models.Model):
@@ -56,7 +58,7 @@ class TaskResource(models.Model):
     def action_button_draft(self):
         for rec in self:
             if rec.nbr_billing > 0.0:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _("You can't reset the concept because"
                         " it already has a billing request."))
         return super(TaskResource, self).action_button_draft()

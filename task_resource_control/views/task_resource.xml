@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="view_task_form2" model="ir.ui.view">
-            <field name="name">project.task.form</field>
-            <field name="model">project.task</field>
-            <field name="inherit_id" ref="task_resource.view_task_form2"/>
-            <field name="arch" type="xml">
-                <notebook position="inside">
-                    <page name="Resource change history" string="Resource change history" attrs="{'invisible': [('resource_control_ids', '=', False)]}">
-                        <field name="resource_control_ids" nolabel="1" readonly="1">
-                        </field>
-                    </page>
-                </notebook>
-                <field name="qty" position="after">
-                    <field name="real_qty" class="oe_left" attrs="{ 'invisible': [('real_qty', '=', 0.0)] }"/>
-                </field>
-                <field name="subtotal" position="after">
-                    <field name="real_subtotal" class="oe_left"  attrs="{ 'invisible': [('real_subtotal', '=', 0.0)] }"/>
-                </field>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">project.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="task_resource.view_task_form2"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="Resource change history" string="Resource change history" attrs="{'invisible': [('resource_control_ids', '=', False)]}">
+                    <field name="resource_control_ids" nolabel="1" readonly="1">
+                    </field>
+                </page>
+            </notebook>
+            <field name="qty" position="after">
+                <field name="real_qty" class="oe_left" attrs="{ 'invisible': [('real_qty', '=', 0.0)] }"/>
             </field>
-        </record>
-        <record id="view_resource_control_task_kanban" model="ir.ui.view">
-            <field name="name">project.resource.control.task.kanban</field>
-            <field name="model">project.task</field>
-            <field name="inherit_id" ref="task_resource.view_task_kanban"/>
-            <field name="arch" type="xml">
-                <field name="name" position="after">
-                    <div>
-                        <label>Total Real: $</label>
-                        <field name="real_subtotal"/>
-                    </div>
-                </field>
+            <field name="subtotal" position="after">
+                <field name="real_subtotal" class="oe_left"  attrs="{ 'invisible': [('real_subtotal', '=', 0.0)] }"/>
             </field>
-        </record>
-    </data>
+        </field>
+    </record>
+    <record id="view_resource_control_task_kanban" model="ir.ui.view">
+        <field name="name">project.resource.control.task.kanban</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="task_resource.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <div>
+                    <label>Total Real: $</label>
+                    <field name="real_subtotal"/>
+                </div>
+            </field>
+        </field>
+    </record>
 </odoo>

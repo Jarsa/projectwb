@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>  
-    	<record id="view_account_analytic_chart" model="ir.ui.view">
-            <field name="name">account.analytic_chart.form</field>
-            <field name="model">account.analytic.chart</field>
-            <field name="arch" type="xml">
-                <form string="Account Analytic Charts">
-                    <group colspan="4" col="4">
-                        <field name="date_from"/> - 
-                        <field name="date_to"/>
-                    </group>
-                    <footer>
-                        <button string="Open Charts" name="account_chart_open_window" type="object" class="oe_highlight"/>
-                        or
-                        <button string="Cancel" class="oe_link" special="cancel"/>
-                    </footer>
-                </form>
-            </field>
-        </record>
+	<record id="view_account_analytic_chart" model="ir.ui.view">
+        <field name="name">account.analytic_chart.form</field>
+        <field name="model">account.analytic.chart</field>
+        <field name="arch" type="xml">
+            <form string="Account Analytic Charts">
+                <group colspan="4" col="4">
+                    <field name="date_from"/> - 
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button string="Open Charts" name="account_chart_open_window" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
 
-        <record id="action_analytic_chart" model="ir.actions.act_window">
-            <field name="name">Chart of Analytics</field>
-            <field name="res_model">account.analytic.chart</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_account_analytic_chart"/>
-            <field name="target">new</field>
-        </record>
+    <record id="action_analytic_chart" model="ir.actions.act_window">
+        <field name="name">Chart of Analytics</field>
+        <field name="res_model">account.analytic.chart</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_analytic_chart"/>
+        <field name="target">new</field>
+    </record>
 
-        <menuitem id="menu_mx_reports" name="Chart of Accounts" parent="account.menu_finance_reports" sequence="12"/>
-        <menuitem icon="STOCK_INDENT" action="action_analytic_chart"
-            id="menu_action_analytic_tree"
-            parent="menu_mx_reports" />
+    <menuitem id="menu_mx_reports" name="Chart of Accounts" parent="account.menu_finance_reports" sequence="12"/>
+    <menuitem icon="STOCK_INDENT" action="action_analytic_chart"
+        id="menu_action_analytic_tree"
+        parent="menu_mx_reports" />
 
-        <menuitem id="menu_mx_reports_project" name="Chart of Accounts" parent="base.menu_project_report" sequence="12"/>
-        <menuitem icon="STOCK_INDENT" action="action_analytic_chart" id="menu_action_analytic_report_project" parent="menu_mx_reports_project" />
-    </data>
+    <menuitem id="menu_mx_reports_project" name="Chart of Accounts" parent="base.menu_project_report" sequence="12"/>
+    <menuitem icon="STOCK_INDENT" action="action_analytic_chart" id="menu_action_analytic_report_project" parent="menu_mx_reports_project" />
 </odoo>

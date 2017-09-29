@@ -2,7 +2,9 @@
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
-from openerp import _, exceptions, api, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class PurchaseRequest(models.TransientModel):
@@ -64,10 +66,10 @@ class PurchaseRequest(models.TransientModel):
                 items.append((0, 0, self._prepare_item(line)))
 
         if project_validator:
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('The resources of the tasks must be in the same project.'))
         elif state_validator:
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('The concept must be confirmed \n \n'
                     'Resource: %s \n Concept: %s.') %
                 (line.product_id.name, line.task_resource_id.name))
@@ -84,7 +86,7 @@ class PurchaseRequest(models.TransientModel):
             for item in rec.item_ids:
                 value = item.requested_qty + item.qty_to_request
                 if value > item.real_qty or item.qty_to_request <= 0:
-                    raise exceptions.ValidationError(
+                    raise ValidationError(
                         _(
                             'You cannot request more products than you planned'
                             '.or null quantities.'
