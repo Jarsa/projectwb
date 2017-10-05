@@ -1,1 +1,16 @@
-purchase-workflow
+purchase-workflow https://github.com/OCA/purchase-workflow.git 9.0
+server-tools https://github.com/OCA/server-tools.git 9.0
+stock-logistics-workflow https://github.com/OCA/stock-logistics-workflow.git 9.0
+sale-workflow https://github.com/OCA/sale-workflow.git 9.0
+web https://github.com/OCA/web.git 9.0
+product-attribute https://github.com/OCA/product-attribute.git 9.0
+stock-logistics-warehouse https://github.com/OCA/stock-logistics-warehouse.git 9.0
+webkit-tools https://github.com/OCA/webkit-tools.git 9.0
+bank-payment https://github.com/OCA/bank-payment.git 9.0
+stock-logistics-transport https://github.com/OCA/stock-logistics-transport.git 9.0
+account-closing https://github.com/OCA/account-closing.git 9.0
+stock-logistics-tracking https://github.com/OCA/stock-logistics-tracking.git 9.0
+stock-logistics-barcode https://github.com/OCA/stock-logistics-barcode.git 9.0
+connector https://github.com/OCA/connector.git 9.0
+account-financial-tools https://github.com/OCA/account-financial-tools.git 9.0
+reporting-engine https://github.com/OCA/reporting-engine.git 9.0
