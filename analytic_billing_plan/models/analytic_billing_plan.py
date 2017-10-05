@@ -256,7 +256,9 @@ class AnalyticBillingPlan(models.Model):
     @api.model
     def create(self, vals):
         res = super(AnalyticBillingPlan, self).create(vals)
-        res.name = self.env['ir.sequence'].next_by_code('billing.request')
+        res.name = (
+            self.env.user.company_id.billing_request_journal_id.
+            sequence_id.next_by_id())
         count = 1
         for line in res.analytic_billing_plan_line_ids:
             line.name = self.assign_code(res, count)
