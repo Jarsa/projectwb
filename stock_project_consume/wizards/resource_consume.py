@@ -3,7 +3,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from openerp import _, api, exceptions, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ResourceConsume(models.TransientModel):
@@ -65,10 +67,10 @@ class ResourceConsume(models.TransientModel):
                 items.append([0, 0, self._prepare_item(line)])
 
         if project_validator:
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('The resources must be for the same project.'))
         elif state_validator:
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('The concept must be confirmed \n \n'
                     'Resource: %s \n Concept: %s.') %
                 (line.product_id.name, line.task_resource_id.name))
@@ -85,30 +87,30 @@ class ResourceConsume(models.TransientModel):
         for item in self.item_ids:
             total_qty = item.line_id.qty_consumed + item.qty_to_consume
             if item.qty_to_consume <= 0:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The quantity to consume must be higher than zero'
                         'Please check your data.\n'
                         '\n Resource: %s \n Concept: %s')
                     %
                     (item.product_id.name, item.line_id.task_resource_id.name))
             elif item.qty_to_consume > item.qty_on_hand:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The quantity to consume must be lower or equal '
                         'than the quantity on hand. Please check your data.\n'
                         '\n Resource: %s \n Concept: %s')
                     %
                     (item.product_id.name, item.line_id.task_resource_id.name))
             elif not item.line_id.task_resource_id.project_id.picking_out_id:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The project must have a picking type for the consume.'))
             elif item.qty_to_consume > item.real_qty:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The quantity to consume must be lower or equal'
                         ' than the quantity planned. Please check your data.\n'
                         '\n Resource: %s \n Concept: %s') %
                     (item.product_id.name, item.line_id.task_resource_id.name))
             elif total_qty > item.real_qty:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('You cannot consume this quantity because the sumatory'
                         ' of the quantity exceeds the quantity planned.'
                         ' Please check your data. \n \n Resource: %s \n'

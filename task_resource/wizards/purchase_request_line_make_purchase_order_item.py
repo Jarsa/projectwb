@@ -2,7 +2,9 @@
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import _, api, exceptions, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
@@ -37,12 +39,12 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
     def _check_valid_request_line(self, request_line_ids):
         for line in self.env['purchase.request.line'].browse(request_line_ids):
             if line.request_id.state != 'approved':
-                raise exceptions.Warning(
+                raise ValidationError(
                     _('Purchase Request %s is not approved') %
                     line.request_id.name)
             if (line.purchase_state in ['purchase', 'done'] and
                     line.remaining_qty == line.product_qty):
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('The purchase has already been completed \n \n'
                       'Line: %s \n Product: %s.') %
                     (line.request_id.name, line.product_id.name))
@@ -56,12 +58,12 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             super(PurchaseRequestLineMakePurchaseOrder, self).
             _prepare_purchase_order_line(po, item))
         if item.product_qty > item.line_id.product_qty:
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('The quantity must be lower than the quantity of'
                     ' the purchase request line. \n\n'
                     'Product: %s') % item.product_id.name)
         if item.product_qty > item.line_id.remaining_qty:
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('The quantity must be lower than the product'
                     ' remaining quantity. \n \n'
                   'Line: %s \n Product: %s.') %

@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-# 2015 Eficent Business and IT Consulting Services S.L.
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from openerp import _, api, exceptions, fields, models
+
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ProjectTask(models.Model):
@@ -59,7 +62,7 @@ class ProjectTask(models.Model):
     def _check_project_state(self):
         for rec in self:
             if rec.project_id.state == 'open' and rec.project_id.order_change:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _('A task can not be created when the '
                       'project is in open state. For create it'
                       ' you must go to the project and make an order change.'))
@@ -132,7 +135,6 @@ class ProjectTask(models.Model):
         return res
 
     @api.multi
-    @api.depends('resource_line_ids')
     def _compute_resources_line_ids(self):
         for rec in self:
             resources = rec.resource_line_ids.search(
@@ -159,7 +161,7 @@ class ProjectTask(models.Model):
     def action_button_draft(self):
         for rec in self:
             if rec.resource_line_ids:
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _("You can't reset the concept because it already"
                         " has resources"))
             rec.state = 'draft'

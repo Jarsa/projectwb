@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import _, api, exceptions, fields, models
+
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class PurchaseOrderLine(models.Model):
@@ -18,12 +21,12 @@ class PurchaseOrderLine(models.Model):
         for rec in self:
             for line in rec.purchase_request_lines:
                 if rec.product_qty > line.product_qty:
-                    raise exceptions.ValidationError(
+                    raise ValidationError(
                         _('The quantity must be lower than the quantity of'
                             ' the purchase request line. \n\n'
                             'Product: %s') % rec.product_id.name)
                 if line.remaining_qty < 0.0:
-                    raise exceptions.ValidationError(
+                    raise ValidationError(
                         _('The quantity must be lower than the remaining '
                             'quantity of the purchase request line. \n\n'
                             'Product: %s') % rec.product_id.name)

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-
-from openerp import _, api, fields, models
+from odoo import _, api, fields, models
+from odoo.tools.translate import _
 
 
 class WizardBillingPlan(models.TransientModel):

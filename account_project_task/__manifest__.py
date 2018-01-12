@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-# © 2015 Eficent Business and IT Consulting Services S.L.
+# Copyright 2015 Eficent Business and IT Consulting Services S.L.
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
     "name": 'Accounting with Project Task dimension',
     "summary": "Introduces Project Task in account move lines",
-    "version": "9.0.1.0.0",
+    "version": "11.0.1.0.0",
     "author": "Eficent Business and IT Consulting Services S.L., "
-              "Odoo Community Association (OCA)",
+              "Odoo Community Association (OCA), Jarsa Sistemas S.A. de C.V.",
     "description": "Module to assign the project to the move line",
     "website": "http://www.eficent.com",
     "category": "Accounting & Finance",

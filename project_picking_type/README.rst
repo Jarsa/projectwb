@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===========================
+=====================
 Project Picking Type
-===========================
+=====================
 
 This application allows you to manage the project location and the operation types for your project.
 
