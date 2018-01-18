@@ -8,7 +8,7 @@
     'version': '9.0.1.0.0',
     'category': 'Generic Modules',
     'author': (
-        'Jarsa sistemas S.A de C.V. ,'
+        'Jarsa Sistemas,'
         'Odoo Community Association (OCA)'),
     'website': 'https://www.odoo-community.org',
     'license': 'LGPL-3',

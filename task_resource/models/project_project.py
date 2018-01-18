@@ -11,8 +11,7 @@ class ProjectProject(models.Model):
     total_project_expenses = fields.Float(
         'Billing Total', compute='_compute_total_project_expenses',)
     total_charge = fields.Float(
-        compute="_compute_total_charges",
-        string='Total Charge',)
+        compute="_compute_total_charges",)
     state = fields.Selection(
         [('draft', 'Draft'),
          ('open', 'In Progress'),

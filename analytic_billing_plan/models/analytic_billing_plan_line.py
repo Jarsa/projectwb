@@ -18,11 +18,9 @@ class AnalyticBillingPlanLine(models.Model):
     quantity = fields.Float(
         digits=(15, 4),)
     price_unit = fields.Float(
-        "Price Unit",
         readonly=True,
     )
     amount = fields.Float(
-        string='Amount',
         help=('Calculated by multiplying the quantity '
               'and the price given in the Product\'s '
               'cost price. Always expressed in the '

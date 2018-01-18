@@ -12,8 +12,7 @@ class ProjectWbsElement(models.Model):
         string='Billing Total',
         compute='_compute_total_concept_expense')
     total_charge = fields.Float(
-        compute="_compute_total_charges",
-        string='Total Charge')
+        compute="_compute_total_charges",)
 
     @api.multi
     def _compute_total_concept_expense(self):

@@ -27,12 +27,11 @@ class TaskResource(models.Model):
     account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic Account')
-    description = fields.Char('Description')
+    description = fields.Char()
     resource_type_id = fields.Many2one(
         'resource.type',
         string='Resource type')
-    unit_price = fields.Float(
-        string='Unit Price',)
+    unit_price = fields.Float()
 
     @api.onchange('product_id')
     def onchange_product(self):
@@ -65,5 +64,4 @@ class TaskResource(models.Model):
                 'account_id': plan.analytic_account_id.id
             })
             return res
-        else:
-            return super(TaskResource, self).default_get(field)
+        return super(TaskResource, self).default_get(field)

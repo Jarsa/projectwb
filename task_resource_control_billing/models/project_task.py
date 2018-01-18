@@ -16,3 +16,4 @@ class ProjectTask(models.Model):
             for line in rec.line_billing_ids:
                 billing_request_total += line.quantity
             rec.remaining_quantity = rec.real_qty - billing_request_total
+        return True

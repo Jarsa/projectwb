@@ -8,7 +8,6 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     is_project_insume = fields.Boolean(
-        string='Is Project Insume',
         readonly=True, )
     specifications = fields.Char()
 

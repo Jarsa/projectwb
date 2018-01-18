@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>        
-        <record id="view_account_analytic_form_parent" model="ir.ui.view">
-            <field name="name">Chart of Accounts Tree Structure</field>
-            <field name="model">account.analytic.account</field>
-            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
-            <field name="arch" type="xml">
-                <field name="code" position="after">
-                    <field name="parent_id" />
-                </field>
-
+<odoo>   
+    <record id="view_account_analytic_form_parent" model="ir.ui.view">
+        <field name="name">Chart of Accounts Tree Structure</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="parent_id" />
             </field>
-        </record>
 
-        <record id="view_account_analytic_list_parent" model="ir.ui.view">
-            <field name="name">account.analytic.account.list.parent</field>
-            <field name="model">account.analytic.account</field>
-            <field name="inherit_id" ref="analytic.view_account_analytic_account_list"/>
-            <field eval="10" name="priority"/>
-            <field name="arch" type="xml">
-                <field name="code" position="after">
-                    <field name="parent_id" />
-                </field>
-            </field>
-        </record>
+        </field>
+    </record>
 
-        <record id="view_analytic_tree" model="ir.ui.view">
-            <field name="name">account.account.tree</field>
-            <field name="model">account.analytic.account</field>
-            <field name="field_parent">child_id</field>
-            <field name="arch" type="xml">
-                <tree string="Chart of Analytics" toolbar="1" >                    
-                    <field name="display_name"/>
-                    <field name="code" invisible="1"/>
-                    <field name="name" invisible="1"/>
-                    <field name="analytic_debit"/>
-                    <field name="analytic_credit"/>
-                    <field name="analytic_balance"/>
-                    <field name="parent_id" invisible="1"/>
-                </tree>
+    <record id="view_account_analytic_list_parent" model="ir.ui.view">
+        <field name="name">account.analytic.account.list.parent</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_list"/>
+        <field eval="10" name="priority"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="parent_id" />
             </field>
-        </record>
-        
-        <record id="action_analytic_tree" model="ir.actions.act_window">
-            <field name="name">Chart of Analytic Accounts</field>
-            <field name="res_model">account.analytic.account</field>
-            <field name="view_type">tree</field>
-            <field name="view_id" ref="view_analytic_tree"/>
-            <field name="domain">[('parent_id','=',False)]</field>
-        </record>
-    </data>
-</openerp>
+        </field>
+    </record>
+
+    <record id="view_analytic_tree" model="ir.ui.view">
+        <field name="name">account.account.tree</field>
+        <field name="model">account.analytic.account</field>
+        <field name="field_parent">child_id</field>
+        <field name="arch" type="xml">
+            <tree string="Chart of Analytics" toolbar="1" >                    
+                <field name="display_name"/>
+                <field name="code" invisible="1"/>
+                <field name="name" invisible="1"/>
+                <field name="analytic_debit"/>
+                <field name="analytic_credit"/>
+                <field name="analytic_balance"/>
+                <field name="parent_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="action_analytic_tree" model="ir.actions.act_window">
+        <field name="name">Chart of Analytic Accounts</field>
+        <field name="res_model">account.analytic.account</field>
+        <field name="view_type">tree</field>
+        <field name="view_id" ref="view_analytic_tree"/>
+        <field name="domain">[('parent_id','=',False)]</field>
+    </record>
+</odoo>

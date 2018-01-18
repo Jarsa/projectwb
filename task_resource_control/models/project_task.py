@@ -16,7 +16,6 @@ class ProjectTask(models.Model):
         readonly=True,
         )
     real_subtotal = fields.Float(
-        string='Real Subtotal',
         compute='_compute_real_subtotal',)
     qty = fields.Float(string='Planned Quantity',)
 

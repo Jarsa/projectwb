@@ -26,9 +26,9 @@ class WizardBillingPlan(models.TransientModel):
         }
 
     @api.model
-    def default_get(self, fields):
+    def default_get(self, res_fields):
         res = super(WizardBillingPlan, self).default_get(
-            fields)
+            res_fields)
         project_task_obj = self.env['project.task']
         billing_line_ids = self.env.context['active_ids'] or []
         active_model = self.env.context['active_model']

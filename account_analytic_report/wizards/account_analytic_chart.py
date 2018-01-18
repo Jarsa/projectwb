@@ -18,8 +18,8 @@ class AccountChartOfAnalyticsWizard(models.TransientModel):
 
         result = mod_obj.get_object_reference(
             'account_analytic_report', 'action_analytic_tree')
-        id = result and result[1] or False
-        result = act_obj.search_read([('id', '=', id)])[0]
+        res_id = result and result[1] or False
+        result = act_obj.search_read([('id', '=', res_id)])[0]
         res = {}
         title = ''
         if self.date_from and self.date_to:

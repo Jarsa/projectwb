@@ -31,7 +31,6 @@ class ResourceControlLine(models.TransientModel):
         string='Product',
         readonly=True)
     description = fields.Char(
-        string='Description',
         readonly=True)
     uom_id = fields.Many2one(
         'product.uom',
@@ -44,10 +43,8 @@ class ResourceControlLine(models.TransientModel):
         string='Quantity Real',
         readonly=True)
     new_qty = fields.Float(
-        string='New Quantity',
         required=True,)
-    unit_price = fields.Float(
-        string='Unit price')
-    subtotal = fields.Float(string='Subtotal')
+    unit_price = fields.Float()
+    subtotal = fields.Float()
     type = fields.Char(string='Control type')
     reason = fields.Text(required=True,)

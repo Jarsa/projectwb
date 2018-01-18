@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="view_wbs_element_kanban" model="ir.ui.view">
-            <field name="name">project.wbs_element.kanban</field>
-            <field name="model">project.wbs_element</field>
-            <field name="inherit_id" ref="task_resource.view_wbs_element_kanban"/>
-            <field name="arch" type="xml">
-                <field name="total_concept_expense" position="after">
-                    <field name="total_real_charge"/>
-                </field>
-                <xpath expr="//t[@name='total']" position="after">
-                    <t t-if="record.total_charge.value" name="total">
-                        <span>
-                            <label> Total Real: $</label>
-                            <t t-esc="record.total_real_charge.value"/>
-                        </span>
-                    </t>
-                </xpath>
+    <record id="view_wbs_element_kanban" model="ir.ui.view">
+        <field name="name">project.wbs_element.kanban</field>
+        <field name="model">project.wbs_element</field>
+        <field name="inherit_id" ref="task_resource.view_wbs_element_kanban"/>
+        <field name="arch" type="xml">
+            <field name="total_concept_expense" position="after">
+                <field name="total_real_charge"/>
             </field>
-        </record>
-        <record id="view_project_wbs_element_tree_view" model="ir.ui.view">
-            <field name="name">project.wbs_element.tree</field>
-            <field name="model">project.wbs_element</field>
-            <field name="field_parent">child_ids</field>
-            <field name="inherit_id" ref="task_resource.view_project_wbs_element_tree_view"/>
-            <field name="arch" type="xml">
-                <field name="total_charge" position="after">
-                    <field name="total_real_charge"/>
-                </field>
+            <xpath expr="//t[@name='total']" position="after">
+                <t name="total" t-if="record.total_charge.value">
+                    <span>
+                        <label>Total Real: $</label>
+                        <t t-esc="record.total_real_charge.value"/>
+                    </span>
+                </t>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_wbs_element_tree_view" model="ir.ui.view">
+        <field name="name">project.wbs_element.tree</field>
+        <field name="model">project.wbs_element</field>
+        <field name="field_parent">child_ids</field>
+        <field name="inherit_id" ref="task_resource.view_project_wbs_element_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="total_charge" position="after">
+                <field name="total_real_charge"/>
             </field>
-        </record>
-    </data>
+        </field>
+    </record>
 </odoo>

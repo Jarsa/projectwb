@@ -1,94 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_analytic_billing_plan_line_form" model="ir.ui.view">
-            <field name="name">analytic.billing.plan.form</field>
-            <field name="model">analytic.billing.plan</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Analytic Billing Plan" version="9.0">
-                    <header>
-                        <button icon="fa-reply" name="action_button_draft" states="confirm" string="Draft" type="object"/>
-                        <button class="oe_highlight" icon="fa-thumbs-up" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
-                        <button name="make_project_invoices" class="oe_highlight" string="Create Customer Invoice" icon="fa-money" type="object" attrs="{'invisible': ['|',('invoice_id', '!=', False),('state','=','draft')]}"/>
-                        <field name="state" widget="statusbar"/>
-                    </header>
-                    <sheet>
-                        <h1>
-                            <label attrs="{'invisible':[('name','=', False)]}" class="oe_inline" string="Billing Request - " style="font-size:30px;"/>
-                            <field class="oe_inline" name="name" readonly="1"/>
-                        </h1>
+    <record id="view_analytic_billing_plan_line_form" model="ir.ui.view">
+        <field name="name">analytic.billing.plan.form</field>
+        <field name="model">analytic.billing.plan</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Analytic Billing Plan" version="9.0">
+                <header>
+                    <button icon="fa-reply" name="action_button_draft" states="confirm" string="Draft" type="object"/>
+                    <button class="oe_highlight" icon="fa-thumbs-up" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
+                    <button name="make_project_invoices" class="oe_highlight" string="Create Customer Invoice" icon="fa-money" type="object" attrs="{'invisible': ['|',('invoice_id', '!=', False),('state','=','draft')]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <label attrs="{'invisible':[('name','=', False)]}" class="oe_inline" string="Billing Request - " style="font-size:30px;"/>
+                        <field class="oe_inline" name="name" readonly="1"/>
+                    </h1>
+                    <group>
                         <group>
-                            <group>
-                                <field name="customer_id" readonly="1"/>
-                                <field name="project_id" readonly="1"/>
-                            </group>
-                            <group>
-                                <field name="date" readonly="1"/>
-                                <field name="currency_id" readonly="1"/>
-                            </group>
+                            <field name="customer_id" readonly="1"/>
+                            <field name="project_id" readonly="1"/>
                         </group>
-                        <notebook>
-                            <page string="Billing Request Lines">
-                                <field name="analytic_billing_plan_line_ids" nolabel="1" readonly="1"/>
-                            </page>
-                            <page string="Log Info" attrs="{'invisible': [('invoice_id','=',False)]}">
-                                <group>
-                                    <field name="invoice_id"/>
-                                </group>
-                            </page>
-                        </notebook>
-                    </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="message_ids" placeholder="Share a message..." widget="mail_thread"/>
-                    </div>
-                </form>
-            </field>
-        </record>
-        <record id="view_analytic_billing_plan_tree" model="ir.ui.view">
-            <field name="name">analytic.billing.plan.tree</field>
-            <field name="model">analytic.billing.plan</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree colors="gray:state=='draft';green:state=='confirm';">
+                        <group>
+                            <field name="date" readonly="1"/>
+                            <field name="currency_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Billing Request Lines">
+                            <field name="analytic_billing_plan_line_ids" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Log Info" attrs="{'invisible': [('invoice_id','=',False)]}">
+                            <group>
+                                <field name="invoice_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" placeholder="Share a message..." widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_analytic_billing_plan_tree" model="ir.ui.view">
+        <field name="name">analytic.billing.plan.tree</field>
+        <field name="model">analytic.billing.plan</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree colors="gray:state=='draft';green:state=='confirm';">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="customer_id"/>
+                <field name="date"/>
+                <field name="currency_id"/>
+                <field name="state"/>
+                <button class="oe_highlight" icon="gtk-goto-last" name="action_button_draft" states="confirmed" string="Confirm" type="object"/>
+                <button class="oe_highlight" icon="gtk-go-forward" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_analytic_billing_plan_filter" model="ir.ui.view">
+        <field name="name">analytic.billing.plan.select</field>
+        <field name="model">analytic.billing.plan</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search billing plan lines">
+                <group col="6" colspan="5">
+                    <field name="customer_id"/>
                     <field name="name"/>
                     <field name="project_id"/>
-                    <field name="customer_id"/>
-                    <field name="date"/>
-                    <field name="currency_id"/>
-                    <field name="state"/>
-                    <button class="oe_highlight" icon="gtk-goto-last" name="action_button_draft" states="confirmed" string="Confirm" type="object"/>
-                    <button class="oe_highlight" icon="gtk-go-forward" name="action_button_confirm" states="draft" string="Confirm" type="object"/>
-                </tree>
-            </field>
-        </record>
-        <record id="view_analytic_billing_plan_filter" model="ir.ui.view">
-            <field name="name">analytic.billing.plan.select</field>
-            <field name="model">analytic.billing.plan</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="Search billing plan lines">
-                    <group col="6" colspan="5">
-                        <field name="customer_id"/>
-                        <field name="name"/>
-                        <field name="project_id"/>
-                        <separator/>
-                        <filter context="{'group_by':'project_id'}" name="project_group_by" string="Project"/>
-                        <filter context="{'group_by':'customer_id'}" name="customer_group_by" string="Customer"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-        <record id="action_analytic_billing_plan_open_form" model="ir.actions.act_window">
-            <field name="name">Billing plan</field>
-            <field name="res_model">analytic.billing.plan</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_analytic_billing_plan_filter"/>
-            
-        </record>
-        <menuitem id="analytic_billing_plan_menu" name="Billing Plan" parent="base.menu_main_pm"/>
-        <menuitem action="action_analytic_billing_plan_open_form" id="analytic_billing_plan_entries" parent="analytic_billing_plan.analytic_billing_plan_menu" sequence="1"/>
-    </data>
+                    <separator/>
+                    <filter context="{'group_by':'project_id'}" name="project_group_by" string="Project"/>
+                    <filter context="{'group_by':'customer_id'}" name="customer_group_by" string="Customer"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_analytic_billing_plan_open_form" model="ir.actions.act_window">
+        <field name="name">Billing plan</field>
+        <field name="res_model">analytic.billing.plan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_analytic_billing_plan_filter"/>
+        
+    </record>
+    <menuitem id="analytic_billing_plan_menu" name="Billing Plan" parent="base.menu_main_pm"/>
+    <menuitem action="action_analytic_billing_plan_open_form" id="analytic_billing_plan_entries" parent="analytic_billing_plan.analytic_billing_plan_menu" sequence="1"/>
 </odoo>

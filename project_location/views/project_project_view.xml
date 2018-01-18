@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="project_location_form_view" model="ir.ui.view">
-            <field name="name">project.project.form</field>
-            <field name="model">project.project</field>
-            <field name="inherit_id" ref="project_picking_type.project_picking_type_form_view"/>
-            <field name="arch" type="xml">
-                <field name="picking_in_id" position="replace">
-                    <field name="picking_in_id" invisible="1"/>
-                </field>
-                <field name="picking_out_id" position="replace">
-                    <field name="picking_out_id" invisible="1"/>
-                </field>
-                <field name="location_id" position="replace">
-                    <field name="location_id" invisible="1"/>
-                </field>
-                <field name="partner_id" position="after">
-                    <field name="parent_location_id" required="1" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}"/>
-                    <field name="code" attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}" required="1"/>
-                </field>
+    <record id="project_location_form_view" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project_picking_type.project_picking_type_form_view"/>
+        <field name="arch" type="xml">
+            <field name="picking_in_id" position="replace">
+                <field invisible="1" name="picking_in_id"/>
             </field>
-        </record>
-    </data>
+            <field name="picking_out_id" position="replace">
+                <field invisible="1" name="picking_out_id"/>
+            </field>
+            <field name="location_id" position="replace">
+                <field invisible="1" name="location_id"/>
+            </field>
+            <field name="partner_id" position="after">
+                <field attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}" name="parent_location_id" required="1"/>
+                <field attrs="{'readonly': [('state', 'in', ('open', 'closed'))]}" name="code" required="1"/>
+            </field>
+        </field>
+    </record>
 </odoo>

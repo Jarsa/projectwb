@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <template id="assets_backend" name="web_gantt8 assets" inherit_id="web.assets_backend">
-            <xpath expr="." position="inside">
-                <!-- Interfaz -->
-                <link rel="stylesheet" href="web_gantt8/static/src/css/gantt.css"/>
-                <link rel="stylesheet" href="web_gantt8/static/lib/dhtmlxGantt/codebase/dhtmlxgantt.css"/>
-                <script type="text/javascript" src="/web_gantt8/static/lib/dhtmlxGantt/sources/dhtmlxcommon.js"></script>
-                <script type="text/javascript" src="/web_gantt8/static/lib/dhtmlxGantt/sources/dhtmlxgantt.js"></script>
-                <script type="text/javascript" src="/web_gantt8/static/src/js/gantt.js"/>
-            </xpath>
-        </template> 
-    </data>
+    <template id="assets_backend" inherit_id="web.assets_backend" name="web_gantt8 assets">
+        <xpath expr="." position="inside">
+            <!-- Interfaz -->
+            <link href="web_gantt8/static/src/css/gantt.css" rel="stylesheet"/>
+            <link href="web_gantt8/static/lib/dhtmlxGantt/codebase/dhtmlxgantt.css" rel="stylesheet"/>
+            <script src="/web_gantt8/static/lib/dhtmlxGantt/sources/dhtmlxcommon.js" type="text/javascript"/>
+            <script src="/web_gantt8/static/lib/dhtmlxGantt/sources/dhtmlxgantt.js" type="text/javascript"/>
+            <script src="/web_gantt8/static/src/js/gantt.js" type="text/javascript"/>
+        </xpath>
+    </template>
 </odoo>

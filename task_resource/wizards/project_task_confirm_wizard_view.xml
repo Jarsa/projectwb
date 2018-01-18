@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="project_task_confirm_wizard_view" model="ir.ui.view">
-            <field name="name">project_task_wizard_view</field>
-            <field name="model">project.task.confirm.wizard</field>
-            <field name="arch" type="xml">
-                <form string="Confirm Concepts">
-                    <separator colspan="4" string="Are you sure to confirm the concept(s) selected?"/>
-                    <footer>
-                        <button name="confirm_tasks" class="oe_highlight" string="Confirm" type="object"/>
-                        <button special="cancel" string="Cancel"/>
-                    </footer>
-                </form>
-            </field>
-        </record>
-        
-        <act_window 
-            id="action_view_project_task_wizard" 
-            key2="client_action_multi" 
-            name="Confirm Concept(s)" 
-            res_model="project.task.confirm.wizard" 
-            src_model="project.task" 
-            target="new" 
-            view_mode="form"/>
-    </data>
+    <record id="project_task_confirm_wizard_view" model="ir.ui.view">
+        <field name="name">project_task_wizard_view</field>
+        <field name="model">project.task.confirm.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Concepts">
+                <separator colspan="4" string="Are you sure to confirm the concept(s) selected?"/>
+                <footer>
+                    <button class="oe_highlight" name="confirm_tasks" string="Confirm" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window id="action_view_project_task_wizard" key2="client_action_multi" name="Confirm Concept(s)" res_model="project.task.confirm.wizard" src_model="project.task" target="new" view_mode="form"/>
 </odoo>

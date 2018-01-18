@@ -32,9 +32,9 @@ class PurchaseRequest(models.TransientModel):
         }
 
     @api.model
-    def default_get(self, fields):
+    def default_get(self, res_fields):
         res = super(PurchaseRequest, self).default_get(
-            fields)
+            res_fields)
         resource_line_obj = self.env['analytic.resource.plan.line']
         resource_line_ids = self.env.context['active_ids'] or []
         active_model = self.env.context['active_model']
@@ -48,6 +48,7 @@ class PurchaseRequest(models.TransientModel):
         control = 0
         project_validator = False
         state_validator = False
+        task_name = ''
         for line in resource_line_obj.browse(resource_line_ids):
             if control == 0:
                 old_project = line.task_resource_id.project_id.id
@@ -59,6 +60,9 @@ class PurchaseRequest(models.TransientModel):
                 project_validator = True
             elif line.task_resource_id.state != 'confirm':
                 state_validator = True
+                task_name = (
+                    '[' + line.task_resource_id.name + '] ' +
+                    line.task_resource_id.description)
             else:
                 old_project = line.task_resource_id.project_id.id
                 items.append((0, 0, self._prepare_item(line)))
@@ -69,8 +73,7 @@ class PurchaseRequest(models.TransientModel):
         elif state_validator:
             raise exceptions.ValidationError(
                 _('The concept must be confirmed \n \n'
-                    'Resource: %s \n Concept: %s.') %
-                (line.product_id.name, line.task_resource_id.name))
+                    'Concept: %s.') % (task_name))
         res['item_ids'] = items
         res['project_id'] = old_project
         res['location_id'] = self.env['project.project'].search(

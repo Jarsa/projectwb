@@ -9,7 +9,7 @@
     'category': 'Generic Modules',
     'author': (
         'Eficent Business and IT Consulting Services S.L.,'
-        'Odoo Community Association (OCA)'),
+        'Odoo Community Association (OCA), Jarsa Sistemas'),
     'website': 'https://www.odoo-community.org',
     'license': 'LGPL-3',
     'depends': [

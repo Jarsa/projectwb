@@ -33,9 +33,9 @@ class ResourceConsume(models.TransientModel):
         }
 
     @api.model
-    def default_get(self, fields):
+    def default_get(self, res_fields):
         res = super(ResourceConsume, self).default_get(
-            fields)
+            res_fields)
         resource_line_obj = self.env['analytic.resource.plan.line']
         resource_line_ids = self.env.context['active_ids'] or []
         active_model = self.env.context['active_model']
@@ -69,9 +69,7 @@ class ResourceConsume(models.TransientModel):
                 _('The resources must be for the same project.'))
         elif state_validator:
             raise exceptions.ValidationError(
-                _('The concept must be confirmed \n \n'
-                    'Resource: %s \n Concept: %s.') %
-                (line.product_id.name, line.task_resource_id.name))
+                _('The concept must be confirmed.'))
         res['item_ids'] = items
         res['project_id'] = old_project
         res['location_id'] = self.env['project.project'].search(

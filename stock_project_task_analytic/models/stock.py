@@ -22,20 +22,12 @@ class StockQuant(models.Model):
     def _prepare_account_move_line(self, move, qty, cost,
                                    credit_account_id, debit_account_id,
                                    context=None):
-        res = super(StockQuant,
-                    self)._prepare_account_move_line(
-                        move, qty, cost,
-                        credit_account_id,
-                        debit_account_id,
-                        context=context
-                        )
+        result = super(StockQuant, self)._prepare_account_move_line(
+            move, qty, cost, credit_account_id,
+            debit_account_id, context=context)
 
         # Add project task in debit line
         if move.account_analytic_id:
-            res[0][2].update({
-                'task_id': move.task_id.id,
-            })
-            res[1][2].update({
-                'task_id': move.task_id.id,
-            })
-        return res
+            result[0][2]['task_id'] = move.task_id.id
+            result[1][2]['task_id'] = move.task_id.id
+        return result

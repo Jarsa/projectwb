@@ -8,7 +8,7 @@
     "depends": [
         'account', 'analytic'
     ],
-    "author": "Odoo Community Association (OCA), JARSA Sistemas, S.A. de C.V.",
+    "author": "Odoo Community Association (OCA), Jarsa Sistemas",
     "license": "AGPL-3",
     "category": "Accounting",
     "demo": [],

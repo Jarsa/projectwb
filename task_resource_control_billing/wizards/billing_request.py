@@ -20,22 +20,22 @@ class WizardBillingPlan(models.TransientModel):
 
     @api.multi
     def create_billing(self):
-        for rec in self:
-            res = super(WizardBillingPlan, self).create_billing()
-            billing_request = self.env['analytic.billing.plan'].browse(
-                res['res_id'])
-            if billing_request:
-                for line in billing_request.analytic_billing_plan_line_ids:
-                    if line.task_id.real_qty == line.quantity:
-                        line.ref = _(
-                            "Total Billing of: Concept: %s - Quantity: %s" %
-                            (line.task_id.description,
-                                line.quantity,))
-                        line.active_order = False
-                    if line.quantity < line.task_id.real_qty:
-                        line.ref = _(
-                            "Partial Billing of: Concept: %s - Quantity: %s" %
-                            (line.task_id.description,
-                                line.quantity,))
-                        line.active_order = True
-            return res
+        self.ensure_one()
+        res = super(WizardBillingPlan, self).create_billing()
+        billing_request = self.env['analytic.billing.plan'].browse(
+            res['res_id'])
+        if billing_request:
+            for line in billing_request.analytic_billing_plan_line_ids:
+                if line.task_id.real_qty == line.quantity:
+                    line.ref = _(
+                        "Total Billing of: Concept: %s - Quantity: %s" %
+                        (line.task_id.description,
+                            line.quantity,))
+                    line.active_order = False
+                if line.quantity < line.task_id.real_qty:
+                    line.ref = _(
+                        "Partial Billing of: Concept: %s - Quantity: %s" %
+                        (line.task_id.description,
+                            line.quantity,))
+                    line.active_order = True
+        return res

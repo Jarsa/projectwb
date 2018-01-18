@@ -7,11 +7,5 @@ from openerp import fields, models
 class ProjectWbsElement(models.Model):
     _inherit = "project.wbs_element"
 
-    date_start = fields.Date(
-        string='Date Start',
-        default=fields.Date.today,
-        )
-    date_end = fields.Date(
-        string='Date End',
-        default=fields.Date.today,
-        )
+    date_start = fields.Date(default=fields.Date.today,)
+    date_end = fields.Date(default=fields.Date.today,)

@@ -41,9 +41,9 @@ class ResourceControl(models.TransientModel):
         return dic
 
     @api.model
-    def default_get(self, fields):
+    def default_get(self, res_fields):
         res = super(ResourceControl, self).default_get(
-            fields)
+            res_fields)
         active_model = self.env.context['active_model']
         active_obj = self.env[active_model]
         active_ids = self.env.context['active_ids'] or []

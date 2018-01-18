@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+from __future__ import division
 
 from openerp import _, api, exceptions, fields, models
 
@@ -12,7 +13,6 @@ class ProjectProject(models.Model):
         'Billing Total',
         compute='_compute_billing_project_total',)
     project_amortization = fields.Float(
-        string='Project Amortization',
         digits=(14, 7),)
     advance_invoice_id = fields.Many2one(
         comodel_name='account.invoice',
@@ -20,7 +20,6 @@ class ProjectProject(models.Model):
         readonly=True,
         )
     project_retention = fields.Float(
-        string='Project Retention',
         digits=(14, 4),)
     retention_invoice_id = fields.Many2one(
         comodel_name='account.invoice',
@@ -57,8 +56,8 @@ class ProjectProject(models.Model):
                 rec.billing_project_total = 0.0
             if (rec.advance_invoice_id and
                     rec.advance_invoice_id.state == 'open'):
-                    rec.billing_project_total += (
-                        rec.advance_invoice_id.amount_untaxed)
+                rec.billing_project_total += (
+                    rec.advance_invoice_id.amount_untaxed)
 
     @api.multi
     def make_advance_invoice(self):
@@ -78,7 +77,7 @@ class ProjectProject(models.Model):
                         total_invoice += task.real_subtotal
             advance_product = self.env.ref(
                 'analytic_billing_plan.product_amortization')
-            if len(advance_product) == 0:
+            if not advance_product:
                 raise exceptions.ValidationError(
                     _('Amortization product not found, please contact your'
                         'system administrator.'))
@@ -161,7 +160,7 @@ class ProjectProject(models.Model):
                         total_invoice += task.real_subtotal
             retention_product = self.env.ref(
                 'analytic_billing_plan.product_retention')
-            if len(retention_product) == 0:
+            if not retention_product:
                 raise exceptions.ValidationError(
                     _('Amortization product not found, please contact your'
                         ' system administrator.'))

@@ -4,11 +4,11 @@
 
 {
     "name": "Analytic Account Hierarchy",
-    "summary": "Description",
+    "summary": "This module add a parent on the analytic accounts",
     "version": "9.0.1.0.0",
     "category": "Hidden",
     "website": "https://www.jarsa.com.mx/",
-    "author": "JARSA Sistemas, S.A. de C.V.",
+    "author": "Jarsa Sistemas",
     "license": "AGPL-3",
     "installable": True,
     "depends": [
@@ -17,6 +17,4 @@
     "data": [
         'views/account_analytic_account_view.xml',
     ],
-    "demo": [
-    ]
 }

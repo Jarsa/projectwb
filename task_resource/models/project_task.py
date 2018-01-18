@@ -74,7 +74,7 @@ class ProjectTask(models.Model):
                 ('account_analytic_id', '=', rec.analytic_account_id.id)])
             if invoice_lines:
                 for line in invoice_lines:
-                        rec.total_expense += line.price_subtotal
+                    rec.total_expense += line.price_subtotal
             else:
                 rec.total_expense = 0.0
 

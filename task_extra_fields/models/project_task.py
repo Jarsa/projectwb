@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from __future__ import division
 
 from openerp import api, fields, models
 
@@ -9,25 +10,21 @@ class ProjectTask(models.Model):
     _inherit = "project.task"
 
     direct_cost = fields.Float(
-        compute='_compute_direct_cost',
-        string='Direct Cost')
+        compute='_compute_direct_cost',)
     indirects = fields.Float(
         default="1.0",
         string="Indirects Percentage",
         help="Percentage of Indirects",)
     indirects_amount = fields.Float(
-        compute='_compute_indirects_value',
-        string='Indirects Amount')
+        compute='_compute_indirects_value',)
     field_indirects = fields.Float(
         default="1.0",
         string="Field Indirects Percentage",
         help="Percentage of Field Indirects",)
     field_indirects_amount = fields.Float(
-        compute='_compute_field_indirects_value',
-        string='Field Indirects Amount')
+        compute='_compute_field_indirects_value',)
     percentages_subtotal = fields.Float(
         compute='_compute_percentages_subtotal',
-        string="Percentages Subtotal",
         help="Subtotal compute by the summatory of the direct cost, indirects"
         " amount and field indirects amount")
     unit_price = fields.Float(compute='_compute_unit_price')

@@ -6,11 +6,9 @@
     'name': 'Task Extra Fields',
     'summary': 'Add Fields to the task to compute extra percentages',
     'version': '9.0.1.0.0',
-    'description': 'This module allows the compute of the task subtotal'
-                   'with extra values for example: indirects percentages',
     'category': 'Generic Modules',
     'author': (
-        'Jarsa Sistemas S.A. de C.V.'),
+        'Jarsa Sistemas'),
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [

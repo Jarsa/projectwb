@@ -7,8 +7,7 @@
     "summary": "Introduces Project in account move lines",
     "version": "9.0.1.0.0",
     "author": "Eficent Business and IT Consulting Services S.L., "
-              "Odoo Community Association (OCA)",
-    "description": "Module to assign the project to the move line",
+              "Odoo Community Association (OCA), Jarsa Sistemas",
     "website": "http://www.eficent.com",
     "category": "Accounting & Finance",
     "depends": ['account', 'project'],

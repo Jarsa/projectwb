@@ -170,12 +170,12 @@ class ProjectWbsElement(models.Model):
     @api.multi
     def unlink(self):
         for rec in self:
-            if len(rec.child_ids) > 0:
+            if rec.child_ids:
                 raise ValidationError(
                     _("Oops! This WBS element actually have"
                       "Childs elements. \nYou must delete his childs "
                       "before continue."))
-            elif len(rec.task_ids) > 0:
+            elif rec.task_ids:
                 raise ValidationError(
                     _("Oops! This WBS element actually have"
                       "tasks. \n You must delete his tasks "

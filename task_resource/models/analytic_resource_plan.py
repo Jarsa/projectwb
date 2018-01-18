@@ -9,8 +9,7 @@ class AnalyticResourcePlanLine(models.Model):
     _name = "analytic.resource.plan.line"
     _description = "Resource Plan"
 
-    name = fields.Char(
-        string='Name')
+    name = fields.Char()
     task_resource_id = fields.Many2one(
         'project.task',
         string='Concept',
@@ -31,7 +30,7 @@ class AnalyticResourcePlanLine(models.Model):
         digits=(14, 5),)
     subtotal = fields.Float()
     unit_price = fields.Float()
-    description = fields.Char(string='Description')
+    description = fields.Char()
     uom_id = fields.Many2one(
         comodel_name='product.uom',
         string='UoM',
@@ -55,8 +54,7 @@ class AnalyticResourcePlanLine(models.Model):
     def _get_available_qty(self):
         if self.requested_qty > 0.0:
             return self.real_qty - self.requested_qty
-        else:
-            return self.real_qty
+        return self.real_qty
 
     @api.onchange('product_id')
     def onchange_product(self):
@@ -76,20 +74,17 @@ class AnalyticResourcePlanLine(models.Model):
     @api.multi
     def _compute_requested_qty(self):
         for rec in self:
+            rec.requested_qty = 0.0
+            uom_obj = self.env['product.uom']
             requests = self.env['purchase.request'].search(
                 [('state', '!=', 'rejected')])
-            if requests:
-                for request in requests:
-                    for line in request.line_ids:
-                        if (rec.product_id.id == line.product_id.id and
-                                rec.account_id.id == line.
-                                analytic_account_id.id):
-                            product_uom_qty = (
-                                self.env['product.uom']._compute_qty(
-                                    line.product_uom_id.id,
-                                    line.product_qty,
-                                    rec.product_id.uom_id.id,
-                                    round=False))
-                            rec.requested_qty += product_uom_qty
-            else:
-                rec.requested_qty = 0.0
+            for line in requests.mapped('line_ids'):
+                if (rec.product_id.id == line.product_id.id and
+                        rec.account_id.id == line.analytic_account_id.id):
+                    product_uom_qty = (
+                        uom_obj._compute_qty(
+                            line.product_uom_id.id,
+                            line.product_qty,
+                            rec.product_id.uom_id.id,
+                            round=False))
+                    rec.requested_qty += product_uom_qty

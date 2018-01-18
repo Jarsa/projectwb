@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record model='ir.ui.view' id='insume_purchase_order_form'>
-            <field name='name'>purchase.order.form</field>
-            <field name='model'>purchase.order</field>
-            <field name='inherit_id' ref='purchase.purchase_order_form'/>
-            <field name='arch' type='xml'>
-                <xpath expr='//field[@name="order_line"]/tree' position='inside'>
-                    <field name="is_project_insume" invisible="1"/>
-                </xpath>
-            
-                <xpath expr='//field[@name="order_line"]/tree/field[@name="name"]' position='after'>
-                    <field name="specifications" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
-                </xpath>
-                <xpath expr='//field[@name="order_line"]/tree/field[@name="product_uom"]' position='replace'>
-                    <field name="product_uom" attrs="{'readonly': [('is_project_insume', '=', True)]}"/>
-                </xpath>
-            </field>
-        </record>
-    </data>
+    <record id="insume_purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="priority" eval="101"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name=&quot;order_line&quot;]/tree" position="inside">
+                <field invisible="1" name="is_project_insume"/>
+            </xpath>
+            <xpath expr="//field[@name=&quot;order_line&quot;]/tree/field[@name=&quot;name&quot;]" position="after">
+                <field attrs="{'readonly': [('is_project_insume', '=', True)]}" name="specifications"/>
+            </xpath>
+            <xpath expr="//field[@name=&quot;order_line&quot;]/tree/field[@name=&quot;product_uom&quot;]" position="replace">
+                <field attrs="{'readonly': [('is_project_insume', '=', True)]}" name="product_uom"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

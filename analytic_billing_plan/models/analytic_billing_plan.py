@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from __future__ import division
 
 from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
@@ -16,12 +17,11 @@ class AnalyticBillingPlan(models.Model):
         'res.partner', string="Customer", readonly=True)
     state = fields.Selection(
         [('draft', 'Draft'),
-         ('confirm', 'Confirmed')], string='State',
+         ('confirm', 'Confirmed')],
         default='draft')
-    date = fields.Date('Date', required=True, default=fields.Date.today)
+    date = fields.Date(required=True, default=fields.Date.today)
     currency_id = fields.Many2one(
         'res.currency',
-        string='Currency',
         default=lambda self: self.env.user.company_id.currency_id)
     project_id = fields.Many2one(
         'project.project',
@@ -161,7 +161,7 @@ class AnalyticBillingPlan(models.Model):
                 product_amortization = self.env.ref(
                     'analytic_billing_plan.'
                     'product_amortization')
-                if len(product_amortization) == 0:
+                if not product_amortization:
                     raise ValidationError(
                         _('You must have a product for project '
                             'amortizations.'))
@@ -194,7 +194,7 @@ class AnalyticBillingPlan(models.Model):
                 product_retention = self.env.ref(
                     'analytic_billing_plan.'
                     'product_retention')
-                if len(product_retention) == 0:
+                if not product_retention:
                     raise ValidationError(
                         _('You must have a product for project '
                             'retentions.'))
@@ -229,9 +229,11 @@ class AnalyticBillingPlan(models.Model):
                 'date_invoice': fields.Date.today(),
                 'fiscal_position_id': (
                     project.partner_id.property_account_position_id.id),
-                'reference': invoice.ref,
+                'reference': ','.join(
+                    rec.mapped('analytic_billing_plan_line_ids').mapped(
+                        'task_id.name')),
                 'name': invoice_names,
-                'currency_id': invoice.analytic_billing_plan_id.currency_id.id,
+                'currency_id': rec.currency_id.id,
                 'payment_term_id': (
                     project.partner_id.property_payment_term_id.id),
                 'account_id': (
@@ -266,8 +268,8 @@ class AnalyticBillingPlan(models.Model):
         return res
 
     @api.model
-    def assign_code(self, br, count):
-        name = br.name + '-' + str(count)
+    def assign_code(self, request, count):
+        name = request.name + '-' + str(count)
         return name
 
     @api.multi
