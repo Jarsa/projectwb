@@ -43,9 +43,6 @@
             <field name="sequence" position="replace">
                 <field name="sequence" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
             </field>
-            <field name="displayed_image_id" position="replace">
-                <field name="displayed_image_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
-            </field>
             <field name="user_id" position="replace">
                 <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="user_id"/>
             </field>

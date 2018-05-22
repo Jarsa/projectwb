@@ -16,7 +16,6 @@
         'project',
         'product',
         'project_wbs_element',
-        'purchase_request_to_rfq',
         'task_resource',
         ],
 

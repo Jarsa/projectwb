@@ -36,9 +36,9 @@ class AnalyticResourcePlanLine(models.Model):
         comodel_name='product.uom',
         string='UoM',
     )
-    purchase_request_ids = fields.Many2many(
-        comodel_name='purchase.request',
-        string='Purchase Requests')
+    # purchase_request_ids = fields.Many2many(
+    #     comodel_name='purchase.request',
+    #     string='Purchase Requests')
     resource_type_id = fields.Many2one(
         'resource.type',
         string='Resources types')
@@ -76,20 +76,21 @@ class AnalyticResourcePlanLine(models.Model):
     @api.multi
     def _compute_requested_qty(self):
         for rec in self:
-            requests = self.env['purchase.request'].search(
-                [('state', '!=', 'rejected')])
-            if requests:
-                for request in requests:
-                    for line in request.line_ids:
-                        if (rec.product_id.id == line.product_id.id and
-                                rec.account_id.id == line.
-                                analytic_account_id.id):
-                            product_uom_qty = (
-                                self.env['product.uom']._compute_qty(
-                                    line.product_uom_id.id,
-                                    line.product_qty,
-                                    rec.product_id.uom_id.id,
-                                    round=False))
-                            rec.requested_qty += product_uom_qty
-            else:
-                rec.requested_qty = 0.0
+            return True
+            # requests = self.env['purchase.request'].search(
+            #     [('state', '!=', 'rejected')])
+            # if requests:
+            #     for request in requests:
+            #         for line in request.line_ids:
+            #             if (rec.product_id.id == line.product_id.id and
+            #                     rec.account_id.id == line.
+            #                     analytic_account_id.id):
+            #                 product_uom_qty = (
+            #                     self.env['product.uom']._compute_qty(
+            #                         line.product_uom_id.id,
+            #                         line.product_qty,
+            #                         rec.product_id.uom_id.id,
+            #                         round=False))
+            #                 rec.requested_qty += product_uom_qty
+            # else:
+            #     rec.requested_qty = 0.0

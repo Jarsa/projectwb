@@ -16,12 +16,6 @@ class ProjectTask(models.Model):
         string='Task Resource',
         copy=True,
         store=True)
-    state = fields.Selection(
-        [('draft', 'Draft'),
-         ('confirm', 'Confirmed')],
-        string='Status',
-        readonly=True,
-        default='draft')
     resource_line_ids = fields.One2many(
         comodel_name='analytic.resource.plan.line',
         inverse_name='task_resource_id',
