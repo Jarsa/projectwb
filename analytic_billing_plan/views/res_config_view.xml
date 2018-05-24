@@ -11,10 +11,6 @@
                     <field name='company_id' invisible="1"/>
                     <div>
                         <div>
-                            <label for='bridge_account_id'/>
-                            <field name='bridge_account_id' class="oe_inline"/>
-                        </div>
-                        <div>
                             <label for='billing_request_journal_id'/>
                             <field name='billing_request_journal_id' class="oe_inline"/>
                         </div>

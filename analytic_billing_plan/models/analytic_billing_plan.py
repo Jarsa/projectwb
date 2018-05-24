@@ -40,10 +40,6 @@ class AnalyticBillingPlan(models.Model):
     def action_button_confirm(self):
         for rec in self:
             account_move_obj = self.env['account.move']
-            if not self.env.user.company_id.bridge_account_id:
-                raise ValidationError(
-                    _('You must have a bridge account assigned'
-                        ' in the company configurations.'))
             if not self.env.user.company_id.billing_request_journal_id:
                 raise ValidationError(
                     _('You must have an account journal for the moves assigned'
@@ -55,42 +51,6 @@ class AnalyticBillingPlan(models.Model):
                 total = rec.currency_id.compute(
                     line.amount,
                     self.env.user.currency_id)
-                accounts = {'credit': line.account_id.id,
-                            'debit': (
-                                self.env.user.company_id.bridge_account_id.id)}
-                move_lines = []
-                for name, account in accounts.items():
-                    move_line = (0, 0, {
-                        'name': line.analytic_billing_plan_id.name,
-                        'account_id': account,
-                        'narration': line.ref,
-                        'debit': (total if name == 'debit' else 0.0),
-                        'credit': (total if name == 'credit' else 0.0),
-                        'journal_id': (
-                            self.env.user.company_id.
-                            billing_request_journal_id.id),
-                        'analytic_account_id': line.account_analytic_id.id,
-                        'project_id': (
-                            line.analytic_billing_plan_id.project_id.id),
-                        'task_id': line.task_id.id,
-                        'partner_id': (
-                            line.analytic_billing_plan_id.
-                            project_id.partner_id.id),
-                    })
-                    move_lines.append(move_line)
-                move = {
-                    'date': fields.Date.today(),
-                    'journal_id': (
-                        self.env.user.company_id.
-                        billing_request_journal_id.id),
-                    'name': _('Billing Request Line: %s') %
-                             (line.task_id.description),
-                    'line_ids': [x for x in move_lines],
-                }
-                move_id = account_move_obj.create(move)
-                line.write({
-                    'move_id': move_id.id,
-                    })
             rec.write({
                 'state': 'confirm',
                 })
@@ -109,16 +69,32 @@ class AnalyticBillingPlan(models.Model):
                       'with a paid invoice.'))
             for line in rec.analytic_billing_plan_line_ids:
                 line.move_id.unlink()
-                line.write(
-                    {
-                        'state': 'draft',
-                    })
+                line.write({'state': 'draft', })
             rec.write({'state': 'draft'})
             rec.message_post(
                 _('<strong>Billing Request Drafted.</strong><ul>'
                   '<li><strong>Confirmed by: </strong>%s</li>'
                   '<li><strong>Confirmed at: </strong>%s</li>'
                   '</ul>') % (self.env.user.name, fields.Datetime.now()))
+
+    @api.model
+    def prepare_invoice(self, project, partner, invoice, invoice_names, lines):
+        return {
+            'project_id': project.id,
+            'partner_id': partner,
+            'date_invoice': fields.Date.today(),
+            'fiscal_position_id': (
+                project.partner_id.property_account_position_id.id),
+            'reference': invoice.ref,
+            'name': invoice_names,
+            'currency_id': invoice.analytic_billing_plan_id.currency_id.id,
+            'payment_term_id': (
+                project.partner_id.property_payment_term_id.id),
+            'account_id': (
+                project.partner_id.property_account_receivable_id.id),
+            'type': 'out_invoice',
+            'invoice_line_ids': [line for line in lines],
+        }
 
     @api.multi
     def make_project_invoices(self):
@@ -142,104 +118,26 @@ class AnalyticBillingPlan(models.Model):
                 invoice_names += ' ' + invoice.name + ', '
 
             if total > 0.0:
+                product = self.env.user.company_id.product_id
                 lines.append(
                     (0, 0, {
-                        'product_id': self.env.ref(
-                            'analytic_billing_plan.product_concept').id,
+                        'product_id': product.id,
                         'quantity': 1.0,
                         'price_unit': total,
                         'uom_id': self.env.ref(
                             'product.product_uom_unit').id,
                         'name': project[0].name + _(' Payment'),
                         'invoice_line_tax_ids': [(6, 0, [
-                            x.id for x in self.env.user.
-                            company_id.product_id.taxes_id])],
+                            x.id for x in product.taxes_id])],
                         'account_id': (
-                            self.env.user.company_id.bridge_account_id.id),
+                            product.property_account_income_id.id or
+                            product.categ_id.
+                            property_account_income_categ_id.id),
                     }))
 
-            if project.project_amortization > 0:
-                product_amortization = self.env.ref(
-                    'analytic_billing_plan.'
-                    'product_amortization')
-                if len(product_amortization) == 0:
-                    raise ValidationError(
-                        _('You must have a product for project '
-                            'amortizations.'))
-                product_account = (
-                    product_amortization.property_account_expense_id
-                    if product_amortization.property_account_expense_id
-                    else product_amortization.categ_id.
-                    property_account_expense_categ_id
-                    if product_amortization.categ_id.
-                    property_account_expense_categ_id
-                    else False)
-                if not product_account:
-                    raise ValidationError(
-                        _('You must have an account for the product'))
-                percentage_rate = float(project.project_amortization) / 100
-                lines.append(
-                    (0, 0, {
-                        'product_id': product_amortization.id,
-                        'quantity': 1.0,
-                        'price_unit': (total * percentage_rate) * -1.0,
-                        'name': project.name + _(' Amortization'),
-                        'uom_id': (
-                            self.env.ref('product.product_uom_unit').id),
-                        'invoice_line_tax_ids': [(6, 0, [
-                            x.id for x in product_amortization.taxes_id])],
-                        'account_id': product_account.id,
-                    }))
-
-            if project.project_retention > 0:
-                product_retention = self.env.ref(
-                    'analytic_billing_plan.'
-                    'product_retention')
-                if len(product_retention) == 0:
-                    raise ValidationError(
-                        _('You must have a product for project '
-                            'retentions.'))
-                product_account = (
-                    product_retention.property_account_expense_id
-                    if product_retention.property_account_expense_id
-                    else product_retention.categ_id.
-                    property_account_expense_categ_id
-                    if product_retention.categ_id.
-                    property_account_expense_categ_id
-                    else False)
-                if not product_account:
-                    raise ValidationError(
-                        _('You must have an account for the product'))
-                percentage_rate = float(project.project_retention) / 100
-                lines.append(
-                    (0, 0, {
-                        'product_id': product_retention.id,
-                        'quantity': 1.0,
-                        'price_unit': (total * percentage_rate) * -1.0,
-                        'name': project.name + _(' Retention'),
-                        'uom_id': self.env.ref(
-                            'product.product_uom_unit').id,
-                        'invoice_line_tax_ids': [(6, 0, [
-                            x.id for x in product_retention.taxes_id])],
-                        'account_id': product_account.id,
-                    }))
-
-            invoice_id_create = self.env['account.invoice'].create({
-                'project_id': project.id,
-                'partner_id': partner,
-                'date_invoice': fields.Date.today(),
-                'fiscal_position_id': (
-                    project.partner_id.property_account_position_id.id),
-                'reference': invoice.ref,
-                'name': invoice_names,
-                'currency_id': invoice.analytic_billing_plan_id.currency_id.id,
-                'payment_term_id': (
-                    project.partner_id.property_payment_term_id.id),
-                'account_id': (
-                    project.partner_id.property_account_receivable_id.id),
-                'type': 'out_invoice',
-                'invoice_line_ids': [line for line in lines],
-            })
+            invoice_id_create = self.env['account.invoice'].create(
+                self.prepare_invoice(
+                    project, partner, invoice, invoice_names, lines))
             rec.invoice_id = invoice_id_create.id
 
             return {
