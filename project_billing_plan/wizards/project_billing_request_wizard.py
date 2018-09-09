@@ -46,18 +46,18 @@ class ProjectBillingRequestWizard(models.TransientModel):
                 active_order = False
                 if line.qty == line.remaining_qty:
                     ref = _(
-                        "Total Billing of: Project: %s - Quantity: %s") % (
+                        'Total Billing of: Project: %s - Quantity: %s') % (
                             self.project_id.name, line.qty)
                     active_order = False
                 elif line.qty < line.remaining_qty:
                     ref = _(
-                        "Partial Billing of: Project: %s - Quantity: %s") % (
+                        'Partial Billing of: Project: %s - Quantity: %s') % (
                             self.project_id.name, line.qty)
                     active_order = True
                 lines.append(
                     (0, 0,
                         {
-                            "account_id": (
+                            'account_id': (
                                 self.env.user.company_id.product_id.
                                 property_account_income_id.id
                                 if self.env.user.company_id.product_id.
@@ -65,16 +65,16 @@ class ProjectBillingRequestWizard(models.TransientModel):
                                 else
                                 self.env.user.company_id.product_id.
                                 categ_id.property_account_income_categ_id.id),
-                            "ref": ref,
-                            "price_unit": line.amount,
-                            "product_uom_id": unit.id,
-                            "quantity": line.qty,
-                            "project_id": self.project_id.id,
-                            "amount": (
+                            'ref': ref,
+                            'price_unit': line.amount,
+                            'product_uom_id': unit.id,
+                            'quantity': line.qty,
+                            'income_id': line.income_id.id,
+                            'amount': (
                                 line.amount * line.qty),
-                            "account_analytic_id": (
+                            'account_analytic_id': (
                                 self.project_id.analytic_account_id.id),
-                            "has_active_order": active_order,
+                            'has_active_order': active_order,
                         })
                     )
             res = self.env['analytic.billing.plan'].create({

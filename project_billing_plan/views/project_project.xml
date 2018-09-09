@@ -12,8 +12,10 @@
                             <field name="name"/>
                             <field name="income_type_id"/>
                             <field name="qty"/>
+                            <field name="remaining_qty"/>
                             <field name="amount"/>
                             <field name="amount_total"/>
+                            <field name="amount_remaining"/>
                         </tree>
                     </field>
                 </page>

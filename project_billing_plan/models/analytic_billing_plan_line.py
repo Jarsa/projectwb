@@ -7,4 +7,4 @@ from odoo import fields, models
 class AnalyticBillingPlanLine(models.Model):
     _inherit = 'analytic.billing.plan.line'
 
-    project_id = fields.Many2one('project.project')
+    income_id = fields.Many2one('project.income')

@@ -106,6 +106,7 @@ class AnalyticBillingPlan(models.Model):
             partner = rec.customer_id.id
             project = rec.project_id
             currency = rec.currency_id
+            account = rec.analytic_billing_plan_line_ids[0].account_analytic_id
             invoice_names = ', '.join(
                 rec.analytic_billing_plan_line_ids.mapped('name'))
             for invoice in rec.analytic_billing_plan_line_ids:
@@ -119,6 +120,7 @@ class AnalyticBillingPlan(models.Model):
                         'product_id': product.id,
                         'quantity': 1.0,
                         'price_unit': total,
+                        'account_analytic_id': account.id,
                         'uom_id': self.env.ref(
                             'product.product_uom_unit').id,
                         'name': project[0].name + _(' Payment'),

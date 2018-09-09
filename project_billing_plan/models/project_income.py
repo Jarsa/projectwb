@@ -15,7 +15,9 @@ class ProjectIncome(models.Model):
     amount = fields.Float()
     amount_total = fields.Float(compute='_compute_amount_total', store=True)
     remaining_qty = fields.Float(compute='_compute_remaining_qty', store=True)
-    billing_ids = fields.One2many('analytic.billing.plan.line', 'project_id')
+    amount_remaining = fields.Float(
+        compute='_compute_amount_remaining', store=True)
+    billing_ids = fields.One2many('analytic.billing.plan.line', 'income_id')
 
     @api.depends('qty', 'amount')
     @api.multi
@@ -29,3 +31,9 @@ class ProjectIncome(models.Model):
         for rec in self:
             rec.remaining_qty = rec.qty - sum(
                 rec.billing_ids.mapped('quantity'))
+
+    @api.multi
+    @api.depends('remaining_qty', 'amount')
+    def _compute_amount_remaining(self):
+        for rec in self:
+            rec.amount_remaining = rec.remaining_qty * rec.amount
