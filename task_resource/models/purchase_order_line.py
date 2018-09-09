@@ -15,21 +15,21 @@ class PurchaseOrderLine(models.Model):
         readonly=True, )
     specifications = fields.Char()
 
-    @api.multi
-    @api.constrains('product_qty')
-    def _check_pr_qty(self):
-        for rec in self:
-            for line in rec.purchase_request_lines:
-                if rec.product_qty > line.product_qty:
-                    raise ValidationError(
-                        _('The quantity must be lower than the quantity of'
-                            ' the purchase request line. \n\n'
-                            'Product: %s') % rec.product_id.name)
-                if line.remaining_qty < 0.0:
-                    raise ValidationError(
-                        _('The quantity must be lower than the remaining '
-                            'quantity of the purchase request line. \n\n'
-                            'Product: %s') % rec.product_id.name)
+    # @api.multi
+    # @api.constrains('product_qty')
+    # def _check_pr_qty(self):
+    #     for rec in self:
+    #         for line in rec.purchase_request_lines:
+    #             if rec.product_qty > line.product_qty:
+    #                 raise ValidationError(
+    #                     _('The quantity must be lower than the quantity of'
+    #                         ' the purchase request line. \n\n'
+    #                         'Product: %s') % rec.product_id.name)
+    #             if line.remaining_qty < 0.0:
+    #                 raise ValidationError(
+    #                     _('The quantity must be lower than the remaining '
+    #                         'quantity of the purchase request line. \n\n'
+    #                         'Product: %s') % rec.product_id.name)
 
     @api.multi
     def _create_stock_moves(self, picking):

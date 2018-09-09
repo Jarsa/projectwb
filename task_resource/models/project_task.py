@@ -73,8 +73,8 @@ class ProjectTask(models.Model):
 
     @api.multi
     def write(self, values):
+        res = super(ProjectTask, self).write(values)
         for rec in self:
-            res = super(ProjectTask, self).write(values)
             resources = self.env['analytic.resource.plan.line'].search([
                 ('task_resource_id', '=', rec.id)])
             if not resources:

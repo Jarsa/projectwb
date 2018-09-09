@@ -46,13 +46,13 @@ class ProjectBillingRequestWizard(models.TransientModel):
                 active_order = False
                 if line.qty == line.remaining_qty:
                     ref = _(
-                        "Total Billing of: Concept: %s - Quantity: %s") % (
-                            line.name, line.qty)
+                        "Total Billing of: Project: %s - Quantity: %s") % (
+                            self.project_id.name, line.qty)
                     active_order = False
                 elif line.qty < line.remaining_qty:
                     ref = _(
-                        "Partial Billing of: Concept: %s - Quantity: %s") % (
-                            line.name, line.qty)
+                        "Partial Billing of: Project: %s - Quantity: %s") % (
+                            self.project_id.name, line.qty)
                     active_order = True
                 lines.append(
                     (0, 0,
@@ -98,9 +98,9 @@ class ProjectBillingRequestWizard(models.TransientModel):
 class ProjectBillingRequestWizardLine(models.TransientModel):
     _name = 'project.billing.request.wizard.line'
 
-    wiz_id = fields.Many2one('project.billing.request.wizard', required=True)
-    income_id = fields.Many2one('project.income', required=True)
-    name = fields.Char(readonly=True, required=True)
-    remaining_qty = fields.Float(readonly=True, required=True)
-    amount = fields.Float(readonly=True, required=True)
-    qty = fields.Float(required=True)
+    wiz_id = fields.Many2one('project.billing.request.wizard')
+    income_id = fields.Many2one('project.income')
+    name = fields.Char()
+    remaining_qty = fields.Float()
+    amount = fields.Float()
+    qty = fields.Float()
