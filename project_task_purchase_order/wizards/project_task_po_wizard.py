@@ -22,8 +22,20 @@ class ProjectTaskPOWizard(models.TransientModel):
             'uom_id': line.uom_id.id,
             'amount': line.unit_price,
             'name': line.name,
-            'analytic_account_id': line.analytic_account_id.id
+            'analytic_account_id': line.project_id.analytic_account_id.id,
+            'analytic_tag_ids': [
+                (6, 0, self._get_analytic_wbs_tags(line))]
         }
+
+    @api.model
+    def _get_analytic_wbs_tags(self, line):
+        def recursive_tags(wbs, tag_ids):
+            tag_ids.append(wbs.analytic_tag_id.id)
+            if wbs.parent_id:
+                tag_ids = recursive_tags(wbs.parent_id, tag_ids)
+            return tag_ids
+        tag_ids = [line.analytic_tag_id.id]
+        return recursive_tags(line.wbs_element_id, tag_ids)
 
     @api.model
     def default_get(self, fields):
@@ -48,6 +60,7 @@ class ProjectTaskPOWizard(models.TransientModel):
             'product_uom': line.uom_id.id,
             'date_planned': fields.Datetime.now(),
             'account_analytic_id': line.analytic_account_id.id,
+            'analytic_tag_ids': [(6, 0, line.analytic_tag_ids.ids)]
         }
 
     @api.multi
@@ -83,3 +96,4 @@ class ProjectTaskPOWizardLine(models.TransientModel):
     amount = fields.Float(required=True)
     analytic_account_id = fields.Many2one(
         'account.analytic.account', required=True)
+    analytic_tag_ids = fields.Many2many('account.analytic.tag', required=True)
