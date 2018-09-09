@@ -22,6 +22,7 @@ class ProjectTaskPOWizard(models.TransientModel):
             'uom_id': line.uom_id.id,
             'amount': line.unit_price,
             'name': line.name,
+            'analytic_account_id': line.analytic_account_id.id
         }
 
     @api.model
@@ -45,7 +46,8 @@ class ProjectTaskPOWizard(models.TransientModel):
             'product_qty': line.qty,
             'price_unit': line.amount,
             'product_uom': line.uom_id.id,
-            'date_planned': fields.Datetime.now()
+            'date_planned': fields.Datetime.now(),
+            'account_analytic_id': line.analytic_account_id.id,
         }
 
     @api.multi
@@ -79,3 +81,5 @@ class ProjectTaskPOWizardLine(models.TransientModel):
     qty = fields.Float(required=True)
     uom_id = fields.Many2one('product.uom', required=True)
     amount = fields.Float(required=True)
+    analytic_account_id = fields.Many2one(
+        'account.analytic.account', required=True)
