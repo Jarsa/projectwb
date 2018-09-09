@@ -72,7 +72,8 @@ class ProjectTaskPOWizard(models.TransientModel):
             res = self.env['purchase.order'].create({
                 'partner_id': rec.partner_id.id,
                 'order_line': lines,
-                'date_planned': fields.Datetime.now()
+                'date_planned': fields.Datetime.now(),
+                'task_id': self._context.get('active_id'),
             })
             return {
                 'name': _('Purchase Order'),

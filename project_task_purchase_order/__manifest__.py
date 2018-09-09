@@ -15,6 +15,7 @@
     ],
     'data': [
         'wizards/project_task_po_wizard.xml',
+        'views/project_task.xml',
     ],
     'installable': True,
 }
