@@ -17,6 +17,13 @@
                         </tree>
                     </field>
                 </page>
+                <page string="Statics">
+                    <group>
+                        <field name="total_income"/>
+                        <field name="total_expense"/>
+                        <field name="balance"/>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
