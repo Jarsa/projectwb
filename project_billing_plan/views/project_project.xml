@@ -21,11 +21,23 @@
                 </page>
                 <page string="Statics">
                     <group>
-                        <field name="total_income"/>
-                        <field name="total_expense"/>
-                        <field name="balance"/>
+                        <group>
+                            <field name="total_income"/>
+                            <field name="total_expense"/>
+                            <field name="balance"/>
+                        </group>
+                        <group>
+                            <field name="total_income_real"/>
+                            <field name="total_expense_real"/>
+                            <field name="balance_real"/>
+                        </group>
                     </group>
                 </page>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="compute_real_amounts" string="Compute Real Amounts" type="object"/>
+                </header>
             </xpath>
         </field>
     </record>
