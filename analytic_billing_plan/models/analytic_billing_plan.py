@@ -39,7 +39,6 @@ class AnalyticBillingPlan(models.Model):
     @api.multi
     def action_button_confirm(self):
         for rec in self:
-            account_move_obj = self.env['account.move']
             if not self.env.user.company_id.billing_request_journal_id:
                 raise ValidationError(
                     _('You must have an account journal for the moves assigned'
@@ -48,9 +47,6 @@ class AnalyticBillingPlan(models.Model):
                 if line.amount < 0:
                     raise ValidationError(
                         _('The amount must be higher than zero.'))
-                total = rec.currency_id.compute(
-                    line.amount,
-                    self.env.user.currency_id)
             rec.write({
                 'state': 'confirm',
                 })
@@ -99,23 +95,22 @@ class AnalyticBillingPlan(models.Model):
     @api.multi
     def make_project_invoices(self):
         total = 0.0
-        invoice_names = ''
         lines = []
         for rec in self:
             if rec.invoice_id:
                 raise ValidationError(
                     _('The billing request already has an invoice.'))
-            if not rec.state == 'confirm':
+            if rec.state != 'confirm':
                 raise ValidationError(
                     _('The billing request must be confirmed.'))
-
             partner = rec.customer_id.id
             project = rec.project_id
             currency = rec.currency_id
+            invoice_names = ', '.join(
+                rec.analytic_billing_plan_line_ids.mapped('name'))
             for invoice in rec.analytic_billing_plan_line_ids:
                 total += currency.compute(
                     invoice.amount, self.env.user.currency_id)
-                invoice_names += ' ' + invoice.name + ', '
 
             if total > 0.0:
                 product = self.env.user.company_id.product_id
@@ -155,7 +150,8 @@ class AnalyticBillingPlan(models.Model):
     @api.model
     def create(self, vals):
         res = super(AnalyticBillingPlan, self).create(vals)
-        res.name = self.env['ir.sequence'].next_by_code('billing.request')
+        res.name = self.env.ref(
+            'analytic_billing_plan.billing_request_sequence').next_by_id()
         count = 1
         for line in res.analytic_billing_plan_line_ids:
             line.name = self.assign_code(res, count)

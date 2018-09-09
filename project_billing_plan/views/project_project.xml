@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="project_billing_plan_form">
+        <field name="name">project_billing_plan.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Income">
+                    <field name="income_ids" nolabel="1">
+                        <tree string="Income lines" editable="bottom">
+                            <field name="name"/>
+                            <field name="income_type_id"/>
+                            <field name="qty"/>
+                            <field name="amount"/>
+                            <field name="amount_total"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -2,24 +2,32 @@
 <odoo>
     <record model="ir.ui.view" id="view_project_billing_plan_settings_form">
         <field name="name">view.project.billing.plan.settings.form</field>
-        <field name="model">project.config.settings</field>
+        <field name="model">res.config.settings</field>
         <field name="priority" eval="99"/>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="project.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@data-key='project']" position="inside">
-                <group string="Billing Settings">
-                    <field name='company_id' invisible="1"/>
-                    <div>
-                        <div>
-                            <label for='billing_request_journal_id'/>
-                            <field name='billing_request_journal_id' class="oe_inline"/>
+            <xpath expr="//div[@data-string='Project']" position="inside">
+                <h2>Billing Settings</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label for="billing_request_journal_id" string="Billing Request Journal" class="col-xs-3 col-md-3 o_light_label"/>
+                                    <field name="billing_request_journal_id" class="oe_inline" required="1"/>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for='product_id'/>
-                            <field name="product_id" class="oe_inline"/>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label for="product_id" string="Billing Request Product" class="col-xs-3 col-md-3 o_light_label"/>
+                                    <field name="product_id" class="oe_inline" required="1"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </group>
+                </div>
             </xpath>
         </field>
     </record>

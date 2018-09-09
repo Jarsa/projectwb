@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="project_income_type_form">
+        <field name="name">project_income_type.form</field>
+        <field name="model">project.income.type</field>
+        <field name="arch" type="xml">
+            <form string="Income Type">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_project_income_type" model="ir.actions.act_window">
+        <field name="name">Project Income Type</field>
+        <field name="res_model">project.income.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="project_income_type_menu" name="Income Type" parent="project.menu_project_config" action="action_project_income_type"/>
+</odoo>

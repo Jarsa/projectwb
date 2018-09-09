@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="project_billing_request_wizard_form">
+        <field name="name">project_billing_request_wizard.form</field>
+        <field name="model">project.billing.request.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Billing Request">
+                <field name="line_ids" nolabel="1">
+                    <tree create="0" editable="top">
+                        <field name="name"/>
+                        <field name="remaining_qty"/>
+                        <field name="qty"/>
+                        <field name="amount"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button class="oe_highlight" name="create_billing" string="Create Billing Plan" type="object"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window 
+        id="action_view_billing_request_project"
+        key2="client_action_multi"
+        name="Create Billing Request"
+        res_model="project.billing.request.wizard"
+        src_model="project.project"
+        target="new"
+        view_mode="form"/>
+</odoo>
