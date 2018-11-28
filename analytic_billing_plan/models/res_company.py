@@ -14,3 +14,4 @@ class ResCompany(models.Model):
         domain=[('sale_ok', '=', True),
                 ('type', '=', 'service')],
         )
+    billing_request_journal_id = fields.Many2one('account.journal')

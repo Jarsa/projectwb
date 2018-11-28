@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
-from odoo.tools.translate import _
 
 
 class WizardBillingPlan(models.TransientModel):
